@@ -1,0 +1,12 @@
+{
+  "name": "sc-client-starter",
+  "version": "0.0.1",
+  "description": "SocioCortex Client Framework starting project",
+  "authors": [
+    "Adrian Hernandez Mendez <adrian.hernandez@tum.de>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular-material": "~0.10.0"
+  }
+}
