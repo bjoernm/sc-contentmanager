@@ -1,12 +1,19 @@
 {
-  "name": "sc-client-starter",
+  "name": "sc-client",
   "version": "0.0.1",
-  "description": "SocioCortex Client Framework starting project",
+  "description": "SocioCortex Client project",
   "authors": [
-    "Adrian Hernandez Mendez <adrian.hernandez@tum.de>"
+    "SocioCortex Team <sociocortex.sebis@tum.de>"
   ],
   "license": "MIT",
   "dependencies": {
-    "angular-material": "~0.10.0"
+    "angular-material": "master",
+    "angular-messages": "~1.4.5",
+    "angular-sanitize": "~1.4.5",
+	// "sc-angular": "https://<YOURUSERNAME>@bitbucket.org/sebischair/sc-angular.git#master",
+    "raphael": "~2.1.4"
+  },
+  "resolutions": {
+    "angular": "1.4.6"
   }
 }

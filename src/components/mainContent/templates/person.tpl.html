@@ -1,0 +1,43 @@
+<md-toolbar>
+    <div class="md-toolbar-tools" layout="row">
+        <div layout-align="end center" layout="row">
+            <sc-pie-chart diameter="2em"
+                          percentage="{{sum(entity.tasks, 'progress') / entity.tasks.length}}"
+                          show-percentage="false"></sc-pie-chart>
+            <!--
+            scColorService is no longer available. if you want to use it, add it as dependency again.
+            this styling is now done by css.
+
+            foreground="{{scColorService.getColor('progress.valid.foreground')}}"
+            background="{{scColorService.getColor('progress.valid.background')}}"
+            style="fill: currentColor"
+            -->
+            <md-button ng-click="vm.showGantChart = !vm.showGantChart" aria-label="Show task gant chart">
+                <md-icon ng-if="!vm.showGantChart" md-font-icon>expand_more</md-icon>
+                <md-icon ng-if="vm.showGantChart" md-font-icon>expand_less</md-icon>
+            </md-button>
+        </div>
+        <div layout="column">
+            <h1>{{entity.name}}</h1>
+
+            <div class="md-subhead">tags</div>
+        </div>
+    </div>
+</md-toolbar>
+<div>
+    <!--
+    margin is half the diameter of the pie chart
+    -->
+    <sc-gantt-chart style="margin: 0 1em"
+                    class="slide"
+                    flex
+                    tasks="entity.tasks"
+                    ng-if="entity.tasks"
+                    ng-show="vm.showGantChart"></sc-gantt-chart>
+</div>
+<div flex layout-gt-md="row" layout="column" layout-fill layout-margin layout-padding class="childsHaveNoPadding">
+    <div ng-bind-html="entity.content" flex></div>
+    <div flex-gt-md="33" flex-gt-lg="25" flex>
+        <sc-attributes entity="entity"></sc-attributes>
+    </div>
+</div>

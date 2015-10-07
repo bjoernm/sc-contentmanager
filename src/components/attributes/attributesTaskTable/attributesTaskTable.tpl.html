@@ -1,0 +1,77 @@
+<table class="attributesTable">
+    <thead ng-repeat-start="task in tasks">
+    <tr>
+        <th style="vertical-align: middle">
+            <sc-pie-chart diameter="2em"
+                          percentage="{{task.progress}}"
+                          show-percentage="false" ></sc-pie-chart>
+        </th>
+        <th colspan="2">{{task.name}}
+            <md-button ng-click="showMetaData = !showMetaData" class="md-icon-button" aria-label="Open context menu">
+                <md-icon md-font-icon ng-if="!showMetaData">expand_more</md-icon>
+                <md-icon md-font-icon ng-if="showMetaData">expand_less</md-icon>
+            </md-button>
+        </th>
+        <th style="text-align: right;">
+            <md-menu style="padding: 0;">
+                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open context menu">
+                    <md-icon md-font-icon>more_vert</md-icon>
+                </md-button>
+                <md-menu-content>
+                    <md-menu-item>
+                        <md-button ng-click="metaAttr.edit = true">
+                            <md-icon md-font-icon>edit</md-icon>
+                            Edit
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="deleteValue(metaAttr)">
+                            <md-icon md-font-icon>delete</md-icon>
+                            Delete
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </th>
+    </tr>
+    </thead>
+    <tbody class="metadata slide" ng-show="showMetaData" sc-task-metadata-helper="task" >
+    <!--
+    <!-- -->
+    </tbody>
+    <tbody ng-repeat-end ng-repeat="attribute in task.attributes">
+    <tr ng-if="!attribute.edit">
+        <td colspan="2">{{attribute.name}}</td>
+        <td>
+            <sc-attribute-value attribute="attribute"></sc-attribute-value>
+        </td>
+        <td style="text-align: right">
+            <md-menu>
+                <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open context menu">
+                    <md-icon md-font-icon>more_vert</md-icon>
+                </md-button>
+                <md-menu-content>
+                    <md-menu-item>
+                        <md-button ng-click="attribute.edit = true">
+                            <md-icon md-font-icon>edit</md-icon>
+                            Edit
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="deleteValue(attribute)">
+                            <md-icon md-font-icon>delete</md-icon>
+                            Delete
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </td>
+    </tr>
+    <tr ng-if="!!attribute.edit">
+        <td colspan="4">
+            <sc-attribute-value-edit attribute="attribute" on-change="valueChanged(attribute, newValues)"
+                                     on-abort="closeEditingValue(attribute)"></sc-attribute-value-edit>
+        </td>
+    </tr>
+    </tbody>
+</table>

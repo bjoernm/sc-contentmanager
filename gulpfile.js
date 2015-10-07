@@ -22,10 +22,10 @@ gulp.task('bower', ['clean'], function() {
         }
     };
 
-    var jsFilter = gulpFilter('*.js'),
-        cssFilter = gulpFilter('*.css'),
-        fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf']),
-        imageFilter = gulpFilter(['*.gif', '*.png', '*.svg', '*.jpg', '*.jpeg']);
+    var jsFilter = gulpFilter('*.js', {restore: true}),
+        cssFilter = gulpFilter('*.css', {restore: true}),
+        fontFilter = gulpFilter(['*.eot', '*.woff', '*.svg', '*.ttf'], {restore: true}),
+        imageFilter = gulpFilter(['*.gif', '*.png', '*.svg', '*.jpg', '*.jpeg'], {restore: true});
 
 
     return gulp.src(mainBowerFiles(bowerOptions))
@@ -49,6 +49,20 @@ gulp.task('bower', ['clean'], function() {
         .pipe(gulp.dest('./tmp/lib/images'))
         .pipe(imageFilter.restore())
 });
+
+gulp.task('angular', ['clean'], function() {
+
+    var sources = gulp.src('./src/components/**/*.*',{base: './src/components'});
+
+    var htmlFilter = gulpFilter(['**/*.html']);
+
+    return sources
+        .pipe(htmlFilter)
+        .pipe(gulp.dest('./tmp/partials'))
+        .pipe(htmlFilter.restore())
+        .pipe(gulp.dest('./tmp/components'));
+});
+
 
 
 gulp.task('inject', ['bower'], function() {
@@ -74,10 +88,19 @@ gulp.task('inject', ['bower'], function() {
         .pipe(gulp.dest('./tmp'));
 });
 
-gulp.task('build', ['inject']);
+gulp.task('build', ['inject', 'angular']);
 
 
-gulp.task('webserver', ['build'], function() {
+// configure which files to watch and what tasks to use on file changes
+gulp.task('watch', function() {
+    gulp.watch('./bower_components/**/*.*', ['inject']);
+    // gulp.watch('./src/components/**/*.*', ['build']);
+	// includes index.html
+    gulp.watch('./src/**/*.*', ['build']);
+});
+
+
+gulp.task('webserver', ['watch'], function() {
     var webserverOptions = {
         livereload: true
     }

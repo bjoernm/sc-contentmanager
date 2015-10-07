@@ -1,0 +1,83 @@
+<tbody>
+<tr ng-repeat-start="meta in metadata track by meta.name" ng-if="!meta.edit">
+    <td ng-switch="meta.icon" style="vertical-align: middle;">
+        <svg viewBox="0 0 3 1.8" ng-switch-when="progress">
+            <rect x="0" width="3" height="1.8" fill="lightgrey" rx="0.2"/>
+            <rect x="0" y="0" width="2" height="1.8" fill="grey" rx="0.2"/>
+        </svg>
+        <md-icon md-font-icon ng-switch-default>{{meta.icon}}</md-icon>
+    </td>
+    <td>{{meta.name}}</td>
+    <!--
+    <td ng-if="meta.type === 'percentage'">{{meta.value | percentage: 0}}</td>
+    <td ng-if="meta.type === 'date'">{{meta.value | date: 'mediumDate': +'0200' }}</td>
+    <td ng-if="meta.type === 'link'"><a ng-href="/{{meta.value.uid}}">{{meta.value.name}}</a></td>
+    -->
+    <td>
+        <sc-attribute-value attribute="meta"></sc-attribute-value>
+    </td>
+    <td style="text-align: right;">
+        <md-menu>
+            <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open context menu">
+                <md-icon md-font-icon>more_vert</md-icon>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button ng-click="meta.edit = true">
+                        <md-icon md-font-icon>edit</md-icon>
+                        Edit
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="deleteValue(meta)">
+                        <md-icon md-font-icon>delete</md-icon>
+                        Delete
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </td>
+</tr>
+<tr ng-repeat-end ng-if="meta.edit">
+    <td colspan="4">
+        <sc-attribute-value-edit attribute="meta" on-change="valueChanged(meta, newValues)"
+                                 on-abort="closeEditingValue(meta)"></sc-attribute-value-edit>
+    </td>
+</tr>
+<!--
+<tr ng-if="!metaAttr.edit">
+    <td><md-icon md-font-icon>rotate_right</md-icon></td>
+    <td>{{metaAttr.name}}</td>
+    <td>
+        <attribute-value attribute="metaAttr"></attribute-value>
+    </td>
+    <td style="text-align: right;">
+        <md-menu>
+            <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open context menu">
+                <md-icon md-font-icon>more_vert</md-icon>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button ng-click="metaAttr.edit = true">
+                        <md-icon md-font-icon>edit</md-icon>
+                        Edit
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="deleteValue(metaAttr)">
+                        <md-icon md-font-icon>delete</md-icon>
+                        Delete
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </td>
+</tr>
+<tr ng-if="!!attribute.edit">
+    <td colspan="4">
+        <attribute-value-edit attribute="metaAttr" on-change="valueChanged"
+                              on-abort="closeEditingValue"></attribute-value-edit>
+    </td>
+</tr>
+<!-- -->
+</tbody>

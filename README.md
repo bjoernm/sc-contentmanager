@@ -1,2 +1,2 @@
-# sc-client-starter
-SocioCortex Client Framework starting project
+# sc-client-generic
+SocioCortex Client project

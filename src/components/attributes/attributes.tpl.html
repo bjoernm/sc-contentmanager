@@ -1,0 +1,17 @@
+<div>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            {{entity.type.name}}
+        </div>
+    </md-toolbar>
+    <md-card-content>
+        <md-tabs>
+            <md-tab label="Attributes">
+                <sc-attributes-table attributes="entity.attributes" layout-fill></sc-attributes-table>
+            </md-tab>
+            <md-tab label="Tasks">
+                <sc-attributes-task-table tasks="entity.tasks"></sc-attributes-task-table>
+            </md-tab>
+        </md-tabs>
+    </md-card-content>
+</div>
