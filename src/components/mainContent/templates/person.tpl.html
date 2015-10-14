@@ -1,6 +1,6 @@
 <md-toolbar>
     <div class="md-toolbar-tools" layout="row">
-        <div layout-align="end center" layout="row">
+        <div layout-align="end center" layout="row" ng-if="entity.tasks.length > 0">
             <sc-pie-chart diameter="2em"
                           percentage="{{sum(entity.tasks, 'progress') / entity.tasks.length}}"
                           show-percentage="false"></sc-pie-chart>
@@ -24,7 +24,7 @@
         </div>
     </div>
 </md-toolbar>
-<div>
+<div ng-if="entity.tasks.length > 0">
     <!--
     margin is half the diameter of the pie chart
     -->
@@ -32,12 +32,11 @@
                     class="slide"
                     flex
                     tasks="entity.tasks"
-                    ng-if="entity.tasks"
                     ng-show="vm.showGantChart"></sc-gantt-chart>
 </div>
 <div flex layout-gt-md="row" layout="column" layout-fill layout-margin layout-padding class="childsHaveNoPadding">
     <div ng-bind-html="entity.content" flex></div>
-    <div flex-gt-md="33" flex-gt-lg="25" flex>
+    <div flex-gt-md="33" flex-gt-lg="25" flex ng-if="entity.attributes && entity.attributes.length > 0">
         <sc-attributes entity="entity"></sc-attributes>
     </div>
 </div>

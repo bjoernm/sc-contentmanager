@@ -11,7 +11,7 @@
         return {
             restrict: 'E',
             replace: true,
-            template: '<md-content><md-card ng-if="!!entity" ng-include="getTemplateUrl()"></md-card></md-content>',
+            template: getParentTemplate,
             //templateUrl: getTemplateUrl(),
             scope: {
                 entityUid: '='
@@ -26,7 +26,7 @@
                 // FIXME: look for another solution than $watch
                 // watch is bound to the lifecycle of scope and will be removed automatically
                 scope.$watch('entityUid', function (newVal, oldVal, scope) {
-                    updateEntity(scope);
+                    updateEntity(newVal, scope);
                 });
                 //*/
 
@@ -35,15 +35,18 @@
             }
         };
 
-        function updateEntity(scope) {
+        function updateEntity(entityUid, scope) {
             scMainContentService
-                .getPage(scope.entityUid)
+                .getPage(entityUid)
                 .then(function successCallback(entity) {
                     scope.entity = entity;
-                }, function errorCallback(reason) {
-                    scope.isLoading = false;
-                    $log.error(reason)
-                })
+                }).catch(function errorCallback(reason) {
+                    $log.error(reason);
+                    $log.error("loading fallback test entity");
+                    scope.entity = scMainContentService.getTestEntity();
+                }).finally(function () {
+                    $log.info("mainContentDirective.updateEntity", "delivered entity:", scope.entity)
+                });
         }
 
         function getTemplateUrl() {
@@ -63,5 +66,12 @@
         }
     }
 
-
+    function getParentTemplate(element, scope) {
+        return [
+            '<md-content>',
+            '<md-card ng-if="!!entity" ng-include="getTemplateUrl()">',
+            '</md-card>',
+            '</md-content>'
+        ].join('');
+    }
 })(angular);

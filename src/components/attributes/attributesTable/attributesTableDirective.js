@@ -17,6 +17,7 @@
             },
             link: function (scope, element, attrs) {
                 if (!angular.isArray(scope.attributes)) {
+                    $log.error(scope.attributes);
                     throw new TypeError('the attribute \'attributes\' must be of type array: typeof attributes == ' + (typeof scope.attributes));
                 }
 

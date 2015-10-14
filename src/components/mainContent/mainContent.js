@@ -7,6 +7,7 @@
             'ngAnimate',
             'ngSanitize',
             'scAttributes',
-            'scCharts'
+            'scCharts',
+            'sociocortex'
         ])
 })(angular);
