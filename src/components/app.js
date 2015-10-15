@@ -2,30 +2,39 @@
     'use strict';
 
     angular
-        .module('starterApp', ['ngMaterial', 'mainNav', 'scMainContent'])
+        .module('scGenericClient', ['ngMaterial', 'scMainNav', 'scMainContent', 'ngRoute',])
         .config(function ($mdThemingProvider) {
             $mdThemingProvider.theme('default')
                 .primaryPalette('brown')
                 .accentPalette('red');
         });
 
-    //*
-    angular.module('starterApp')
-        .filter('percentage', ['$filter', '$log', function ($filter, $log) {
-            return function (input, decimals) {
-                if(input === '') {
-                    input = 0;
-                }
+    angular.module('scGenericClient')
+        .filter('percentage', percentageFilter);
 
-                if('number' !== typeof input) {
-                    input = parseFloat(input);
-                }
+    angular.module('scGenericClient')
+        .config(routingConfig);
 
-                if(isNaN(input)) {
-                    return 'NaN';
-                }
-                return $filter('number')(input * 100, decimals) + '%';
-            };
-        }]);
-    //*/
+
+    routingConfig.$inject = ['$routeProvider'];
+    function routingConfig($routeProvider) {
+    }
+
+    percentageFilter.$inject = ['$filter', '$log'];
+    function percentageFilter($filter, $log) {
+        return function (input, decimals) {
+            if (input === '') {
+                input = 0;
+            }
+
+            if ('number' !== typeof input) {
+                input = parseFloat(input);
+            }
+
+            if (!isFinite(input)) {
+                return '' + input;
+            }
+            return $filter('number')(input * 100, decimals) + '%';
+        };
+    }
 })();

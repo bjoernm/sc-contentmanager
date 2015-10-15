@@ -14,7 +14,7 @@
             template: getParentTemplate,
             //templateUrl: getTemplateUrl(),
             scope: {
-                entityUid: '='
+                entityUid: '@'
             },
             link: function (scope, element, attrs) {
                 scope.entity = {};
@@ -45,7 +45,7 @@
                     $log.error("loading fallback test entity");
                     scope.entity = scMainContentService.getTestEntity();
                 }).finally(function () {
-                    $log.info("mainContentDirective.updateEntity", "delivered entity:", scope.entity)
+                    //$log.info("mainContentDirective.updateEntity", "delivered entity:", scope.entity)
                 });
         }
 

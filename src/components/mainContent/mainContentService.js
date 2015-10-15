@@ -19,12 +19,14 @@
         };
 
         function getPage(entityUid) {
+            /*
             if (!!console) {
                 console.groupCollapsed("mainContentService StackTrace")
                 console.trace();
                 console.info("called uid: " + entityUid);
                 console.groupEnd()
             }
+            //*/
 
             //scCrud.workspaces.findAll(auth).then($log.info);
             //scCrud.types.findAll(auth, "107yhdgc7q9u6").then($log.info);
@@ -41,7 +43,7 @@
             var indexOfSlash = entityId.indexOf("/");
             if (indexOfSlash != -1) {
                 entityId = entityId.substr(indexOfSlash + 1);
-                $log.info("entity id was uid. converting", entityUid, "->", entityId);
+                //$log.info("entity id was uid. converting", entityUid, "->", entityId);
             }
 
             return scCrud.entities

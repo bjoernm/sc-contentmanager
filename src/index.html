@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="scGenericClient">
 <head>
     <title>SC Generic Client</title>
 
@@ -15,23 +15,38 @@
     <!-- lib:css -->
     <!-- bower installed css files will go here... -->
     <!-- endinject -->
-    <link rel="stylesheet" href="components/charts/scCharts.css" />
-    <link rel="stylesheet" href="components/main.css" />
+    <link rel="stylesheet" href="components/charts/scCharts.css"/>
+    <link rel="stylesheet" href="components/main.css"/>
 
 
 </head>
 
-<body ng-app="starterApp" layout="row">
-
-<div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
-    <main-nav></main-nav>
+<body ng-controller="IndexCtrl as ctrl">
+<div flex>
+    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-selected="ctrl.selectedTabIndex">
+        <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.uid"
+                md-on-select="ctrl.setPathTo(workspace.uid)"
+                label="{{workspace.name}}">
+        </md-tab>
+    </md-tabs>
+</div>
+<div layout="row" flex layout-padding>
+    <div flex="15">
+        <li ng-repeat="entity in ctrl.entities track by entity.uid">
+            <a ng-href="#/{{entity.uid}}">{{entity.name}}</a>
+        </li>
+    </div>
+    <div flex>
+        <sc-main-content entity-uid="{{ctrl.currentEntity}}"></sc-main-content>
+    </div>
 </div>
 
 <!-- lib:js -->
 <!-- bower installed scripts will go here... -->
 <!-- endinject -->
 
-<script src="components/main.js"></script>
+<script src="components/app.js"></script>
+<script src="components/indexCtrl.js"></script>
 
 <script src="components/mainNav/mainNav.js"></script>
 <script src="components/mainNav/mainNavService.js"></script>

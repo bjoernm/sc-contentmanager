@@ -1,25 +1,28 @@
-(function(){
+'use strict';
+
+(function () {
 
     angular
-        .module('mainNav')
-        .directive('mainNav', [ 'mainNavService', mainNavDirective]);
+        .module('scMainNav')
+        .directive('scMainNav', scMainNavDirective);
 
 
-    function mainNavDirective(mainNavService) {
+    scMainNavDirective.$inject = ['scMainNavService'];
+    function scMainNavDirective(scMainNavService) {
         return {
             restrict: 'E',
             templateUrl: 'partials/mainNav/mainNav.tpl.html',
-            transclude: true,
+            replace: true,
             link: function (scope, element, attrs) {
 
-                scope.selected     = null;
-                scope.workspaces        = [ ];
+                scope.selected = null;
+                scope.workspaces = [];
 
                 // Load all workspaces
-                mainNavService
+                scMainNavService
                     .loadAllWorkspaces()
-                    .then( function( workspaces ) {
-                        scope.workspaces    = [].concat(workspaces);
+                    .then(function (workspaces) {
+                        scope.workspaces = workspaces;
                         scope.selected = workspaces[0];
                     });
 

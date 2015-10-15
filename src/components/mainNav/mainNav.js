@@ -2,7 +2,7 @@
 (function(){
     'use strict';
 
-    angular.module('mainNav', [ 'ngMaterial' ]);
+    angular.module('scMainNav', [ 'ngMaterial' ]);
 
 
 })();
