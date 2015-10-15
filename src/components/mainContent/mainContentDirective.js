@@ -21,6 +21,7 @@
                 scope.vm = {};
                 scope.getTemplateUrl = getTemplateUrl;
                 scope.sum = sum;
+                scope.progressBarMode = 'indeterminate';
 
                 //*
                 // FIXME: look for another solution than $watch
@@ -36,6 +37,7 @@
         };
 
         function updateEntity(entityUid, scope) {
+            scope.progressBarMode = 'indeterminate';
             scMainContentService
                 .getPage(entityUid)
                 .then(function successCallback(entity) {
@@ -46,6 +48,7 @@
                     scope.entity = scMainContentService.getTestEntity();
                 }).finally(function () {
                     //$log.info("mainContentDirective.updateEntity", "delivered entity:", scope.entity)
+                    scope.progressBarMode = undefined;
                 });
         }
 

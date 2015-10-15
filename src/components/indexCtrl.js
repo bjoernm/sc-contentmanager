@@ -12,6 +12,7 @@
         vm.currentWorkspaceUid = undefined;
         vm.currentEntity = undefined;
         vm.entities = undefined;
+        // replace this with a cache from $cacheFactory
         vm.entitiesMapCache = {};
         vm.setPathTo = setPathTo;
         vm.selectedTabIndex = 0;
@@ -32,6 +33,9 @@
 
                 // the following code block is for various indexes and
                 // links between the entities
+
+                // better would probably be to add all fetched things to the
+                // $cacheFactory cache instead of all this binding
                 entities.forEach(function (ele) {
                     vm.entitiesMapCache[ele.uid] = ele;
                 });
