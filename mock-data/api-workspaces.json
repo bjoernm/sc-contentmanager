@@ -1,0 +1,10 @@
+[
+  {
+    "uid": "workspaces/root",
+    "name": "Home Workspace"
+  },
+  {
+    "uid": "workspaces/northwind",
+    "name": "Northwind"
+  }
+]
