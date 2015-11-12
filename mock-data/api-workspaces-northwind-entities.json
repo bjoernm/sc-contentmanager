@@ -1,0 +1,486 @@
+[
+  {
+    "uid": "entities/alice",
+    "name": "Alice Mutton"
+  },
+  {
+    "uid": "entities/trujillo",
+    "name": "Ana Trujillo"
+  },
+  {
+    "uid": "entities/moreno",
+    "name": "Antonio Moreno"
+  },
+  {
+    "uid": "entities/aux",
+    "name": "Aux joyeux ecclesiastiques"
+  },
+  {
+    "uid": "entities/beverages",
+    "name": "Beverages"
+  },
+  {
+    "uid": "entities/bigfoot",
+    "name": "Bigfoot Breweries"
+  },
+  {
+    "uid": "entities/boston",
+    "name": "Boston Crab Meat"
+  },
+  {
+    "uid": "entities/carnarvon",
+    "name": "Carnarvon Tigers"
+  },
+  {
+    "uid": "entities/chai",
+    "name": "Chai"
+  },
+  {
+    "uid": "entities/chang",
+    "name": "Chang"
+  },
+  {
+    "uid": "entities/chartreuse",
+    "name": "Chartreuse verte"
+  },
+  {
+    "uid": "entities/cajun",
+    "name": "Chef Antons Cajun Seasoning"
+  },
+  {
+    "uid": "entities/gumbo",
+    "name": "Chef Antons Gumbo Mix"
+  },
+  {
+    "uid": "entities/berglund",
+    "name": "Christina Berglund"
+  },
+  {
+    "uid": "entities/condiments",
+    "name": "Condiments"
+  },
+  {
+    "uid": "entities/confections",
+    "name": "Confections"
+  },
+  {
+    "uid": "entities/cooperativa",
+    "name": "Cooperativa de Quesos Las Cabras"
+  },
+  {
+    "uid": "entities/cote",
+    "name": "Côte de Blaye"
+  },
+  {
+    "uid": "entities/dairy",
+    "name": "Dairy Products"
+  },
+  {
+    "uid": "entities/dashboard",
+    "name": "Dashboard"
+  },
+  {
+    "uid": "entities/lincoln",
+    "name": "Elizabetz Lincoln"
+  },
+  {
+    "uid": "entities/exotic",
+    "name": "Exotic Liquids"
+  },
+  {
+    "uid": "entities/formaggi",
+    "name": "Formaggi Fortini s.r.l."
+  },
+  {
+    "uid": "entities/francisco",
+    "name": "Francisco Chang"
+  },
+  {
+    "uid": "entities/geitost",
+    "name": "Geitost"
+  },
+  {
+    "uid": "entities/genen",
+    "name": "Genen Shouyu"
+  },
+  {
+    "uid": "entities/gorgonzola",
+    "name": "Gorgonzola Telino"
+  },
+  {
+    "uid": "entities/grains",
+    "name": "Grains and Cereals"
+  },
+  {
+    "uid": "entities/grandma",
+    "name": "Grandma Kellys Homestead"
+  },
+  {
+    "uid": "entities/boysenberry",
+    "name": "Grandmas Boysenberry Spread"
+  },
+  {
+    "uid": "entities/lax",
+    "name": "Gravad lax"
+  },
+  {
+    "uid": "entities/guarana",
+    "name": "Guaraná Fantástica"
+  },
+  {
+    "uid": "entities/gumbaer",
+    "name": "Gumbär Gummibärchen"
+  },
+  {
+    "uid": "entities/gustafs",
+    "name": "Gustafs Knäckebröd"
+  },
+  {
+    "uid": "entities/moos",
+    "name": "Hanna Moos"
+  },
+  {
+    "uid": "entities/heli",
+    "name": "Heli Süßwaren GmbH & Co KG"
+  },
+  {
+    "uid": "entities/ikura",
+    "name": "Ikura"
+  },
+  {
+    "uid": "entities/inlagd",
+    "name": "Inlagd Sill"
+  },
+  {
+    "uid": "entities/konbu",
+    "name": "Konbu"
+  },
+  {
+    "uid": "entities/lebihan",
+    "name": "Laurence Lebihan"
+  },
+  {
+    "uid": "entities/anders",
+    "name": "Maria Anders"
+  },
+  {
+    "uid": "entities/citeaux",
+    "name": "Martin Frederique Citeaux"
+  },
+  {
+    "uid": "entities/sommer",
+    "name": "Martin Sommer"
+  },
+  {
+    "uid": "entities/mascarpone",
+    "name": "Mascarpone Fabioli"
+  },
+  {
+    "uid": "entities/mayumis",
+    "name": "Mayumis"
+  },
+  {
+    "uid": "entities/meat",
+    "name": "Meat and Poultry"
+  },
+  {
+    "uid": "entities/mishi",
+    "name": "Mishi Kobe Niku"
+  },
+  {
+    "uid": "entities/newengland",
+    "name": "New England Seafood Cannery"
+  },
+  {
+    "uid": "entities/neworleans",
+    "name": "New Orleans Cajun Delights"
+  },
+  {
+    "uid": "entities/nordost",
+    "name": "Nord-Ost Matjeshering"
+  },
+  {
+    "uid": "entities/nordostfisch",
+    "name": "Nord-Ost-Fisch Handelsgesellschaft mbH"
+  },
+  {
+    "uid": "entities/norske",
+    "name": "Norske Meierier"
+  },
+  {
+    "uid": "entities/ue2nlyiczt9n",
+    "name": "Northwind - Home"
+  },
+  {
+    "uid": "entities/northwoods",
+    "name": "Northwoods Cranberry Sauce"
+  },
+  {
+    "uid": "entities/nunuca",
+    "name": "NuNuCa Nuß-Nougat-Creme"
+  },
+  {
+    "uid": "entities/order01",
+    "name": "Order01"
+  },
+  {
+    "uid": "entities/order02",
+    "name": "Order02"
+  },
+  {
+    "uid": "entities/order03",
+    "name": "Order03"
+  },
+  {
+    "uid": "entities/order04",
+    "name": "Order04"
+  },
+  {
+    "uid": "entities/order05",
+    "name": "Order05"
+  },
+  {
+    "uid": "entities/order06",
+    "name": "Order06"
+  },
+  {
+    "uid": "entities/order07",
+    "name": "Order07"
+  },
+  {
+    "uid": "entities/order08",
+    "name": "Order08"
+  },
+  {
+    "uid": "entities/order09",
+    "name": "Order09"
+  },
+  {
+    "uid": "entities/order10",
+    "name": "Order10"
+  },
+  {
+    "uid": "entities/order11",
+    "name": "Order11"
+  },
+  {
+    "uid": "entities/order12",
+    "name": "Order12"
+  },
+  {
+    "uid": "entities/order13",
+    "name": "Order13"
+  },
+  {
+    "uid": "entities/order14",
+    "name": "Order14"
+  },
+  {
+    "uid": "entities/order15",
+    "name": "Order15"
+  },
+  {
+    "uid": "entities/order16",
+    "name": "Order16"
+  },
+  {
+    "uid": "entities/order17",
+    "name": "Order17"
+  },
+  {
+    "uid": "entities/order18",
+    "name": "Order18"
+  },
+  {
+    "uid": "entities/order19",
+    "name": "Order19"
+  },
+  {
+    "uid": "entities/order20",
+    "name": "Order20"
+  },
+  {
+    "uid": "entities/order21",
+    "name": "Order21"
+  },
+  {
+    "uid": "entities/order22",
+    "name": "Order22"
+  },
+  {
+    "uid": "entities/order23",
+    "name": "Order23"
+  },
+  {
+    "uid": "entities/order24",
+    "name": "Order24"
+  },
+  {
+    "uid": "entities/order25",
+    "name": "Order25"
+  },
+  {
+    "uid": "entities/order26",
+    "name": "Order26"
+  },
+  {
+    "uid": "entities/order27",
+    "name": "Order27"
+  },
+  {
+    "uid": "entities/order28",
+    "name": "Order28"
+  },
+  {
+    "uid": "entities/order29",
+    "name": "Order29"
+  },
+  {
+    "uid": "entities/order30",
+    "name": "Order30"
+  },
+  {
+    "uid": "entities/order31",
+    "name": "Order31"
+  },
+  {
+    "uid": "entities/order32",
+    "name": "Order32"
+  },
+  {
+    "uid": "entities/order33",
+    "name": "Order33"
+  },
+  {
+    "uid": "entities/order34",
+    "name": "Order34"
+  },
+  {
+    "uid": "entities/order35",
+    "name": "Order35"
+  },
+  {
+    "uid": "entities/order36",
+    "name": "Order36"
+  },
+  {
+    "uid": "entities/order37",
+    "name": "Order39"
+  },
+  {
+    "uid": "entities/order38",
+    "name": "Order40"
+  },
+  {
+    "uid": "entities/order39",
+    "name": "Order41"
+  },
+  {
+    "uid": "entities/order40",
+    "name": "Order42"
+  },
+  {
+    "uid": "entities/pb",
+    "name": "PB Knäckebröd AB"
+  },
+  {
+    "uid": "entities/simpson",
+    "name": "Patricio Simpson"
+  },
+  {
+    "uid": "entities/pavlova",
+    "name": "Pavlova"
+  },
+  {
+    "uid": "entities/pavlovaltd",
+    "name": "Pavlova Ltd"
+  },
+  {
+    "uid": "entities/plutzer",
+    "name": "Plutzer Lebensmittelgroßmärkte AG"
+  },
+  {
+    "uid": "entities/produce",
+    "name": "Produce"
+  },
+  {
+    "uid": "entities/cabrales",
+    "name": "Queso Cabrales"
+  },
+  {
+    "uid": "entities/manchego",
+    "name": "Queso Manchego La Pastora"
+  },
+  {
+    "uid": "entities/refrescos",
+    "name": "Refrescos Americanas LTDA"
+  },
+  {
+    "uid": "entities/sauerkraut",
+    "name": "Rössle Sauerkraut"
+  },
+  {
+    "uid": "entities/sasquatch",
+    "name": "Sasquatch Ale"
+  },
+  {
+    "uid": "entities/schoggi",
+    "name": "Schoggi Schokolade"
+  },
+  {
+    "uid": "entities/seafood",
+    "name": "Seafood"
+  },
+  {
+    "uid": "entities/marmalade",
+    "name": "Sir Rodneys Marmalade"
+  },
+  {
+    "uid": "entities/scones",
+    "name": "Sir Rodneys Scones"
+  },
+  {
+    "uid": "entities/speciality",
+    "name": "Speciality Bicuits"
+  },
+  {
+    "uid": "entities/steeleye",
+    "name": "Steeleye Stout"
+  },
+  {
+    "uid": "entities/svensk",
+    "name": "Svensk Sjöföda AB"
+  },
+  {
+    "uid": "entities/teatime",
+    "name": "Teatime Chocolate Biscuits"
+  },
+  {
+    "uid": "entities/hardy",
+    "name": "Thomas Hardy"
+  },
+  {
+    "uid": "entities/rostbratwurst",
+    "name": "Thüringer Rostbratwurst"
+  },
+  {
+    "uid": "entities/tofu",
+    "name": "Tofu"
+  },
+  {
+    "uid": "entities/tokyo",
+    "name": "Tokyo Traders"
+  },
+  {
+    "uid": "entities/tunnbroed",
+    "name": "Tunnbröd"
+  },
+  {
+    "uid": "entities/uncle",
+    "name": "Uncle Bobs Organic Dried Pears"
+  },
+  {
+    "uid": "entities/ashworth",
+    "name": "Victoria Ashworth"
+  }
+]

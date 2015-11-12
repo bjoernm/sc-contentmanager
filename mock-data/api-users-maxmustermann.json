@@ -1,0 +1,21 @@
+{
+  "uid": "users/6eklbxgrsdan",
+  "versions": [
+    {
+      "date": "2015-11-11T00:03:35.675",
+      "changes": [],
+      "action": "Added",
+      "type": "_new"
+    }
+  ],
+  "name": "Max Mustermann",
+  "groups": [
+    {
+      "name": "Administrators",
+      "id": "groups/administrators"
+    }
+  ],
+  "lastLoginDate": "2015-11-11 00:13:59.746",
+  "email": "mustermann@test.sc",
+  "picture": "http://localhost:8083/intern/tricia/api/0.1/users/6eklbxgrsdan/picture"
+}

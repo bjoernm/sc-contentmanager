@@ -1,0 +1,30 @@
+[
+  {
+    "uid": "types/p94h1h6v8nvx",
+    "name": "Text Page"
+  },
+  {
+    "uid": "types/nworder",
+    "name": "Order"
+  },
+  {
+    "uid": "types/nwproduct",
+    "name": "Product"
+  },
+  {
+    "uid": "types/nwsupplier",
+    "name": "Supplier"
+  },
+  {
+    "uid": "types/nwcategory",
+    "name": "Category"
+  },
+  {
+    "uid": "types/nwcustomer",
+    "name": "Customer"
+  },
+  {
+    "uid": "types/vyoxbdil7hfk",
+    "name": "File"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "uid": "properties/nworderproduct",
+    "name": "Product"
+  },
+  {
+    "uid": "properties/nwordercustomer",
+    "name": "Customer"
+  },
+  {
+    "uid": "properties/nworderdiscount",
+    "name": "Discount"
+  },
+  {
+    "uid": "properties/nworderquantity",
+    "name": "Quantity"
+  },
+  {
+    "uid": "properties/nwordershippingdate",
+    "name": "Shipping date"
+  }
+]

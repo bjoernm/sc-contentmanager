@@ -1,0 +1,17 @@
+{
+  "uid": "properties/nworderproduct",
+  "multiplicity": "exactlyOne",
+  "versions": [],
+  "kind": "Link",
+  "name": "Product",
+  "options": {
+    "uid": "types/nwproduct",
+    "name": "Product"
+  },
+  "defaultValues": [],
+  "readOnly": "false",
+  "type": {
+    "uid": "types/nworder",
+    "name": "Order"
+  }
+}
