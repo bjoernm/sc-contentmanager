@@ -17,7 +17,7 @@
             },
             link: function (scope, element, attrs) {
                 if (!angular.isObject(scope.entity)) {
-                    $log.error('the attribute \'entity\' must is required');
+                    $log.error('the attribute \'entity\' is required in this directive');
                     return false;
                 }
             }

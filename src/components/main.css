@@ -35,3 +35,39 @@ ul.attributeValueList {
 .childsHaveNoPadding.layout-margin > .flex-gt-md {
     margin: 8px;
 }
+
+/*
+regular design, not directive specific
+*/
+
+a {
+    color: #003359;
+}
+
+.sideNav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #EEE;
+}
+
+.sideNav a + ul {
+}
+
+.sideNav ul > li {
+}
+
+.sideNav ul > li > a {
+    padding: 5px 5px 5px 20px;
+    display: block;
+    background: #FAFAFA;
+}
+
+.sideNav li.active {
+    background: #FF5252;
+}
+
+.sideNav li.active > a {
+    color: #FFF;
+    background: #195B8B;
+}

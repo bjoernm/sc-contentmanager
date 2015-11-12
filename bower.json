@@ -9,10 +9,10 @@
   "dependencies": {
     "angular-material": "master",
     "angular-messages": "~1.4.5",
-    "angular-route": "~1.4.7",
     "angular-sanitize": "~1.4.5",
     "raphael": "~2.1.4",
-    "sc-angular": "https://<YOURUSERNAME>@bitbucket.org/sebischair/sc-angular.git#master"
+    "sc-angular": "https://bitbucket.org/sebischair/sc-angular.git#master",
+    "angular-route": "~1.4.7"
   },
   "resolutions": {
     "angular": "1.4.6"

@@ -1,0 +1,20 @@
+<!--<script type="text/ng-template" id="sideNavTree">
+    <a ng-href="#{{entity.uid}}">{{entity.name}}</a>
+    <ul ng-show="entity.children.length > 0 && entity.showChildren">
+        <li ng-repeat="entity in entity.children track by entity.uid" ng-include="'sideNavTree'" ng-class="{active: entity.isCurrentEntity}"></li>
+    </ul>
+</script>
+
+<ul>
+    <li ng-repeat="entity in entities.tree track by entity.uid" ng-include="'sideNavTree'" ng-class="{active: entity.isCurrentEntity}"></li>
+</ul>
+-->
+
+<ul>
+    <li ng-repeat="entity in entities.list track by entity.uid"
+        ng-class="{active: entity.isCurrentEntity}"
+        ng-if="!entity.parent || entity.parent.showChildren"
+        ng-style="{'padding-left': (getHierarchyLevel(entity)*5)+'px'}">
+        <a ng-href="#{{entity.uid}}">{{entity.name}}</a>
+    </li>
+</ul>

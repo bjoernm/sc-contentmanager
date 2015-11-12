@@ -22,22 +22,24 @@
 </head>
 
 <body ng-controller="IndexCtrl as ctrl">
+<div layout="row">
+    <h1>sebis Logo</h1>
+    <div>searchbar timeback alarm profile options</div>
+</div>
 <div flex>
     <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-selected="ctrl.selectedTabIndex">
         <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.uid"
-                md-on-select="ctrl.setPathTo(workspace.uid)"
+                ng-click="ctrl.setPathTo(workspace.uid)"
                 label="{{workspace.name}}">
         </md-tab>
     </md-tabs>
 </div>
-<div layout="row" flex layout-padding>
+<div layout="row" flex layout-padding class="sideNav">
     <div flex="15">
-        <li ng-repeat="entity in ctrl.entities track by entity.uid">
-            <a ng-href="#/{{entity.uid}}">{{entity.name}}</a>
-        </li>
+        <sc-side-nav entities="ctrl.navData.entities" current-entity-uid="ctrl.navData.currentEntityUid" ng-if="ctrl.navData.entities"></sc-side-nav>
     </div>
-    <div flex>
-        <sc-main-content entity-uid="{{ctrl.currentEntity}}"></sc-main-content>
+    <div flex ng-view>
+        <!-- sc-main-content entity-uid="{{ctrl.currentEntityUid}}"></sc-main-content -->
     </div>
 </div>
 
@@ -46,9 +48,11 @@
 <!-- endinject -->
 
 <script src="components/app.js"></script>
+<script src="components/router.js"></script>
 <script src="components/indexCtrl.js"></script>
 
 <script src="components/mainNav/mainNav.js"></script>
+<script src="components/mainNav/sharedNavDataService.js"></script>
 <script src="components/mainNav/mainNavService.js"></script>
 <script src="components/mainNav/mainNavDirective.js"></script>
 
@@ -74,6 +78,7 @@
 <script src="components/mainContent/mainContent.js"></script>
 <script src="components/mainContent/mainContentService.js"></script>
 <script src="components/mainContent/mainContentDirective.js"></script>
+<script src="components/mainContent/mainContentController.js"></script>
 
 <script src="components/charts/scCharts.js"></script>
 <script src="components/charts/scPieChartDirective.js"></script>

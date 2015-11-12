@@ -5,32 +5,23 @@
         .module('scMainContent')
         .service('scMainContentService', mainContentService);
 
-    mainContentService.$inject = ['$q', '$log', 'scCrud'];
 
     var auth = {
         'user': 'mustermann@test.sc',
         'password': 'ottto'
     }
 
-    function mainContentService($q, $log,  scCrud) {
+
+    mainContentService.$inject = ['$q', '$log', 'scCrud', '$cacheFactory'];
+    function mainContentService($q, $log, scCrud, $cacheFactory) {
+        var cache = $cacheFactory('scMainContentServiceCache');
+
         return {
             getPage: getPage,
-            getTestEntity: getTestEntity
+            getTestEntity: getTestEntity,
         };
 
         function getPage(entityUid) {
-            /*
-            if (!!console) {
-                console.groupCollapsed("mainContentService StackTrace")
-                console.trace();
-                console.info("called uid: " + entityUid);
-                console.groupEnd()
-            }
-            //*/
-
-            //scCrud.workspaces.findAll(auth).then($log.info);
-            //scCrud.types.findAll(auth, "107yhdgc7q9u6").then($log.info);
-            //scCrud.entities.findAll(auth, "1mrntujl9cgcn").then($log.info);
 
             var options = {
                 includeDetails: true,
@@ -39,17 +30,38 @@
                 resolveReferences: false
             };
 
-            var entityId = entityUid;
-            var indexOfSlash = entityId.indexOf("/");
-            if (indexOfSlash != -1) {
-                entityId = entityId.substr(indexOfSlash + 1);
-                //$log.info("entity id was uid. converting", entityUid, "->", entityId);
-            }
-
-            return scCrud.entities
-                .findOne(auth, entityId, options)
+            return scCrud.findOneResource(auth, entityUid)
+            //getCachedEntity(auth, entityUid)
                 .then(attachType)
                 .then(formatEntity);
+        }
+
+        function getCachedEntity(auth, uid) {
+            var cachedEntity = cache.get(uid);
+
+            if (angular.isObject(cachedEntity)) {
+                return $q.when(cachedEntity);
+            }
+
+            $log.info("entity ", uid, "was not in cache. getting from server...");
+
+            return scCrud.findOneResource(auth, uid)
+                .then(cacheResults);
+        }
+
+        function cacheResults(result) {
+            if (angular.isArray(result)) {
+                result.forEach(cacheSingleResult);
+            } else if (angular.isObject(result)) {
+                cacheSingleResult(result);
+            }
+
+            return result;
+
+            function cacheSingleResult(singleResult) {
+                if (singleResult.uid)
+                    cache.put(singleResult.uid, singleResult);
+            }
         }
 
         function formatEntity(entity) {
@@ -70,9 +82,12 @@
         }
 
         function attachType(entity) {
-            var slashIndex = entity.type.uid.indexOf("/");
-            var id = entity.type.uid.substr(slashIndex + 1);
-            return scCrud.types.findOne(auth, id)
+            if (!entity || !entity.type || !entity.type.uid) {
+                $log.error("the given entity has no type or type.uid. Entity:", entity);
+                throw new Error("the given entity has no type or type.uid");
+            }
+
+            return scCrud.findOneResource(auth, entity.type.uid)
                 .then(function success(type) {
                     entity.type = type;
                     return entity;

@@ -4,5 +4,4 @@
 
     angular.module('scMainNav', [ 'ngMaterial' ]);
 
-
 })();
