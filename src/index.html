@@ -38,9 +38,7 @@
     <div flex="15">
         <sc-side-nav entities="ctrl.navData.entities" current-entity-uid="ctrl.navData.currentEntityUid" ng-if="ctrl.navData.entities"></sc-side-nav>
     </div>
-    <div flex ng-view>
-        <!-- sc-main-content entity-uid="{{ctrl.currentEntityUid}}"></sc-main-content -->
-    </div>
+    <div flex ng-view></div>
 </div>
 
 <!-- lib:js -->
@@ -79,6 +77,11 @@
 <script src="components/mainContent/mainContentService.js"></script>
 <script src="components/mainContent/mainContentDirective.js"></script>
 <script src="components/mainContent/mainContentController.js"></script>
+
+<script src="components/feed/feedModule.js"></script>
+<script src="components/feed/feedDirective.js"></script>
+<script src="components/feed/feedService.js"></script>
+
 
 <script src="components/charts/scCharts.js"></script>
 <script src="components/charts/scPieChartDirective.js"></script>
