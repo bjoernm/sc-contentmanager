@@ -22,6 +22,9 @@
                     'data': resolveEntityData
                 }
             })
+            .when('/feed', {
+                'templateUrl': '/components/mainContent/templates/feed.tpl.html'
+            })
             .otherwise({
                 'redirectTo': '/workspaces/root'
             });
