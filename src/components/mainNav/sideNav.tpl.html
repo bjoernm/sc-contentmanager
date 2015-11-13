@@ -12,9 +12,10 @@
 
 <ul>
     <li ng-repeat="entity in entities.list track by entity.uid"
-        ng-class="{active: entity.isCurrentEntity}"
-        ng-if="!entity.parent || entity.parent.showChildren"
-        ng-style="{'padding-left': (getHierarchyLevel(entity)*5)+'px'}">
-        <a ng-href="#{{entity.uid}}">{{entity.name}}</a>
+        ng-class="{'active': entity.isCurrentEntity, 'anotherLevel': isAnotherLevel($index)}"
+        ng-if="isShowing(entity)"
+        data-hierarchy-level="{{::entity.hierarchyInfo.level}}"
+        ng-style="::{'padding-left': getHierarchyLevel(entity)}">
+        <a ng-href="#{{::entity.uid}}">{{::entity.name}}</a>
     </li>
 </ul>

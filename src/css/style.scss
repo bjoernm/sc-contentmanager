@@ -80,6 +80,13 @@ a {
     }
   }
 
+  li.anotherLevel {
+    border-bottom: 2px solid $colors_backgroundColor2;
+  }
+
+  li[data-hierarchy-level="0"] {
+    padding-left: 3px;
+  }
 }
 
 #header {
@@ -96,7 +103,7 @@ a {
 }
 
 md-content.content {
-  background: $colors_backgroundColor1;
+  background: $colors_backgroundColor2;
 
   md-card {
     $border-radius: 3px;

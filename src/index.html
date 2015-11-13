@@ -31,10 +31,11 @@
                  md-border-bottom
                  md-stretch-tabs="always"
                  md-selected="ctrl.selectedTabIndex"
-                 class="md-primary">
+                 class="md-primary"
+                 ng-if="ctrl.workspaces">
             <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.uid"
-                    ng-click="ctrl.setPathTo(workspace.uid)"
-                    label="{{workspace.name}}">
+                    ng-click="::ctrl.setPathTo(workspace.uid)"
+                    label="{{::workspace.name}}">
             </md-tab>
         </md-tabs>
     </div>

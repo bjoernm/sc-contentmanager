@@ -22,8 +22,11 @@
             link: function link(scope, element, attrs) {
                 scope.$watch('currentEntityUid', openTree);
                 scope.getHierarchyLevel = getHierarchyLevel;
+                scope.isShowing = isShowing;
+                scope.isAnotherLevel = isAnotherLevel(scope);
+                scope.getNextShowing = getNextShowing(scope);
             }
-        }
+        };
 
         function openTree(newValue, oldValue, scope) {
             if (!scope.entities || !scope.entities.index || !newValue) {
@@ -44,20 +47,44 @@
             }
 
             do {
-                $log.info("showing: ", currentEntity.uid, currentEntity.parent);
                 currentEntity.showChildren = true;
                 currentEntity = currentEntity.parent;
             } while (currentEntity);
         }
 
         function getHierarchyLevel(entity) {
-            var i = 1;
-            while(entity.parent) {
-                i++;
-                entity = entity.parent;
-            }
+            var basicOffset = 3,
+                multipleOffset = 10;
 
-            return i;
+            return Math.max(entity.hierarchyInfo.level * multipleOffset + basicOffset, basicOffset) + 'px';
+        }
+
+        function isAnotherLevel(scope) {
+            return function isAnotherLevelFunction($index) {
+                var currentEntity = scope.entities.list[$index];
+                var nextEntity = scope.getNextShowing($index);
+
+                if (!nextEntity) return false;
+
+                var currentLevel = currentEntity.hierarchyInfo.level;
+                var nextLevel = nextEntity.hierarchyInfo.level;
+                return currentLevel != nextLevel;
+            }
+        }
+
+        function isShowing(entity) {
+            return !entity.parent || entity.parent.showChildren;
+        }
+
+        function getNextShowing(scope) {
+            return function getNextShowingFunction($index) {
+                var list = scope.entities.list;
+                for (var i = $index + 1; i < list.length; i++) {
+                    if (list[i] && isShowing(list[i]))
+                        return list[i];
+                }
+            }
         }
     }
-})();
+})
+();

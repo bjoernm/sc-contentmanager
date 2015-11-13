@@ -47,6 +47,8 @@
 
                 entities.forEach(buildMap(map));
                 entities.forEach(buildIndexBasedOn(map, tree));
+                entities.forEach(addHierarchyInfo);
+                entities = entities.sort(sortEntities);
 
                 return {
                     index: map,
@@ -55,19 +57,34 @@
                 };
             }
 
+            function sortEntities(a, b) {
+                a = a.hierarchyInfo.completeAddress;
+                b = b.hierarchyInfo.completeAddress;
+                if (a === b) {
+                    return 0;
+                } else if (typeof a === 'undefined') {
+                    return 1;
+                } else if (typeof b === 'undefined') {
+                    return -1;
+                } else {
+                    return a.localeCompare(b);
+                }
+            }
+
             function addHierarchyInfo(entity) {
-                var level = 1;
-                var completeEntityAddress = entity.uid;
-                while (entity.parent) {
+                var level = 0;
+                var completeEntityAddress = entity.name;
+                var currentEntity = entity;
+                while (currentEntity.parent) {
                     level++;
-                    completeEntityAddress = entity.parent.uid + completeEntityAddress;
-                    entity = entity.parent;
+                    completeEntityAddress = currentEntity.parent.name + "/" + completeEntityAddress;
+                    currentEntity = currentEntity.parent;
                 }
 
                 entity.hierarchyInfo = {
                     'level': level,
                     'completeAddress': completeEntityAddress
-                }
+                };
             }
 
             function buildIndexBasedOn(map, tree) {
