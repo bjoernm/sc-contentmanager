@@ -1,3 +1,4 @@
+'use strict';
 
 var gulp = require('gulp'),
     webserver = require('gulp-webserver'),
@@ -5,11 +6,18 @@ var gulp = require('gulp'),
     gulpFilter   = require('gulp-filter'),
     del = require('del'),
     order = require("gulp-order"),
-    inject = require('gulp-inject');
+    inject = require('gulp-inject'),
+	sass = require('gulp-sass');
 
 
 gulp.task('clean', function (callback) {
     del(['tmp/**/*.*'], callback);
+});
+
+gulp.task('sass', ['clean'], function () {
+	gulp.src(['./src/css/*.css','./src/css/*.scss'], {base: './src/css'})
+	.pipe(sass().on('error', sass.logError))
+	.pipe(gulp.dest('./tmp/css'));
 });
 
 gulp.task('bower', ['clean'], function() {
@@ -65,12 +73,13 @@ gulp.task('angular', ['clean'], function() {
 
 
 
-gulp.task('inject', ['bower'], function() {
+gulp.task('inject', ['bower', 'sass'], function() {
 
     var target = gulp.src('./src/index.html');
     var sources = gulp.src([
         './tmp/lib/css/*.css',
-        './tmp/lib/js/*.js'
+        './tmp/lib/js/*.js',
+		'./tmp/css/*.css'
     ], {read: false})
         .pipe(order([
             "jquery.js",

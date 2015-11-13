@@ -2,11 +2,56 @@
     'use strict';
 
     angular
-        .module('scGenericClient', ['ngMaterial', 'scMainNav', 'scMainContent', 'scFeed', 'ngRoute' ])
+        .module('scGenericClient', ['ngMaterial', 'scMainNav', 'scMainContent', 'scFeed', 'ngRoute'])
         .config(function ($mdThemingProvider) {
+            /*
+             $mdThemingProvider.theme('default')
+             .primaryPalette('indigo')
+             .accentPalette('red');
+             //*/
+
+            $mdThemingProvider.definePalette('primary', {
+                "50": "#eff7fc",
+                "100": "#aed4f0",
+                "200": "#7fbbe8",
+                "300": "#439bdc",
+                "400": "#298ed8",
+                "500": "#237dbf",
+                "600": "#1e6ca5",
+                "700": "#195b8b",
+                "800": "#154a71",
+                "900": "#103958",
+                "A100": "#eff7fc",
+                "A200": "#aed4f0",
+                "A400": "#298ed8",
+                "A700": "#1a5b8b",
+                "contrastDefaultColor": 'light'
+            });
+
+            $mdThemingProvider.definePalette('accent', {
+                "50": "#ffffff",
+                "100": "#ffd2d2",
+                "200": "#ff9a9a",
+                "300": "#ff5252",
+                "400": "#ff3434",
+                "500": "#ff1515",
+                "600": "#f50000",
+                "700": "#d70000",
+                "800": "#b80000",
+                "900": "#9a0000",
+                "A100": "#ffffff",
+                "A200": "#ffd2d2",
+                "A400": "#ff3434",
+                "A700": "#d70000"
+            });
+
             $mdThemingProvider.theme('default')
-                .primaryPalette('teal')
-                .accentPalette('red');
+                .primaryPalette('primary', {
+                    'default': '700'
+                })
+                .accentPalette('accent', {
+                    'default': '300'
+                });
         });
 
     // primary color:        #195B8B
