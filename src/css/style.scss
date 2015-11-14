@@ -58,43 +58,88 @@ a {
 }
 
 .md-sidenav-left {
-  ul {
+  ul.sideNavFlat {
     list-style: none;
     padding: 0;
     margin: 0;
     background: $colors_backgroundColor2;
-  }
 
-  ul > li > a {
-    padding: 5px 5px 5px 20px;
-    display: block;
-    background: $colors_backgroundColor3;
-  }
+    li.active {
+      background: $colors_accentColor;
 
-  li.active {
-    background: $colors_accentColor;
+      & > a {
+        color: $colors_primaryTextColor1;
+        background: $colors_primaryColor;
+      }
+    }
 
-    & > a {
-      color: $colors_primaryTextColor1;
-      background: $colors_primaryColor;
+    li.anotherLevel {
+      border-bottom: 2px solid $colors_backgroundColor2;
+    }
+
+    li[data-hierarchy-level="0"] {
+      padding-left: 3px;
     }
   }
 
-  li.anotherLevel {
-    border-bottom: 2px solid $colors_backgroundColor2;
+  ul > li > span {
+    display: block;
+    a {
+      $padding: 10px;
+      display: block;
+      padding: $padding $padding $padding 40px;
+      background: $colors_backgroundColor3;
+      text-decoration: none;
+      font-weight: bold;
+      color: $colors_primaryColor;
+    }
   }
 
-  li[data-hierarchy-level="0"] {
-    padding-left: 3px;
+  ul.sideNav {
+    background: $colors_backgroundColor2;
+
+    &, ul {
+      border: 0 solid $colors_backgroundColor2;
+      border-top-width: 3px;
+      border-bottom-width: 3px;
+    }
+
+    li:first-child:last-child > ul {
+      border-bottom: none;
+    }
+
+    &, ul, li {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    li.active > span {
+      background: $colors_accentColor;
+
+      a {
+        // TODO: make it transparent with material design specific opacity (about .87)
+        color: $colors_primaryTextColor1;
+        background: $colors_primaryColor;
+        // FIXME: makes background transparent
+        opacity: .87;
+      }
+    }
   }
 }
 
 #header {
   background: $colors_primaryColor;
+
+  // TODO: make it transparent with material design specific opacity (about .87)
   color: $colors_primaryTextColor1;
 
   a {
+  // TODO: make it transparent with material design specific opacity (about .87)
+  // TODO: make it transparent with material design specific opacity (about .87)
     color: $colors_primaryTextColor1;
+    text-decoration: none;
+    opacity: .87;
   }
 
   & > h1 {
@@ -115,8 +160,4 @@ md-content.content {
     }
   }
 
-}
-
-md-toolbar:not(.md-menu-toolbar) {
-  color: $colors_primaryTextColor1;
 }

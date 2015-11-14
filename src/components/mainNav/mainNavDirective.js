@@ -53,7 +53,7 @@
         }
 
         function getHierarchyLevel(entity) {
-            var basicOffset = 3,
+            var basicOffset = 5,
                 multipleOffset = 10;
 
             return Math.max(entity.hierarchyInfo.level * multipleOffset + basicOffset, basicOffset) + 'px';
