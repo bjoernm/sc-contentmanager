@@ -118,11 +118,8 @@ a {
       background: $colors_accentColor;
 
       a {
-        // TODO: make it transparent with material design specific opacity (about .87)
-        color: $colors_primaryTextColor1;
+        color: rgba($colors_primaryTextColor1, .87);
         background: $colors_primaryColor;
-        // FIXME: makes background transparent
-        opacity: .87;
       }
     }
   }
@@ -131,15 +128,11 @@ a {
 #header {
   background: $colors_primaryColor;
 
-  // TODO: make it transparent with material design specific opacity (about .87)
-  color: $colors_primaryTextColor1;
+  color: rgba($colors_primaryTextColor1, .87);
 
   a {
-  // TODO: make it transparent with material design specific opacity (about .87)
-  // TODO: make it transparent with material design specific opacity (about .87)
-    color: $colors_primaryTextColor1;
     text-decoration: none;
-    opacity: .87;
+    color: rgba($colors_primaryTextColor1, .87);
   }
 
   & > h1 {
