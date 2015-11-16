@@ -37,7 +37,7 @@
 </div>
 <div flex layout-gt-md="row" layout="column" layout-fill layout-margin layout-padding class="childsHaveNoPadding">
     <div ng-bind-html="ctrl.entity.content" flex></div>
-    <div flex-gt-md="33" flex-gt-lg="25" flex ng-if="ctrl.entity.attributes && ctrl.entity.attributes.length > 0">
-        <sc-attributes entity="entity"></sc-attributes>
+    <div flex-gt-md="33" flex-gt-lg="25" flex ng-if="ctrl.entity">
+        <sc-attributes entity="ctrl.entity"></sc-attributes>
     </div>
 </div>

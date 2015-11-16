@@ -17,7 +17,8 @@
             },
             link: function (scope, element, attrs) {
                 if (!angular.isArray(scope.tasks)) {
-                    throw new TypeError('the attribute \'tasks\' must be of type array: typeof tasks == ' + (typeof scope.tasks));
+                    $log.warn('the attribute \'tasks\' must be of type array: tasks = ', scope.tasks);
+                    scope.tasks = [];
                 }
 
                 scope.deleteValue = deleteValue;
