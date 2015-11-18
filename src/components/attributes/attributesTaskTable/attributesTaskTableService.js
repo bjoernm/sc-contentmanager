@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('scAttributesTaskTable')
+        .module('scAttributes')
         .service('scAttributesTaskTableService', scAttributesTaskTableService);
 
     scAttributesTaskTableService.$inject = ['$q', '$log'];

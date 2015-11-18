@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('scAttributeValueEdit')
+        .module('scAttributes')
         .directive('scAttributeValueEdit', attributeValueEditDirective);
 
     attributeValueEditDirective.$inject = ['$log'];
@@ -22,6 +22,10 @@
                     throw new TypeError('the attribute \'attribute\' is no object: typeof attribute == ' + (typeof scope.orgAttribute));
                 }
 
+                if (!angular.isArray(scope.orgAttribute.values)) {
+                    throw new TypeError('\'attribute.values\' is no array: attribute = ' + angular.toJson(scope.orgAttribute));
+                }
+
                 if (!angular.isFunction(scope.onChange)) {
                     throw new TypeError('the attribute \'onChange\' must be of type \'function\'' +
                     ': typeof onChange == ' + (typeof scope.onChange))
@@ -32,6 +36,9 @@
                 }
 
                 scope.attribute = angular.copy(scope.orgAttribute);
+                scope.attribute.values.push('');
+                $log.info("attribute: ", scope.attribute);
+
                 scope.pressedEnter = pressedEnter;
                 scope.abort = abort;
                 scope.getMatches = getMatches;

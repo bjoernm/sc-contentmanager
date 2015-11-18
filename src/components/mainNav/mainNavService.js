@@ -4,13 +4,8 @@
     angular.module('scMainNav')
         .service('scMainNavService', scMainNavService);
 
-    scMainNavService.$inject = ['scCrud', '$cacheFactory', '$q', '$filter'];
-    function scMainNavService(scCrud, $cacheFactory, $q, $filter) {
-        var auth = {
-            user: 'mustermann@test.sc',
-            password: 'ottto'
-        };
-
+    scMainNavService.$inject = ['scCrud', '$cacheFactory', '$q', '$filter', 'scAuth'];
+    function scMainNavService(scCrud, $cacheFactory, $q, $filter, scAuth) {
         var cache = $cacheFactory('scMainNavServiceCache');
 
         return {
@@ -20,14 +15,14 @@
         };
 
         function loadWorkspaceFromEntityUid(entityUid) {
-            return scCrud.findOneResource(auth, entityUid).then(function (entity) {
+            return scCrud.findOneResource(scAuth, entityUid).then(function (entity) {
                 return entity.workspace;
             })
         }
 
         function loadAllWorkspaces() {
             // Simulate async nature of real remote calls
-            return scCrud.workspaces.findAll(auth);
+            return scCrud.workspaces.findAll(scAuth);
         }
 
         function loadTextPages(workspaceUid) {
@@ -38,7 +33,7 @@
                 return $q.when(cachedEntity);
             }
 
-            return scCrud.findAll(auth, workspaceUid + '/entities?meta=parent,workspace')
+            return scCrud.findAll(scAuth, workspaceUid + '/entities?meta=parent,workspace')
                 .then(buildTree);
 
             function buildTree(entities) {
@@ -121,7 +116,7 @@
                 for (var i = 0; i < types.length; i++) {
                     var type = types[i];
                     var id = type.uid.substr(1 + type.uid.indexOf("/"));
-                    promises.push(scCrud.entities.findAll(auth, id));
+                    promises.push(scCrud.entities.findAll(scAuth, id));
                 }
 
                 return $q.all(promises).then(function flatten(entities) {

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('scAttributesTaskTable')
+        .module('scAttributes')
         .directive('scAttributesTaskTable', attributesTaskTableDirective);
 
     attributesTaskTableDirective.$inject = ['$log', '$mdDialog', 'scAttributesTaskTableService'];

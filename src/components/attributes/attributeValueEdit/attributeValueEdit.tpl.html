@@ -40,7 +40,7 @@
         </li>
 
 
-        <div ng-switch-when="date" layout="row" layout-fill ng-repeat="value in attribute.values track by $index">
+        <li ng-switch-when="date" layout="row" layout-fill ng-repeat="value in attribute.values track by $index">
             <!--
         <md-input-container>
             <label>{{attribute.name}}</label>
@@ -59,10 +59,10 @@
             <md-button ng-click="abort()">
                 <md-icon>redo</md-icon>
             </md-button>
-        </div>
+        </li>
 
 
-        <div ng-switch-when="link" layout="row" layout-fill ng-repeat="value in attribute.values track by $index">
+        <li ng-switch-when="link" layout="row" layout-fill ng-repeat="value in attribute.values track by $index">
             <md-autocomplete md-input-name="valueInput" md-selected-item="attribute.values[$index]"
                              md-search-text="searchText" md-items="item in getMatches(searchText)"
                              md-item-text="item.name" md-floating-label="{{attribute.name}}"
@@ -78,17 +78,18 @@
             <md-button ng-click="abort()">
                 <md-icon>redo</md-icon>
             </md-button>
-        </div>
+        </li>
 
 
-        <div ng-switch-default layout="row" layout-fill>
+        <li ng-switch-default layout="row" layout-fill ng-repeat="value in attribute.values track by $index">
             <md-input-container>
                 <label>{{attribute.name}}</label>
-                <input ng-keyup="pressedEnter($event, true)" ng-model="attribute.values[0]"/>
+                <input ng-keyup="pressedEnter($event, true)"
+                       ng-model="attribute.values[$index]" />
             </md-input-container>
             <md-button ng-click="abort()">
                 <md-icon>redo</md-icon>
             </md-button>
-        </div>
+        </li>
     </ul>
 </ng-form>

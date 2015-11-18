@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('scTaskMetadataHelper')
+        .module('scAttributes')
         .directive('scTaskMetadataHelper', scTaskMetadataHelperDirective);
 
     scTaskMetadataHelperDirective.$inject = ['$log', 'scAttributesTaskTableService'];

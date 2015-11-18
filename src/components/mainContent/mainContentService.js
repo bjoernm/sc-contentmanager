@@ -6,14 +6,8 @@
         .service('scMainContentService', mainContentService);
 
 
-    var auth = {
-        'user': 'mustermann@test.sc',
-        'password': 'ottto'
-    }
-
-
-    mainContentService.$inject = ['$q', '$log', 'scCrud', '$cacheFactory'];
-    function mainContentService($q, $log, scCrud, $cacheFactory) {
+    mainContentService.$inject = ['$q', '$log', 'scCrud', '$cacheFactory', 'scAuth'];
+    function mainContentService($q, $log, scCrud, $cacheFactory, scAuth) {
         var cache = $cacheFactory('scMainContentServiceCache');
 
         return {
@@ -30,13 +24,13 @@
                 resolveReferences: false
             };
 
-            return scCrud.findOneResource(auth, entityUid)
-            //getCachedEntity(auth, entityUid)
+            return scCrud.findOneResource(scAuth, entityUid)
+            //getCachedEntity(scAuth, entityUid)
                 .then(attachType)
                 .then(formatEntity);
         }
 
-        function getCachedEntity(auth, uid) {
+        function getCachedEntity(scAuth, uid) {
             var cachedEntity = cache.get(uid);
 
             if (angular.isObject(cachedEntity)) {
@@ -45,7 +39,7 @@
 
             $log.info("entity ", uid, "was not in cache. getting from server...");
 
-            return scCrud.findOneResource(auth, uid)
+            return scCrud.findOneResource(scAuth, uid)
                 .then(cacheResults);
         }
 
@@ -87,7 +81,7 @@
                 throw new Error("the given entity has no type or type.uid");
             }
 
-            return scCrud.findOneResource(auth, entity.type.uid)
+            return scCrud.findOneResource(scAuth, entity.type.uid)
                 .then(function success(type) {
                     entity.type = type;
                     return entity;

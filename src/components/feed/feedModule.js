@@ -1,5 +1,5 @@
 (function () {
 	
-	angular.module('scFeed', []);
+	angular.module('scFeed', [ 'scAuth' ]);
 	
 })()

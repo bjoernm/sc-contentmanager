@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('scAttributeValue')
+        .module('scAttributes')
         .directive('scAttributeValue', attributeValueDirective);
 
     attributeValueDirective.$inject = ['$log'];
