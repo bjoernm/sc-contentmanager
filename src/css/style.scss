@@ -10,12 +10,13 @@ $colors_iconColor: #9B9B9B;
 $colors_backgroundColor1: #CCCCCC;
 $colors_backgroundColor2: #EEEEEE;
 $colors_backgroundColor3: #FAFAFA;
+$colors_primaryTextColor1Alpha: rgba($colors_primaryTextColor1, .87);
 
 html {
   overflow-y: scroll;
 
   body {
-    background: $colors_backgroundColor1;
+    background: $colors_backgroundColor2;
   }
 }
 
@@ -118,7 +119,7 @@ a {
       background: $colors_accentColor;
 
       a {
-        color: rgba($colors_primaryTextColor1, .87);
+        color: $colors_primaryTextColor1Alpha;
         background: $colors_primaryColor;
       }
     }
@@ -128,15 +129,26 @@ a {
 #header {
   background: $colors_primaryColor;
 
-  color: rgba($colors_primaryTextColor1, .87);
+  color: $colors_primaryTextColor1Alpha;
 
   a {
     text-decoration: none;
-    color: rgba($colors_primaryTextColor1, .87);
+    color: $colors_primaryTextColor1Alpha;
   }
 
   & > h1 {
     margin: 0;
+  }
+
+  h1 {
+    width: 304px;
+    text-align: center;
+  }
+
+  h1 img {
+    max-width: 100%;
+    max-height: 60px;
+    opacity: .87;
   }
 }
 

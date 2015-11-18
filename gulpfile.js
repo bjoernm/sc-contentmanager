@@ -97,7 +97,10 @@ gulp.task('inject', ['bower', 'sass'], function() {
         .pipe(gulp.dest('./tmp'));
 });
 
-gulp.task('build', ['inject', 'angular']);
+gulp.task('build', ['inject', 'angular'], function() {
+	gulp.src(['./src/images/*'], {base: './src/images'})
+	.pipe(gulp.dest('./tmp/images'));
+});
 
 
 // configure which files to watch and what tasks to use on file changes
