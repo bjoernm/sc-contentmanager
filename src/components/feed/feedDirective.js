@@ -3,19 +3,20 @@
 
     angular
         .module('scFeed')
-        .directive('scFeed', feedDirective);
+        .directive('scFeed', FeedDirective);
 
-    feedDirective.$inject = ['scFeedService', '$log'];
+    FeedDirective.$inject = ['scChangeSetService'];
 
-    function feedDirective(scFeedService, $log) {
+    function FeedDirective(changeSetService) {
         return {
             restrict: 'E',
             templateUrl: 'components/feed/feed.tpl.html',
-            link: function (scope, element, attrs) {
-            }
+            controllerAs: 'feedCtrl',
+            controller: ['scChangeSetService', function (changeSetService) {
+            	var ctrl = this;
+            	
+            	ctrl.changeSets = changeSetService.getChangeSets();
+            } ]
         };
-
     }
-
-
 })();

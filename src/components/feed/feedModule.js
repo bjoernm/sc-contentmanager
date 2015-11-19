@@ -1,5 +1,3 @@
 (function () {
-	
-	angular.module('scFeed', []);
-	
+	angular.module('scFeed', [ 'ngResource', 'base64' ]);
 })()
