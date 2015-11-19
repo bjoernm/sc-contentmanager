@@ -1,9 +1,15 @@
 <table class="attributesTable">
-    <tbody ng-repeat="attribute in attributes track by attribute.name">
+    <tbody ng-repeat="attribute in entity.attributes | orderBy: 'name' track by attribute.name">
     <tr ng-if="!attribute.edit">
-        <td>{{attribute.name}}</td>
-        <td>
-            <sc-attribute-value attribute="attribute"></sc-attribute-value>
+        <td colspan="2" class="attributesName">{{::attribute.name}}</td>
+    </tr>
+    <tr>
+        <td class="attributesValue">
+            <ul class="attributeValueList">
+                <li ng-repeat="value in attribute.values track by $index">
+                    <sc-attribute-value value="value"></sc-attribute-value>
+                </li>
+            </ul>
         </td>
         <td style="text-align: right">
             <md-menu>
@@ -13,7 +19,7 @@
                 </md-button>
                 <md-menu-content>
                     <md-menu-item>
-                        <md-button ng-click="attribute.edit = true">
+                        <md-button ng-click="editAttribute(attribute)">
                             <md-icon md-font-icon>edit</md-icon>
                             Edit
                         </md-button>
@@ -28,10 +34,29 @@
             </md-menu>
         </td>
     </tr>
-    <tr ng-if="!!attribute.edit">
-        <td colspan="3">
-            <sc-attribute-value-edit attribute="attribute" on-change="valueChanged(attribute, newValues)"
-                                     on-abort="closeEditingValue(attribute)"></sc-attribute-value-edit>
+    <tr ng-if="!!attribute.edit" ng-repeat="value in attribute.values track by $index">
+        <td colspan="1">
+            <sc-attribute-value-edit values="attribute.values"
+                                     index="$index"
+                                     type="{{attribute.type}}"
+                                     attribute-name="{{attribute.name}}"
+                                     on-change="valueChanged(attribute)"></sc-attribute-value-edit>
+        </td>
+        <td>
+            <md-button ng-if="$index == 0" ng-click="abort(attribute)">
+                <md-icon>redo</md-icon>
+            </md-button>
+        </td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr>
+        <td colspan="2">
+            <md-input-container>
+                <label>New Attribute</label>
+                <input ng-keyup="pressedEnter($event, attributeValueForm.valueInput.$valid)"
+                       ng-model="newAttributeName"/>
+            </md-input-container>
         </td>
     </tr>
     </tbody>

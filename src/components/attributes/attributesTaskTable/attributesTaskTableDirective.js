@@ -23,15 +23,32 @@
 
                 scope.deleteValue = deleteValue;
                 scope.valueChanged = valueChanged;
-                scope.closeEditingValue = closeEditingValue;
+                scope.abort = abort;
+                scope.editAttribute = editAttribute;
+                var orgAttributes = angular.copy(scope.tasks.attributes);
 
-                function closeEditingValue(attribute) {
+                function valueChanged(attribute) {
+                    if (!attribute) {
+                        $log.error("attribute is not defined");
+                        return;
+                    } else {
+                        attribute.values = attribute.values.filter(function (value) {
+                            return getStringValueForType(value, attribute.type) != '';
+                        })
+                    }
                     attribute.edit = false;
+
+                    updateTask();
+
                 }
 
-                function valueChanged(attribute, newValues) {
-                    attribute.values = newValues;
-                    scope.closeEditingValue(attribute);
+                function getStringValueForType(value, type) {
+                    switch (type) {
+                        case 'link':
+                            return value.name + '';
+                        default:
+                            return value + '';
+                    }
                 }
 
                 function deleteValue(attribute) {
@@ -45,6 +62,22 @@
                         .then(function () {
                             attribute.values = [];
                         })
+                }
+
+                function abort(attribute) {
+                    attribute.values = orgAttributes.find(function (e) {
+                        return attribute.name == e.name;
+                    }).values;
+
+                    attribute.edit = false;
+                }
+
+                function editAttribute(attribute) {
+                    if(attribute.values.length == 0) {
+                        attribute.values.push('');
+                    }
+
+                    attribute.edit = true
                 }
             }
         };

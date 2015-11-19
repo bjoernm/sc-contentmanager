@@ -10,7 +10,6 @@
     "angular-material": "master",
     "angular-messages": "~1.4.5",
     "angular-sanitize": "~1.4.5",
-    "raphael": "~2.1.4",
     "sc-angular": "https://bitbucket.org/sebischair/sc-angular.git#master",
     "angular-route": "~1.4.7"
   },

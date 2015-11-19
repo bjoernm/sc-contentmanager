@@ -4,7 +4,7 @@
         <th style="vertical-align: middle">
             <sc-pie-chart diameter="2em"
                           percentage="{{task.progress}}"
-                          show-percentage="false" ></sc-pie-chart>
+                          show-percentage="false"></sc-pie-chart>
         </th>
         <th colspan="2">{{task.name}}
             <md-button ng-click="showMetaData = !showMetaData" class="md-icon-button" aria-label="Open context menu">
@@ -35,15 +35,19 @@
         </th>
     </tr>
     </thead>
-    <tbody class="metadata slide" ng-show="showMetaData" sc-task-metadata-helper="task" >
+    <tbody class="metadata slide" ng-show="showMetaData" sc-task-metadata-helper="task">
     <!--
     <!-- -->
     </tbody>
-    <tbody ng-repeat-end ng-repeat="attribute in task.attributes track by attribute.name ">
+    <tbody ng-repeat-end ng-repeat="attribute in task.attributes | orderBy: 'name' track by attribute.name">
     <tr ng-if="!attribute.edit">
-        <td colspan="2">{{attribute.name}}</td>
+        <td colspan="2">{{::attribute.name}}</td>
         <td>
-            <sc-attribute-value attribute="attribute"></sc-attribute-value>
+            <ul class="attributeValueList">
+                <li ng-repeat="value in attribute.values track by $index">
+                    <sc-attribute-value value="value"></sc-attribute-value>
+                </li>
+            </ul>
         </td>
         <td style="text-align: right">
             <md-menu>
@@ -52,7 +56,7 @@
                 </md-button>
                 <md-menu-content>
                     <md-menu-item>
-                        <md-button ng-click="attribute.edit = true">
+                        <md-button ng-click="editAttribute(attribute)">
                             <md-icon md-font-icon>edit</md-icon>
                             Edit
                         </md-button>
@@ -67,11 +71,32 @@
             </md-menu>
         </td>
     </tr>
-    <tr ng-if="!!attribute.edit">
+    <tr ng-if="!!attribute.edit" ng-repeat="value in attribute.values track by $index">
+        <td colspan="2">
+            <sc-attribute-value-edit values="attribute.values"
+                                     index="$index"
+                                     type="{{attribute.type}}"
+                                     attribute-name="{{attribute.name}}"
+                                     on-change="valueChanged(attribute)"></sc-attribute-value-edit>
+        </td>
+        <td>
+            <md-button ng-click="abort(attribute)">
+                <md-icon>redo</md-icon>
+            </md-button>
+        </td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr>
         <td colspan="4">
-            <sc-attribute-value-edit attribute="attribute" on-change="valueChanged(attribute, newValues)"
-                                     on-abort="closeEditingValue(attribute)"></sc-attribute-value-edit>
+            <md-input-container>
+                <label>New Task</label>
+                <input ng-keyup="pressedEnter($event, attributeValueForm.valueInput.$valid)"
+                       ng-model="newTaskName"/>
+            </md-input-container>
         </td>
     </tr>
     </tbody>
 </table>
+
+

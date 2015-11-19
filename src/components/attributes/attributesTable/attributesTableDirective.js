@@ -2,45 +2,57 @@
     'use strict';
 
     angular
-        .module('scAttributesTable')
+        .module('scAttributes')
         .directive('scAttributesTable', attributesTableDirective)
 
-    attributesTableDirective.$inject = ['$log', '$mdDialog'];
+    attributesTableDirective.$inject = ['$log', '$mdDialog', 'scCrud', 'scAuth'];
 
-    function attributesTableDirective($log, $mdDialog) {
+    function attributesTableDirective($log, $mdDialog, scCrud, scAuth) {
         return {
             restrict: 'E',
             templateUrl: 'components/attributes/attributesTable/attributesTable.tpl.html',
             replace: true,
             scope: {
-                attributes: '='
+                entity: '='
             },
             link: function (scope, element, attrs) {
-                if (!angular.isArray(scope.attributes)) {
-                    $log.warn('the attribute \'attributes\' must be of type array: attributes = ', scope.attributes);
-                    scope.attributes = [];
+                if (angular.isUndefined(scope.entity.attributes) || !angular.isArray(scope.entity.attributes)) {
+                    $log.warn('the attribute \'attributes\' must be of type array: attributes = ', scope.entity.attributes);
+                    scope.entity.attributes = [];
                 }
 
                 scope.deleteValue = deleteValue;
                 scope.valueChanged = valueChanged;
-                scope.closeEditingValue = closeEditingValue;
+                scope.pressedEnter = newAttribute;
+                scope.editAttribute = editAttribute;
+                scope.abort = abort;
+                scope.newAttributeName = '';
+                scope.orgAttributes = angular.copy(scope.entity.attributes);
 
+                function valueChanged(attribute) {
+                    $log.info("value changed", scope.entity);
 
-                function closeEditingValue(attribute) {
+                    if (!attribute) {
+                        $log.error("attribute is not defined");
+                        return;
+                    } else {
+                        attribute.values = attribute.values.filter(function (value) {
+                            return getStringValueForType(value, attribute.type) != '';
+                        })
+                    }
                     attribute.edit = false;
+
+                    updateEntity();
+
                 }
 
-                function valueChanged(attribute, newValues) {
-                    $log.info("value changed", attribute, newValues);
-                    if (!attribute || !newValues) {
-                        var types = {
-                            'attribute': typeof attribute,
-                            'newValues': typeof newValues
-                        }
-                        throw new Error('Either \'attribute\' or \'newValues\' is not defined: ' + angular.toJson(types));
+                function getStringValueForType(value, type) {
+                    switch (type) {
+                        case 'link':
+                            return value.name + '';
+                        default:
+                            return value + '';
                     }
-                    attribute.values = newValues;
-                    scope.closeEditingValue(attribute);
                 }
 
                 function deleteValue(attribute) {
@@ -57,8 +69,56 @@
                     $mdDialog.show(confirmDialog)
                         .then(function () {
                             attribute.values = [];
+
+                            updateEntity();
                         })
                 }
+
+                function newAttribute(event) {
+                    if (!event || event.keyCode !== 13 || !scope.newAttributeName || scope.newAttributeName === '') {
+                        return;
+                    }
+
+                    var attrName = scope.newAttributeName;
+                    scope.entity.attributes.push({
+                        'name': attrName,
+                        'values': [],
+                        'type': ''
+                    });
+
+                    scope.newAttributeName = '';
+
+                    // FIXME: if call misses then rewrite attrName into scope.newAttributeName.
+                    // TODO: if call is done show toast (?) (little success message)
+                    updateEntity().then(function (updatedEntity) {
+                        scope.newAttributeName = attrName;
+                    });
+                }
+
+                function updateEntity() {
+                    return scCrud.entities.update(scAuth, scope.entity).then(function (updatedEntity) {
+                        scope.entity = updatedEntity;
+                        scope.orgAttributes = angular.copy(scope.entity.attributes);
+
+                        return updatedEntity;
+                    });
+                }
+
+                function abort(attribute) {
+                    attribute.values = scope.orgAttributes.find(function (e) {
+                        return attribute.name == e.name;
+                    }).values;
+
+                    attribute.edit = false;
+                }
+
+                function editAttribute(attribute) {
+                    if(attribute.values.length == 0) {
+                        attribute.values.push('');
+                    }
+                    attribute.edit = true
+                }
+
             }
         };
     }

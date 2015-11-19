@@ -31,8 +31,22 @@ html {
   opacity: 0;
 }
 
-.attributesTable td {
-  vertical-align: initial;
+.attributesTable {
+  font-size: 85%;
+
+  .attributesName {
+    font-style: italic;
+    color: $colors_secondaryTextColor;
+  }
+
+  .attributesValue {
+    padding-left: 10px;
+  }
+
+  td {
+    // vertical-align: initial;
+    vertical-align: top;
+  }
 }
 
 ul.attributeValueList {
@@ -165,4 +179,8 @@ md-content.content {
     }
   }
 
+}
+
+.scAttributes md-input-container {
+  padding-bottom: inherit;
 }
