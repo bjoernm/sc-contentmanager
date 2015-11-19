@@ -1,0 +1,42 @@
+{
+  "name": "no label provided.",
+  "changes": [
+    {
+      "changeType": "simpleValue",
+      "change": {
+        "value": {
+          "type": "string",
+          "value": "[]"
+        }
+      },
+      "name": "'Birth date'"
+    }
+  ],
+  "id": "10555745zgi0u",
+  "rootEntity": {
+    "name": "Ana Trujillo",
+    "id": "trujillo"
+  },
+  "user": {
+    "versions": [
+      {
+        "date": "2015-11-19T16:58:05.604",
+        "changes": [],
+        "action": "Added",
+        "type": "_new"
+      }
+    ],
+    "name": "Max Mustermann",
+    "mayEdit": true,
+    "groups": [
+      {
+        "name": "Membership of Max Mustermann in Administrators",
+        "id": "pqzut1ea9irg"
+      }
+    ],
+    "id": "rytx6qsc9qlm",
+    "href": "http://localhost:8083/intern/tricia/api/v1/users/rytx6qsc9qlm",
+    "lastLoginDate": "2015-11-19 16:59:06.42",
+    "email": "mustermann@test.sc"
+  }
+}
