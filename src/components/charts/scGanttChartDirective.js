@@ -112,6 +112,8 @@
                     return new Date((a + b) / 2);
                 }
 
+
+                //FIXME returns NAN -> makes error in scSvgX2
                 function getDatesPosition(date) {
                     if (!date || 'function' !== typeof date.getTime) {
                         throw new Error("date must have a function called getTime (like a date object). date = " + date);
@@ -132,7 +134,11 @@
                         };
 
                         var percentage = normalizedDate.current / normalizedDate.end;
-                        percentage = Math.min(1, Math.max(0, percentage));
+                        if (isFinite(percentage)) {
+                            percentage = Math.min(1, Math.max(0, percentage));
+                        } else {
+                            percentage = 0;
+                        }
 
                         var result = offset + (elementWidth - offset) * percentage;
 

@@ -21,12 +21,17 @@
                 scope.vm = {};
                 scope.getTemplateUrl = getTemplateUrl;
                 scope.sum = sum;
+                scope.progressBarMode = 'indeterminate';
 
                 //*
                 // FIXME: look for another solution than $watch
                 // watch is bound to the lifecycle of scope and will be removed automatically
+                var spacesOnly = /^\s*$/;
                 scope.$watch('entityUid', function (newVal, oldVal, scope) {
-                    updateEntity(newVal, scope);
+                    if (angular.isString(scope.entityUid) && !spacesOnly.test(scope.entityUid)) {
+                        $log.info("$watch(entityUid)", newVal);
+                        updateEntity(newVal, scope);
+                    }
                 });
                 //*/
 
@@ -36,6 +41,7 @@
         };
 
         function updateEntity(entityUid, scope) {
+            scope.progressBarMode = 'indeterminate';
             scMainContentService
                 .getPage(entityUid)
                 .then(function successCallback(entity) {
@@ -46,6 +52,7 @@
                     scope.entity = scMainContentService.getTestEntity();
                 }).finally(function () {
                     //$log.info("mainContentDirective.updateEntity", "delivered entity:", scope.entity)
+                    scope.progressBarMode = undefined;
                 });
         }
 
@@ -54,7 +61,7 @@
         }
 
         function sum(items, prop) {
-            if (!angular.isArray(items)) {
+            if (!angular.isArray(items) || !angular.isString(prop)) {
                 return 0;
             }
 
@@ -66,6 +73,12 @@
         }
     }
 
+    /**
+     * this function should be an extra layer for different type of entities. currently only one type is used.
+     * @param element
+     * @param scope
+     * @returns {string}
+     */
     function getParentTemplate(element, scope) {
         return [
             '<md-content>',

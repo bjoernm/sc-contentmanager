@@ -8,3 +8,4 @@ tmp
 .project
 build
 sc-client-generic.iml
+*/**/Thumbs.db

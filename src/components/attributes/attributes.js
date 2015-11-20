@@ -4,7 +4,8 @@
     angular
         .module('scAttributes', [
             'ngMaterial',
-            'scAttributesTable',
-            'scAttributesTaskTable'
+            'ngAnimate',
+            'ngMessages',
+            'scCharts'
         ])
 })();

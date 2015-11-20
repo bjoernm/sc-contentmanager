@@ -22,59 +22,59 @@
 </head>
 
 <body ng-controller="IndexCtrl as ctrl">
-<div flex>
-    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-selected="ctrl.selectedTabIndex">
-        <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.uid"
-                md-on-select="ctrl.setPathTo(workspace.uid)"
-                label="{{workspace.name}}">
-        </md-tab>
-    </md-tabs>
-</div>
-<div layout="row" flex layout-padding>
-    <div flex="15">
-        <li ng-repeat="entity in ctrl.entities track by entity.uid">
-            <a ng-href="#/{{entity.uid}}">{{entity.name}}</a>
-        </li>
+<div layout="row" id="header">
+    <h1><a href="#"><img src="" alt="sebis Logo"/></a></h1>
+
+    <div layout="column" flex>
+        <div>searchbar <a href="#/feed">Feed</a> alarm profile options</div>
+        <md-tabs md-dynamic-height
+                 md-border-bottom
+                 md-stretch-tabs="always"
+                 md-selected="ctrl.selectedTabIndex"
+                 class="md-primary"
+                 ng-if="ctrl.workspaces">
+            <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.uid"
+                    ng-click="::ctrl.setPathTo(workspace.uid)"
+                    label="{{::workspace.name}}">
+            </md-tab>
+        </md-tabs>
     </div>
-    <div flex>
-        <sc-main-content entity-uid="{{ctrl.currentEntity}}"></sc-main-content>
-        <sc-feed></sc-feed>
-    </div>
 </div>
+<md-content layout="row" class="content">
+    <md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="true">
+        <sc-side-nav entities="ctrl.navData.entities" current-entity-uid="ctrl.navData.currentEntityUid"
+                     ng-if="ctrl.navData.entities"></sc-side-nav>
+    </md-sidenav>
+    <md-card ng-view flex>
+    </md-card>
+</md-content>
 
 <!-- lib:js -->
 <!-- bower installed scripts will go here... -->
 <!-- endinject -->
 
 <script src="components/app.js"></script>
+<script src="components/router.js"></script>
 <script src="components/indexCtrl.js"></script>
 
 <script src="components/mainNav/mainNav.js"></script>
+<script src="components/mainNav/sharedNavDataService.js"></script>
 <script src="components/mainNav/mainNavService.js"></script>
 <script src="components/mainNav/mainNavDirective.js"></script>
 
 <script src="components/attributes/attributes.js"></script>
 <script src="components/attributes/attributesDirective.js"></script>
-
-<script src="components/attributes/attributesTable/attributesTable.js"></script>
 <script src="components/attributes/attributesTable/attributesTableDirective.js"></script>
-
-<script src="components/attributes/attributesTaskTable/attributesTaskTable.js"></script>
 <script src="components/attributes/attributesTaskTable/attributesTaskTableDirective.js"></script>
-<script src="components/attributes/attributesTaskTable/attributesTaskTableService.js"></script>
-
-<script src="components/attributes/attributesTaskTable/scTaskMetadataHelper/scTaskMetadataHelper.js"></script>
 <script src="components/attributes/attributesTaskTable/scTaskMetadataHelper/scTaskMetadataHelperDirective.js"></script>
-
-<script src="components/attributes/attributeValue/attributeValue.js"></script>
 <script src="components/attributes/attributeValue/attributeValueDirective.js"></script>
-
-<script src="components/attributes/attributeValueEdit/attributeValueEdit.js"></script>
 <script src="components/attributes/attributeValueEdit/attributeValueEditDirective.js"></script>
+<script src="components/attributes/attributesTaskTable/attributesTaskTableService.js"></script>
 
 <script src="components/mainContent/mainContent.js"></script>
 <script src="components/mainContent/mainContentService.js"></script>
 <script src="components/mainContent/mainContentDirective.js"></script>
+<script src="components/mainContent/mainContentController.js"></script>
 
 <script src="components/feed/feedModule.js"></script>
 <script src="components/feed/feedDirective.js"></script>
@@ -86,6 +86,7 @@
 <script src="components/charts/scGanttChartDirective.js"></script>
 
 <script src="components/common/scColorService.js"></script>
+<script src="components/common/scAuth.js"></script>
 
 
 </body>

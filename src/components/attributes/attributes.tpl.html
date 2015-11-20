@@ -4,14 +4,12 @@
             {{entity.type.name}}
         </div>
     </md-toolbar>
-    <md-card-content>
-        <md-tabs>
-            <md-tab label="Attributes">
-                <sc-attributes-table attributes="entity.attributes" ng-if="entity.attributes" layout-fill></sc-attributes-table>
-            </md-tab>
-            <md-tab label="Tasks">
-                <sc-attributes-task-table tasks="entity.tasks" ng-if="entity.tasks"></sc-attributes-task-table>
-            </md-tab>
-        </md-tabs>
-    </md-card-content>
+    <md-tabs md-dynamic-height>
+        <md-tab label="Attributes">
+            <sc-attributes-table entity="entity" layout-fill></sc-attributes-table>
+        </md-tab>
+        <md-tab label="Tasks">
+            <sc-attributes-task-table entity="entity" layout-fill></sc-attributes-task-table>
+        </md-tab>
+    </md-tabs>
 </div>

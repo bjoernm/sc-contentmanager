@@ -2,7 +2,6 @@
 (function(){
     'use strict';
 
-    angular.module('scMainNav', [ 'ngMaterial' ]);
-
+    angular.module('scMainNav', [ 'ngMaterial', 'scAuth' ]);
 
 })();

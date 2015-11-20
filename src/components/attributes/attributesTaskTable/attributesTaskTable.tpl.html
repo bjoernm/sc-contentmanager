@@ -1,5 +1,5 @@
 <table class="attributesTable">
-    <thead ng-repeat-start="task in tasks">
+    <thead ng-repeat-start="task in tasks track by task.id">
     <tr>
         <th style="vertical-align: middle">
             <sc-pie-chart diameter="2em"
@@ -39,7 +39,7 @@
     <!--
     <!-- -->
     </tbody>
-    <tbody ng-repeat-end ng-repeat="attribute in task.attributes">
+    <tbody ng-repeat-end ng-repeat="attribute in task.attributes track by attribute.name ">
     <tr ng-if="!attribute.edit">
         <td colspan="2">{{attribute.name}}</td>
         <td>
