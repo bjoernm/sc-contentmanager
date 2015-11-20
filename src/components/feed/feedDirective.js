@@ -12,11 +12,7 @@
             restrict: 'E',
             templateUrl: 'components/feed/feed.tpl.html',
             controllerAs: 'feedCtrl',
-            controller: ['scChangeSetService', function (changeSetService) {
-            	var ctrl = this;
-            	
-            	ctrl.changeSets = changeSetService.getChangeSets();
-            } ]
+            controller: 'FeedController'
         };
     }
 })();
