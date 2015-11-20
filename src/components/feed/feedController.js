@@ -8,9 +8,9 @@
      */
     angular
         .module('scFeed')
-        .controller('FeedController', FeedController)
+        .controller('FeedController', FeedController);
 
-    FeedController.$inject = ['scChangeSetService']
+    FeedController.$inject = ['scChangeSetService'];
 
     function FeedController(changeSetService) {
         var feedCtrl = this;

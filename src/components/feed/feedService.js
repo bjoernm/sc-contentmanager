@@ -10,11 +10,11 @@
     function ChangeSetService($resource, $http, $base64) {
         /** The returned service */
         var service = {
-            getChangeSets: getChangeSets,
+            getChangeSets: getChangeSets
         };
 
         /** Url for the instance of SocioCortex. */
-        const SC_INSTANCE_URL = 'http://localhost:8083/intern/tricia/'
+        const SC_INSTANCE_URL = 'http://localhost:8083/intern/tricia/';
 
         /** Credentials for Basic Authentication. */
         var credentials = {
