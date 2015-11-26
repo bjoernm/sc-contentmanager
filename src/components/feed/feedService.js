@@ -72,7 +72,6 @@
     ScEventService.$inject = ['$resource', '$http', '$base64'];
 
     function ScEventService($resource, $http, $base64) {
-        /** The returned service */
         var service = {
             getEvents: getEvents
         };
@@ -81,15 +80,19 @@
          * Url for the instance of SocioCortex.
          *
          * @type {string}
+         * @const
+         * @static
          */
         const SC_INSTANCE_URL = 'http://localhost:8083/intern/tricia/';
 
         /**
          * Credentials for Basic Authentication.
          *
-         * @type {{ user: string, password, string}}
+         * @type {{ user: string, password, string }}
+         * @const
+         * @static
          */
-        var credentials = {
+        const CREDENTIALS = {
             user: 'mustermann@test.sc',
             password: 'ottto'
         };
@@ -97,20 +100,21 @@
         /**
          * Definition of resources for service.
          */
-        var ChangeSets =
+        var Events =
             $resource(apiToInstanceUrl('api/v1/changesets'));
 
         /** Service initialization. */
         initializeBasicAuthentication();
 
         /**
-         * Begin service implementation.
+         * Retrieves an event page from the server.
          *
          * @promise {EventPage} A page of events.
          * @reject {Error} An error if one occurred.
+         * @public
          **/
         function getEvents() {
-            return ChangeSets.get().$promise;
+            return Events.get().$promise;
         }
 
         /**
@@ -118,16 +122,23 @@
          *
          * @param {string} apiUrl
          * @return {string}
+         * @static
+         * @private
          */
         function apiToInstanceUrl(apiUrl) {
             return SC_INSTANCE_URL + apiUrl;
         }
 
-        /** Sets the default cretendtials in the header used by $http */
+        /**
+         * Sets the default cretendtials in the header used by $http
+         *
+         * @static
+         * @private
+         */
         function initializeBasicAuthentication() {
             $http.defaults.headers.common.Authorization =
                 'Basic ' +
-                $base64.encode(credentials.user + ':' + credentials.password);
+                $base64.encode(CREDENTIALS.user + ':' + CREDENTIALS.password);
         }
 
         return service;
