@@ -19,8 +19,6 @@
         feedCtrl.error = null;
         feedCtrl.eventPage = null;
 
-        console.log(eventService.getOneTestEvent());
-
         eventService.getEvents().then(
             function (eventPage) {
                 feedCtrl.eventPage = eventPage;
