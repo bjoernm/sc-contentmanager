@@ -10,7 +10,7 @@
         .module('scFeed')
         .controller('FeedController', FeedController);
 
-    FeedController.$inject = ['scChangeSetService'];
+    FeedController.$inject = ['scChangeSetService', '$scope'];
 
     function FeedController(changeSetService) {
         var feedCtrl = this;
@@ -28,5 +28,9 @@
                 feedCtrl.error = error;
 
             });
+    }
+
+    function FeedController($scope) {
+    $scope.imagePath = 'img/washedout.png';
     }
 })();
