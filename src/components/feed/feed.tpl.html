@@ -1,1 +1,25 @@
-Hello
+<div ng-if="feedCtrl.hasError">
+    <h1>Error: Loading changesets failed</h1>
+    <table>
+        <tbody>
+        <tr>
+            <td>Status:</td>
+            <td>{{feedCtrl.error.status}}</td>
+        </tr>
+        <tr>
+            <td>Method:</td>
+            <td>{{feedCtrl.error.config.method}}</td>
+        </tr>
+        <tr>
+            <td>URL:</td>
+            <td>{{feedCtrl.error.config.url}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="!feedCtrl.hasError">
+    <h1>Changesets</h1>
+    <ul ng-repeat="changeSet in feedCtrl.changeSets">
+        <li>{{ changeSet.id }}</li>
+    </ul>
+</div>
