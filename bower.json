@@ -10,12 +10,14 @@
     "angular-material": "master",
     "angular-messages": "~1.4.5",
     "angular-sanitize": "~1.4.5",
-    "angular-resource": "~1.4.7",
-    "angular-base64" : "~2.0.5",
-    "sc-angular": "https://bitbucket.org/sebischair/sc-angular.git#master",
-    "angular-route": "~1.4.7"
+    "angular-resource": "~1.4.8",
+    "angular-base64": "~2.0.5",
+    "angular-route": "~1.4.7",
+    "ngstorage": "~0.3.10",
+    "sc-angular": "https://github.com/sebischair/sc-angular.git#master"
   },
   "resolutions": {
-    "angular": "1.4.6"
+    "angular": "1.4.8",
+    "sc-angular": "master"
   }
 }
