@@ -20,6 +20,9 @@
 <div ng-if="!feedCtrl.hasError">
     <h1>Changesets</h1>
     <ul ng-repeat="event in feedCtrl.eventPage.events">
-        <li>{{ event.changeset.id }}</li>
+        <li ng-init="change=event.changeset.changes[0]">
+            <strong>{{ event.user.name }}</strong> changed <strong>{{ change.changedFeatureName }}</strong>
+            for <strong>{{ event.entity.type}}</strong> <strong>{{ event.entity.name }}</strong>
+        </li>
     </ul>
 </div>

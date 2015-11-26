@@ -16,7 +16,15 @@
         var feedCtrl = this;
 
         feedCtrl.hasError = false;
+
+        /**
+         * @type {Error}
+         */
         feedCtrl.error = null;
+
+         /**
+         * @type {EventPage}
+         */
         feedCtrl.eventPage = null;
 
         eventService.getEvents().then(
