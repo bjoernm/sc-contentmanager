@@ -1,4 +1,4 @@
-(function () {
+(function (angular) {
     'use strict';
 
     /**
@@ -143,4 +143,4 @@
 
         return service;
     }
-})();
+})(angular);

@@ -1,4 +1,4 @@
-(function () {
+(function (angular) {
 
     /**
      * Controller for the feed directive.
@@ -37,4 +37,4 @@
 
             });
     }
-})();
+})(angular);
