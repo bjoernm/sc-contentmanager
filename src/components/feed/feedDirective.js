@@ -5,9 +5,9 @@
         .module('scFeed')
         .directive('scFeed', FeedDirective);
 
-    FeedDirective.$inject = ['scChangeSetService'];
+    FeedDirective.$inject = [];
 
-    function FeedDirective(changeSetService) {
+    function FeedDirective() {
         return {
             restrict: 'E',
             templateUrl: 'components/feed/feed.tpl.html',

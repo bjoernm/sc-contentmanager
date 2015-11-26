@@ -10,18 +10,20 @@
         .module('scFeed')
         .controller('FeedController', FeedController);
 
-    FeedController.$inject = ['scChangeSetService'];
+    FeedController.$inject = ['scEventService'];
 
-    function FeedController(changeSetService) {
+    function FeedController(eventService) {
         var feedCtrl = this;
 
         feedCtrl.hasError = false;
         feedCtrl.error = null;
-        feedCtrl.changeSets = null;
+        feedCtrl.eventPage = null;
 
-        changeSetService.getChangeSets().then(
-            function (changeSets) {
-                feedCtrl.changeSets = changeSets;
+        console.log(eventService.getOneTestEvent());
+
+        eventService.getEvents().then(
+            function (eventPage) {
+                feedCtrl.eventPage = eventPage;
             },
             function (error) {
                 feedCtrl.hasError = true;

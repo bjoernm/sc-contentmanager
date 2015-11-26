@@ -19,7 +19,7 @@
 </div>
 <div ng-if="!feedCtrl.hasError">
     <h1>Changesets</h1>
-    <ul ng-repeat="changeSet in feedCtrl.changeSets">
-        <li>{{ changeSet.id }}</li>
+    <ul ng-repeat="event in feedCtrl.eventPage.events">
+        <li>{{ event.changeset.id }}</li>
     </ul>
 </div>

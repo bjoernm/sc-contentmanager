@@ -3,14 +3,14 @@
 
     angular
         .module('scFeed')
-        .service('scChangeSetService', ChangeSetService);
+        .service('scEventService', ScEventService);
 
-    ChangeSetService.$inject = ['$resource', '$http', '$base64'];
+    ScEventService.$inject = ['$resource', '$http', '$base64'];
 
-    function ChangeSetService($resource, $http, $base64) {
+    function ScEventService($resource, $http, $base64) {
         /** The returned service */
         var service = {
-            getChangeSets: getChangeSets
+            getEvents: getEvents
         };
 
         /** Url for the instance of SocioCortex. */
@@ -25,15 +25,13 @@
         /** Definition of resources for service. */
         var ChangeSets =
             $resource(apiToInstanceUrl('api/v1/changesets'));
-        var ChangeSet =
-            $resource(apiToInstanceUrl('api/v1/changesets/:id'));
 
         /** Service initialization. */
         initializeBasicAuthentication();
 
         /** Begin service implementation. */
-        function getChangeSets() {
-            return ChangeSets.query().$promise;
+        function getEvents() {
+            return ChangeSets.get().$promise;
         }
 
         /** Converts an API URL to an URL for the SocioCortex instance */
