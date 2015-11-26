@@ -7,6 +7,7 @@
      * Controller for the feed directive.
      *
      * @name feedItemCtrl
+     * @property {Event} event The event property from the directive scope.
      * @type FeedItemController
      */
     angular
@@ -16,7 +17,8 @@
     FeedItemController.$inject = [];
 
     function FeedItemController() {
-        var ctrl = this;
+        var feedItemCtrl = this;
+        // Variables in directive scope attribute are bound to this object a.k.a. feedItemCtrl.
     }
 
 })();

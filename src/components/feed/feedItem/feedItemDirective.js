@@ -4,12 +4,6 @@
 (function (angular) {
     'use strict';
 
-    /**
-     * Controller for the feed directive.
-     *
-     * @name feedItemCtrl
-     * @type FeedItemController
-     */
     angular
         .module('scFeed')
         .directive('scFeedItem', FeedItemDirective);
@@ -18,10 +12,11 @@
 
     function FeedItemDirective() {
         return {
-            restrict: 'EA',
+            restrict: 'E',
+            require: ['scEventSrc'],
             templateUrl: 'components/feed/feedItem/feedItem.tpl.html',
             scope: {
-                event: "="
+                event: "=scEventSrc"
             },
             controllerAs: 'feedItemCtrl',
             controller: 'FeedItemController',
