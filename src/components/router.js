@@ -32,13 +32,13 @@
 
     resolveEntityData.$inject = ['$route', 'scMainNavService', 'scMainContentService', 'sharedNavDataService', '$log'];
     function resolveEntityData($route, scMainNavService, scMainContentService, sharedNavDataService, $log) {
-        var entityUid = "entities/" + $route.current.params.entityId;
+        var entityId = $route.current.params.entityId;
 
-        $log.info("start");
+        $log.info("start:");
         var start = new Date().getTime();
-        return scMainContentService.getPage(entityUid)
+        return scMainContentService.getPage(entityId)
             .then(extendSharedNavData(sharedNavDataService, scMainNavService))
-            .then(function() {
+            .then(function () {
                 var end = (new Date().getTime()) - start;
                 $log.info("end", end, arguments);
 
@@ -50,12 +50,12 @@
     function resolveWorkspaceData($route, scMainNavService, scMainContentService, sharedNavDataService, $log) {
         var workspaceUid = "workspaces/" + $route.current.params.workspaceId;
 
-        $log.info("start");
+        $log.info("start:", workspaceUid);
         var start = new Date().getTime();
         return scMainNavService.loadTextPages(workspaceUid)
             .then(getSingleEntity(scMainContentService))
             .then(fillSharedNavData(sharedNavDataService))
-            .then(function() {
+            .then(function () {
                 var end = (new Date().getTime()) - start;
                 $log.info("end", end, arguments);
 
@@ -65,23 +65,23 @@
 
     function extendSharedNavData(shared, scMainNavService) {
         return function extendSharedNavDataFunction(entity) {
-            if(!entity) {
+            if (!entity) {
                 return;
             }
 
-            if(shared.currentWorkspaceUid !== entity.workspace.uid) {
-                return scMainNavService.loadTextPages(entity.workspace.uid)
+            if (shared.currentWorkspaceId !== entity.workspace.id) {
+                return scMainNavService.loadTextPages("workspaces/" + entity.workspace.id)
                     .then(fill)
             } else {
                 return fill(shared.entities);
             }
 
             function fill(entities) {
-                if(entities) {
+                if (entities) {
                     shared.entities = entities;
-                    shared.currentWorkspaceUid = entity.workspace.uid;
+                    shared.currentWorkspaceId = entity.workspace.id;
                     shared.currentEntity = entity;
-                    shared.currentEntityUid = entity.uid;
+                    shared.currentEntityId = entity.id;
 
                     return shared;
                 }
@@ -96,8 +96,8 @@
             }
 
             sharedNavDataService.entities = data.entities;
-            sharedNavDataService.currentWorkspaceUid = data.currentEntity.workspace.uid;
-            sharedNavDataService.currentEntityUid = data.currentEntity.uid;
+            sharedNavDataService.currentWorkspaceId = data.currentEntity.workspace.id;
+            sharedNavDataService.currentEntityId = data.currentEntity.id;
             sharedNavDataService.currentEntity = data.currentEntity;
 
             return data;
@@ -110,7 +110,7 @@
                 return;
             }
 
-            return scMainContentService.getPage(entities.tree[0].uid).then(function (currentEntity) {
+            return scMainContentService.getPage(entities.tree[0].id).then(function (currentEntity) {
                 return {
                     'entities': entities,
                     'currentEntity': currentEntity

@@ -2,7 +2,7 @@
 
 (function(){
     angular.module('scMainNav')
-        .factory('sharedNavDataService',sharedNavDataService);
+        .factory('sharedNavDataService', sharedNavDataService);
 
     function sharedNavDataService() {
         return {
@@ -10,8 +10,8 @@
                 'tree': [],
                 'index': {}
             },
-            'currentWorkspaceUid':'',
-            'currentEntityUid': '',
+            'currentWorkspaceId':'',
+            'currentEntityId': '',
             'currentEntity': {}
         }
     }

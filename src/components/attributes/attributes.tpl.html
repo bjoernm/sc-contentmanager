@@ -1,15 +1,15 @@
-<div class="scAttributes">
+<md-card class="scAttributes">
     <md-toolbar>
         <div class="md-toolbar-tools">
             {{entity.type.name}}
         </div>
     </md-toolbar>
-    <md-tabs md-dynamic-height>
+    <md-tabs md-dynamic-height md-stretch-tabs="always">
         <md-tab label="Attributes">
-            <sc-attributes-table entity="entity" layout-fill></sc-attributes-table>
+                <sc-attributes-table entity="entity" layout-fill></sc-attributes-table>
         </md-tab>
         <md-tab label="Tasks">
-            <sc-attributes-task-table entity="entity" layout-fill></sc-attributes-task-table>
+                <sc-attributes-task-table entity="entity" layout-fill></sc-attributes-task-table>
         </md-tab>
     </md-tabs>
-</div>
+</md-card>

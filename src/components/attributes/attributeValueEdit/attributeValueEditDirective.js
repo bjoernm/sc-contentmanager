@@ -36,6 +36,8 @@
                     $log.error('the attribute \'onChange\' must be of type \'function\': onChange =', scope.onChange, 'typeof =', typeof scope.onChange)
                 }
 
+                console.log(scope.values[scope.index]);
+
                 checkForLastEmptyElement();
 
                 scope.pressedEnter = pressedEnter;

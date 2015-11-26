@@ -16,7 +16,7 @@ html {
   overflow-y: scroll;
 
   body {
-    background: $colors_backgroundColor2;
+    background: $colors_backgroundColor1;
   }
 }
 
@@ -31,12 +31,61 @@ html {
   opacity: 0;
 }
 
+.scAttributes {
+  $attributesBackground: $colors_backgroundColor3;
+  $taskMetaDataBackground: $colors_backgroundColor2;
+  background: $attributesBackground;
+
+  md-input-container {
+    padding-bottom: inherit;
+  }
+
+  md-datepicker {
+    background: $attributesBackground;
+  }
+
+  .metadataTitle {
+    text-align: center;
+  }
+
+  .metadataTable {
+    background: $taskMetaDataBackground;
+    padding: 16px;
+
+    dl {
+      margin: 0;
+    }
+  }
+}
+
 .attributesTable {
-  font-size: 85%;
+  font-size: 90%;
+
+  & > * {
+    padding-left: 16px;
+    padding-right: 16px;
+
+    &:last-child {
+      padding-bottom: 16px;
+    }
+  }
+
+  dd {
+    margin-left: 20px;
+  }
+
+  .attributeValueList li:not(:first-child) {
+    padding-top: 5px;
+  }
 
   .attributesName {
     font-style: italic;
     color: $colors_secondaryTextColor;
+    font-size: 90%;
+  }
+
+  md-menu {
+    padding: 8px 0 0;
   }
 
   .attributesValue {
@@ -46,6 +95,10 @@ html {
   td {
     // vertical-align: initial;
     vertical-align: top;
+  }
+
+  md-icon {
+    cursor: pointer;
   }
 }
 
@@ -73,29 +126,29 @@ a {
 }
 
 .md-sidenav-left {
-  ul.sideNavFlat {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background: $colors_backgroundColor2;
-
-    li.active {
-      background: $colors_accentColor;
-
-      & > a {
-        color: $colors_primaryTextColor1;
-        background: $colors_primaryColor;
-      }
-    }
-
-    li.anotherLevel {
-      border-bottom: 2px solid $colors_backgroundColor2;
-    }
-
-    li[data-hierarchy-level="0"] {
-      padding-left: 3px;
-    }
-  }
+  //ul.sideNavFlat {
+  //  list-style: none;
+  //  padding: 0;
+  //  margin: 0;
+  //  background: $colors_backgroundColor2;
+  //
+  //  li.active {
+  //    background: $colors_accentColor;
+  //
+  //    & > a {
+  //      color: $colors_primaryTextColor1;
+  //      background: $colors_primaryColor;
+  //    }
+  //  }
+  //
+  //  li.anotherLevel {
+  //    border-bottom: 2px solid $colors_backgroundColor2;
+  //  }
+  //
+  //  li[data-hierarchy-level="0"] {
+  //    padding-left: 3px;
+  //  }
+  //}
 
   ul > li > span {
     display: block;
@@ -167,9 +220,9 @@ a {
 }
 
 md-content.content {
-  background: $colors_backgroundColor2;
+  background: $colors_backgroundColor1;
 
-  md-card {
+  body > & > md-card {
     $border-radius: 3px;
     margin: 25px;
     border-radius: $border-radius;
@@ -179,8 +232,4 @@ md-content.content {
     }
   }
 
-}
-
-.scAttributes md-input-container {
-  padding-bottom: inherit;
 }

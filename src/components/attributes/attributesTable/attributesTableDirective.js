@@ -21,7 +21,6 @@
                     scope.entity.attributes = [];
                 }
 
-                scope.deleteValue = deleteValue;
                 scope.valueChanged = valueChanged;
                 scope.pressedEnter = newAttribute;
                 scope.editAttribute = editAttribute;
@@ -36,14 +35,15 @@
                         $log.error("attribute is not defined");
                         return;
                     } else {
-                        attribute.values = attribute.values.filter(function (value) {
-                            return getStringValueForType(value, attribute.type) != '';
-                        })
+                        attribute.values = attribute.values.filter(notEmpty)
                     }
                     attribute.edit = false;
 
                     updateEntity();
 
+                    function notEmpty(value) {
+                        return getStringValueForType(value, attribute.type) != '';
+                    }
                 }
 
                 function getStringValueForType(value, type) {
@@ -55,7 +55,7 @@
                     }
                 }
 
-                function deleteValue(attribute) {
+                function deleteAttribute(values, index) {
                     if (!attribute || 'object' !== typeof attribute) {
                         throw new Error('parameter \'attribute\' must be of type object. typeof attribute == \"' + (typeof attribute) + "\"")
                     }
@@ -96,12 +96,14 @@
                 }
 
                 function updateEntity() {
+                    $log.info("updateEntity: start");
                     return scCrud.entities.update(scAuth, scope.entity).then(function (updatedEntity) {
+                        $log.info("updateEntity: done");
                         scope.entity = updatedEntity;
                         scope.orgAttributes = angular.copy(scope.entity.attributes);
 
                         return updatedEntity;
-                    });
+                    }).catch(logError);
                 }
 
                 function abort(attribute) {
@@ -119,6 +121,9 @@
                     attribute.edit = true
                 }
 
+                function logError() {
+                    $log.error.apply($log, arguments);
+                }
             }
         };
     }

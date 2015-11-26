@@ -20,24 +20,24 @@
             });
 
         $scope.$watch(function () {
-            return sharedNavDataService.currentWorkspaceUid;
+            return sharedNavDataService.currentWorkspaceId;
         }, function (newVal, oldVal, scope) {
             if (!angular.isArray(vm.workspaces)) {
                 return;
             }
 
             vm.selectedTabIndex = vm.workspaces.findIndex(function (workspace) {
-                return workspace.uid === newVal;
+                return workspace.id === newVal;
             })
         });
 
         function setPathTo(path) {
-            $log.warn("setPathTo was called");
+            $log.warn("setPathTo was called:", path);
 
             if (angular.isString(path)) {
                 $location.path(path);
             } else {
-                $log.error('path must be of type string');
+                $log.error('path must be of type string. path =', path);
             }
         }
 

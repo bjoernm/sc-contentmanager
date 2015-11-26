@@ -84,9 +84,9 @@
 
             function buildIndexBasedOn(map, tree) {
                 return function buildIndexBasedOnFunction(entity) {
-                    if (entity.parent && entity.parent.uid) {
+                    if (entity.parent && entity.parent.id) {
                         // connect in both directions
-                        var parentEntity = map[entity.parent.uid];
+                        var parentEntity = map[entity.parent.id];
                         entity.parent = parentEntity;
                         parentEntity.children.push(entity);
                     } else {
@@ -97,7 +97,7 @@
 
             function buildMap(map) {
                 return function buildMapFunction(entity) {
-                    map[entity.uid] = entity;
+                    map[entity.id] = entity;
                     entity.children = [];
                 }
             }
@@ -115,7 +115,7 @@
 
                 for (var i = 0; i < types.length; i++) {
                     var type = types[i];
-                    var id = type.uid.substr(1 + type.uid.indexOf("/"));
+                    var id = type.id.substr(1 + type.id.indexOf("/"));
                     promises.push(scCrud.entities.findAll(scAuth, id));
                 }
 

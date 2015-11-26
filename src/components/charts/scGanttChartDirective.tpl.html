@@ -22,8 +22,8 @@
                           ng-attr-y="{{(calculatedValues.linePositionsWithOffset[$index]) + lineHeight.value - (taskTitleHeights[task.uid] || 0) / 2}}">
                     </text>
                     <rect ng-attr-y="{{::calculatedValues.upperLinePositions[$index]}}"
-                          ng-attr-x="{{getDatesPosition(task.startdate)}}"
-                          sc-svg-x2="{{getDatesPosition(task.enddate)}}"
+                          ng-attr-x="{{getDatesPosition(task.begin)}}"
+                          sc-svg-x2="{{getDatesPosition(task.end)}}"
                           ng-attr-height="{{::calculatedValues.outerLineHeight}}"
                           ng-attr-rx="{{::calculatedValues.halfTitlePadding}}"
                           ng-attr-ry="{{::calculatedValues.halfTitlePadding}}"
@@ -32,7 +32,7 @@
                           sc-svg-background-insert-as-first-child="true"
                           class="background"></rect>
                     <rect ng-attr-y="{{::calculatedValues.upperLinePositions[$index]}}"
-                          ng-attr-x="{{getDatesPosition(task.startdate)}}"
+                          ng-attr-x="{{getDatesPosition(task.begin)}}"
                           sc-svg-x2="{{getDatesPosition(getProgressDate(task))}}"
                           ng-attr-height="{{::calculatedValues.outerLineHeight}}"
                           ng-attr-rx="{{::calculatedValues.halfTitlePadding}}"

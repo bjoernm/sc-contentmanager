@@ -101,14 +101,18 @@
                 }
 
                 function getProgressDate(task) {
-                    var diff = task.enddate.getTime() - task.startdate.getTime();
+                    if(!task.end || !task.begin) {
+                        throw new Error
+                    }
+
+                    var diff = task.end.getTime() - task.begin.getTime();
                     var fraction = diff * task.progress;
-                    return new Date(task.startdate.getTime() + fraction);
+                    return new Date(task.begin.getTime() + fraction);
                 }
 
                 function getProgressTextDate(task) {
                     var a = getProgressDate(task).getTime();
-                    var b = task.startdate.getTime();
+                    var b = task.begin.getTime();
                     return new Date((a + b) / 2);
                 }
 
@@ -148,8 +152,8 @@
                     function getStaticDates(tasks) {
                         return tasks.reduce(function (a, b) {
                             return {
-                                'earliestDate': Math.min(a.earliestDate, b.startdate.getTime()),
-                                'latestDate': Math.max(a.latestDate, b.enddate.getTime())
+                                'earliestDate': Math.min(a.earliestDate, b.begin.getTime()),
+                                'latestDate': Math.max(a.latestDate, b.end.getTime())
                             };
                         }, {'earliestDate': scope.now, 'latestDate': scope.now});
                     }
@@ -271,8 +275,8 @@
                         nativeElement.lastChild.appendChild(doc.createTextNode("..."));
                     }
 
-                    scGanttChartController.setTitleLength(scope.$parent.task.uid, nativeElement.getBBox()["width"]);
-                    scGanttChartController.setTitleHeight(scope.$parent.task.uid, nativeElement.getBBox()["height"]);
+                    scGanttChartController.setTitleLength(scope.$parent.task.id, nativeElement.getBBox()["width"]);
+                    scGanttChartController.setTitleHeight(scope.$parent.task.id, nativeElement.getBBox()["height"]);
                 }
 
                 function removeChildren(element) {

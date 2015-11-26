@@ -17,8 +17,8 @@
                 type: "@"
             },
             link: function (scope, element, attrs) {
-                if (angular.isUndefined(scope.value) || (angular.isObject(scope.value) && angular.isUndefined(scope.value.name)) ) {
-                    throw new TypeError('the attribute \'attribute\' is required');
+                if (angular.isUndefined(scope.value) || (angular.isObject(scope.value) && angular.isUndefined(scope.value.name) && !angular.isDate(scope.value)) ) {
+                    $log.error('value is required. value =', scope.value);
                 }
             }
         };

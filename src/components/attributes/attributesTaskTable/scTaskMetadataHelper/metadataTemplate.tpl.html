@@ -1,0 +1,71 @@
+<dl ng-form="metadataForm">
+    <dt class="attributesName">Progress:</dt>
+    <dd ng-if="isInEdit(task.id)">
+        <md-input-container>
+            <input type="number"
+                   max="100"
+                   min="0"
+                   ng-keyup="pressedEnter($event, metadataForm.progressInput.$valid)"
+                   ng-model="task.progress"
+                   required
+                   sc-percentage-input
+                   name="progressInput"/>
+
+            <div ng-messages="metadataForm.progressInput.$error"
+                 ng-if="metadataForm.progressInput.$dirty">
+                <div ng-message="number">The value must be a number</div>
+                <div ng-message="max">The number must be lower than or equal to 100</div>
+                <div ng-message="min">The number must be greater than or equal to 0</div>
+            </div>
+        </md-input-container>
+    </dd>
+    <dd ng-if="!isInEdit(task.id)">{{task.progress | percentage: 2}}</dd>
+
+
+    <dt class="attributesName" ng-if="!!task.begin || isInEdit(task.id)">Start date:</dt>
+    <dd ng-if="isInEdit(task.id)">
+        <md-datepicker ng-model="task.begin"
+                       ng-change="pressedEnter({'keyCode':13}, !!task.start)"></md-datepicker>
+    </dd>
+    <dd ng-if="!!task.begin && !isInEdit(task.id)">{{task.begin | date: 'fullDate'}}</dd>
+
+
+    <dt class="attributesName" ng-if="!!task.end || isInEdit(task.id)">End date:</dt>
+    <dd ng-if="isInEdit(task.id)">
+        <md-datepicker ng-model="task.end"
+                       ng-change="pressedEnter({'keyCode':13}, !!task.end)"></md-datepicker>
+    </dd>
+    <dd ng-if="!!task.end && !isInEdit(task.id)">{{task.end | date: 'fullDate'}}</dd>
+
+
+    <dt class="attributesName" ng-if="!!task.owner || isInEdit(task.id)">Owner:</dt>
+    <dd ng-if="isInEdit(task.id)">
+        <!-- md-floating-label seems not to work. only with a value it works. -->
+        <md-autocomplete md-input-name="ownerInput"
+                         md-selected-item="task.owner"
+                         md-search-text="searchText"
+                         md-items="item in getUsersBySearch(searchText)"
+                         md-item-text="item.name"
+                         md-selected-item-change="pressedEnter({'keyCode':13}, !!value)"
+                         md-floating-label="">
+            <md-item-template>
+                <span md-highlight-text="searchText">{{item.name}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </dd>
+    <dd ng-if="!!task.owner && !isInEdit(task.id)">{{task.owner.name}}</dd>
+
+
+    <dt class="attributesName" ng-if="(!!task.expertises && task.expertises.length > 0) || isInEdit(task.id)">
+        Expertise:
+    </dt>
+    <dd ng-if="isInEdit(task.id)" ng-repeat="expertise in task.expertises track by $index">
+        <md-input-container>
+            <input type="text"
+                   ng-keyup="ensureEmptyLastValue(task.expertises)"
+                   ng-model="task.expertises[$index]"
+                   name="progressInput"/>
+        </md-input-container>
+    </dd>
+    <dd ng-if="(!!task.expertises && task.expertises.length > 0) && !isInEdit(task.id)" ng-repeat="expertise in task.expertises track by $index">{{expertise}}</dd>
+</dl>
