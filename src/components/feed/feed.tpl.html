@@ -1,123 +1,55 @@
-<!--div ng-if="feedCtrl.hasError">
-    <h1>Error: Loading changesets failed</h1>
-    <table>
-        <tbody>
-        <tr>
-            <td>Status:</td>
-            <td>{{feedCtrl.error.status}}</td>
-        </tr>
-        <tr>
-            <td>Method:</td>
-            <td>{{feedCtrl.error.config.method}}</td>
-        </tr>
-        <tr>
-            <td>URL:</td>
-            <td>{{feedCtrl.error.config.url}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div ng-if="!feedCtrl.hasError">
-    <h1>Changesets</h1>
-    <ul ng-repeat="event in feedCtrl.eventPage.events">
-        <li ng-init="change=event.changeset.changes[0]">
-            <strong>{{ event.user.name }}</strong> changed <strong>{{ change.changedFeatureName }}</strong>
-            for <strong>{{ event.entity.type}}</strong> <strong>{{ event.entity.name }}</strong>
-        </li>
-    </ul>
-</div-->
-<link href="src/css/feed.scss" rel="stylesheet">
-<div ng-controller="FeedController" ng-cloak="" class="carddemoInCardActions" ng-app="MyApp">
-    <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
-        <div flex="50" layout="column">
-            <md-card>
-                <md-card-header class="attribute-changed-header">
-                    <md-card-avatar>
-                        <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
-                    </md-card-avatar>
-                    <md-card-header-text>
-            <span class="md-title" layout="row" layout-align="space-between start">
-              <div>User</div>
-              <div>Timestamp</div>
-            </span>
-                        <span class="md-subhead">Attribute changed</span>
-                    </md-card-header-text>
-                </md-card-header>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Set AttributeName to Value</span>
-            <span class="md-subhead">
-                Breadcrump
-                <md-icon class="material-icons">chevron_right</md-icon>
-                to
-                <md-icon class="material-icons">chevron_right</md-icon>
-                Page
-            </span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="start center">
-                    <md-button class="md-icon-button" aria-label="Favorite">
-                        <md-icon class="material-icons">favorite</md-icon>
-                    </md-button>
-                    <md-button>
-                        <md-icon class="material-icons">comment</md-icon>
-                    </md-button>
-                    <md-card-icon-actions>
-                        <md-button class="md-icon-button" aria-label="toggle">
-                            <md-icon md-svg-icon="md-toggle-arrow"></md-icon>
-                        </md-button>
-                    </md-card-icon-actions>
-                </md-card-actions>
-                <md-card-content>
-                    <p>
-                        Space for Comments
-                    </p>
-                </md-card-content>
-            </md-card>
-            <md-card>
-                <md-card-header class="created-task-header">
-                    <md-card-avatar>
-                        <img class="md-user-avatar" src="http://www.fillmurray.com/g/100/100">
-                    </md-card-avatar>
-                    <md-card-header-text>
-            <span class="md-title" layout="row" layout-align="space-between start">
-              <div>User</div>
-              <div>Timestamp</div>
-            </span>
-                        <span class="md-subhead">New task created</span>
-                    </md-card-header-text>
-                </md-card-header>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Created new Task</span>
-            <span class="md-subhead">
-              Breadcrump
-                <md-icon class="material-icons">chevron_right</md-icon>
-                to
-                <md-icon class="material-icons">chevron_right</md-icon>
-                Page
-            </span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="start center">
-                    <md-button class="md-icon-button" aria-label="Favorite">
-                        <md-icon class="material-icons">favorite</md-icon>
-                    </md-button>
-                    <md-button>
-                        <md-icon class="material-icons">comment</md-icon>
-                    </md-button>
-                    <md-card-icon-actions>
-                        <md-button class="md-icon-button" aria-label="toggle">
-                            <md-icon md-svg-icon="md-toggle-arrow"></md-icon>
-                        </md-button>
-                    </md-card-icon-actions>
-                </md-card-actions>
-                <md-card-content>
-                    <p>
-                        Space for Comments
-                    </p>
-                </md-card-content>
-            </md-card>
-        </div>
-    </md-content>
-</div>
+<sc-feed-item event="feedCtrl.eventPage.events[0]"></sc-feed-item>
+
+test
+<!--<link href="src/css/feed.scss" rel="stylesheet">-->
+<!--<div ng-controller="FeedController" ng-cloak="" class="carddemoInCardActions" ng-app="MyApp">-->
+    <!--<md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">-->
+        <!--<div flex="50" layout="column">-->
+
+            <!--<md-card>-->
+                <!--<md-card-header class="created-task-header">-->
+                    <!--<md-card-avatar>-->
+                        <!--<img class="md-user-avatar" src="http://www.fillmurray.com/g/100/100">-->
+                    <!--</md-card-avatar>-->
+                    <!--<md-card-header-text>-->
+            <!--<span class="md-title" layout="row" layout-align="space-between start">-->
+              <!--<div>User</div>-->
+              <!--<div>Timestamp</div>-->
+            <!--</span>-->
+                        <!--<span class="md-subhead">New task created</span>-->
+                    <!--</md-card-header-text>-->
+                <!--</md-card-header>-->
+                <!--<md-card-title>-->
+                    <!--<md-card-title-text>-->
+                        <!--<span class="md-headline">Created new Task</span>-->
+            <!--<span class="md-subhead">-->
+              <!--Breadcrump-->
+                <!--<md-icon class="material-icons">chevron_right</md-icon>-->
+                <!--to-->
+                <!--<md-icon class="material-icons">chevron_right</md-icon>-->
+                <!--Page-->
+            <!--</span>-->
+                    <!--</md-card-title-text>-->
+                <!--</md-card-title>-->
+                <!--<md-card-actions layout="row" layout-align="start center">-->
+                    <!--<md-button class="md-icon-button" aria-label="Favorite">-->
+                        <!--<md-icon class="material-icons">favorite</md-icon>-->
+                    <!--</md-button>-->
+                    <!--<md-button>-->
+                        <!--<md-icon class="material-icons">comment</md-icon>-->
+                    <!--</md-button>-->
+                    <!--<md-card-icon-actions>-->
+                        <!--<md-button class="md-icon-button" aria-label="toggle">-->
+                            <!--<md-icon md-svg-icon="md-toggle-arrow"></md-icon>-->
+                        <!--</md-button>-->
+                    <!--</md-card-icon-actions>-->
+                <!--</md-card-actions>-->
+                <!--<md-card-content>-->
+                    <!--<p>-->
+                        <!--Space for Comments-->
+                    <!--</p>-->
+                <!--</md-card-content>-->
+            <!--</md-card>-->
+        <!--</div>-->
+    <!--</md-content>-->
+<!--</div>-->
