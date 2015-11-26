@@ -1,42 +1,6650 @@
-{
-  "name": "no label provided.",
-  "changes": [
+// Events which are already used in the current activity stream of sociocortex are being reused for getting all the relevant
+// changesets.Events are calculated from Changesets internally. This is one page of all events. We need pages with a part of all
+// events since we can't load all events at once. In this case we have loaded the page at index 1. We also requested
+// number of 300 events per page. Since there are only 501 events we only get a number of 201 events in the "events"
+// field. The page count starts at 0. Therefore the first page has "pageIndex" 0 and total of 300 events as opposed to
+// this page at "pageIndex" 1.
+
+{ // JSON representation of an event.
+  "pageIndex": 1, // Starts at 0.
+  "hasNext": false, // Are there more events on a further page?
+  "requestedPageSize": 300,
+  "totalNumberOfEvents": 501,
+  "totalNumberOfPages": 2,
+  "events": [ // List of events which will probably represent the feed items.
     {
-      "changeType": "simpleValue",
-      "change": {
-        "value": {
-          "type": "string",
-          "value": "[]"
-        }
+      "entityBreadcrumb": [],// Currently only a list of parent pages is calculated. There will be more entities here later.
+      "eventType": "CHANGE", // ADD,CHANGE,REMOVE,RESTORE
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
       },
-      "name": "'Birth date'"
+      "space": { // The workspace. Using key "space" because Java type is only Space not Workspace.
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": { // The changed entity. In this case a hybrid entity of type Customer called Hanna Moos.
+        "name": "Hanna Moos",
+        "id": "moos",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'", // The actual name of the changed feature (attribute etc.) of the entity.
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]" // This means no change?
+              }
+            }
+          }
+        ],
+        "id": "ntngdqsnahip",
+        "when": "26.11.2015 05:34" // When was the changeset created.
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Hanna Moos",
+        "id": "moos",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1wiveu8dlud15",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Hanna Moos",
+        "id": "moos",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "27en41u2mwcr",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order19",
+        "id": "order19",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "d2vsv87wpy83",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order19",
+        "id": "order19",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1gw7wb63q1jsa",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order19",
+        "id": "order19",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "mjfvsibu6jtw",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order19",
+        "id": "order19",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "73k2dpdgcwog",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order19",
+        "id": "order19",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "gj6ojrr6kwmt",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order07",
+        "id": "order07",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "12nup2v2tuk1b",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order07",
+        "id": "order07",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "19k8w0sy2kkvb",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order07",
+        "id": "order07",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1hrpj7z60qzfp",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order07",
+        "id": "order07",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ufgvjpy1ryax",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order07",
+        "id": "order07",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "3zu93n7m3l1y",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order11",
+        "id": "order11",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1le8bbluk86cj",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order11",
+        "id": "order11",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1mnptifhutgfp",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order11",
+        "id": "order11",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "iqx3qnn18vfy",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order11",
+        "id": "order11",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "yi3byscjzgyy",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order11",
+        "id": "order11",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "61sm53x6e923",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Côte de Blaye",
+        "id": "cote",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ed25jircwf6y",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Côte de Blaye",
+        "id": "cote",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "cm1umvktpkbl",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Côte de Blaye",
+        "id": "cote",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "2kzelj1dl2oz",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order23",
+        "id": "order23",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1w28jofm80voc",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order23",
+        "id": "order23",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1hx2zpmvvkwd1",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order23",
+        "id": "order23",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "227fkpuzpfcl",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order23",
+        "id": "order23",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1uabnwsayamvo",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order23",
+        "id": "order23",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "19ovpvrm3r4ut",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Inlagd Sill",
+        "id": "inlagd",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "xdzxak884vsq",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Inlagd Sill",
+        "id": "inlagd",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "16662l1lilnp4",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Inlagd Sill",
+        "id": "inlagd",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "x1pz94x1vkbk",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order35",
+        "id": "order35",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "octspfp1g9x3",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order35",
+        "id": "order35",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "adi6vdmwki24",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order35",
+        "id": "order35",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "55j72a1mc0gw",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order35",
+        "id": "order35",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "15an3m9uhlp0x",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order35",
+        "id": "order35",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1oqozdalwll4p",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Victoria Ashworth",
+        "id": "ashworth",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "9v8nxoml1mvq",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Victoria Ashworth",
+        "id": "ashworth",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "jnp2bk6lzgrn",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Victoria Ashworth",
+        "id": "ashworth",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "wnaayjk1iflo",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gravad lax",
+        "id": "lax",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "dv9z5psf1al7",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gravad lax",
+        "id": "lax",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "8eusghp9vtqg",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gravad lax",
+        "id": "lax",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "4a4fl0ee2fsv",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Antonio Moreno",
+        "id": "moreno",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "bq9s9vixjulu",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Antonio Moreno",
+        "id": "moreno",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "15ah0tw4ldaro",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Antonio Moreno",
+        "id": "moreno",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "f1tpcja2bmku",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order08",
+        "id": "order08",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "16vwvc7dlzvpc",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order08",
+        "id": "order08",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1jernmn3sz9xk",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order08",
+        "id": "order08",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "kc898o0by6er",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order08",
+        "id": "order08",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1t8ezhqsis7s3",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order08",
+        "id": "order08",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "i7mefunjk10f",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order12",
+        "id": "order12",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "r2dsijq597hv",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order12",
+        "id": "order12",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1kk7vbs44zmqk",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order12",
+        "id": "order12",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "68qxeefae84u",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order12",
+        "id": "order12",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "l47mswmay3t2",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order12",
+        "id": "order12",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1eq31yvpebuaq",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Tunnbröd",
+        "id": "tunnbroed",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1xafqsi8frkt1",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Tunnbröd",
+        "id": "tunnbroed",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "103u15kswd55p",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Tunnbröd",
+        "id": "tunnbroed",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "7znsg4ufsret",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [
+        {
+          "name": "Northwind - Home",
+          "id": "3kg0l2qy17sq",
+          "type": "Text Page"
+        }
+      ],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Dashboard",
+        "id": "dashboard",
+        "type": "Text Page"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "content",
+            "changeType": "richString",
+            "change": {}
+          }
+        ],
+        "id": "2v6jnq3rkjgo",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order24",
+        "id": "order24",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1nxvodins74e6",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order24",
+        "id": "order24",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "jt4ja4skmmmx",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order24",
+        "id": "order24",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1b4o53w5msmzu",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order24",
+        "id": "order24",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "l4eskysordzd",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order24",
+        "id": "order24",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1upvy3aqdk7tk",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Grandmas Boysenberry Spread",
+        "id": "boysenberry",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1782hyqzuxd1w",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Grandmas Boysenberry Spread",
+        "id": "boysenberry",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "121an9ddzx5z7",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Grandmas Boysenberry Spread",
+        "id": "boysenberry",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1vbicqib4rznv",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order36",
+        "id": "order36",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "ftw6iyd2vmqk",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order36",
+        "id": "order36",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "17pt6mjieryeq",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order36",
+        "id": "order36",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ghdfixulkoym",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order36",
+        "id": "order36",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "ufsl0cyr70og",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order36",
+        "id": "order36",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1cy0f6bpln6cz",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Thomas Hardy",
+        "id": "hardy",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "ofno604j4mlo",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Thomas Hardy",
+        "id": "hardy",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "297uq699pyx5",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Thomas Hardy",
+        "id": "hardy",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "8qoj6rjtji7v",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Rössle Sauerkraut",
+        "id": "sauerkraut",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "12s0nq10ntjt7",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Rössle Sauerkraut",
+        "id": "sauerkraut",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "idjxu0rs1cei",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Rössle Sauerkraut",
+        "id": "sauerkraut",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1c0dmqhkzk0l7",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order40",
+        "id": "order38",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1orth33ugg125",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order40",
+        "id": "order38",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1vp03966p3w9d",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order40",
+        "id": "order38",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1x629yazpzoww",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order40",
+        "id": "order38",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "lvmsfwdo03qa",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order40",
+        "id": "order38",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "zsgdwgaz4hb6",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Mishi Kobe Niku",
+        "id": "mishi",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1a93pazfaakqm",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Mishi Kobe Niku",
+        "id": "mishi",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ffvljgr4e36w",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Mishi Kobe Niku",
+        "id": "mishi",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ebux4aqlvqu4",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Sasquatch Ale",
+        "id": "sasquatch",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "a5iwbznm32tq",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Sasquatch Ale",
+        "id": "sasquatch",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1anwksh65gyo3",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Sasquatch Ale",
+        "id": "sasquatch",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "lsax8799ybi1",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Ikura",
+        "id": "ikura",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "bk4h5mwkoynn",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Ikura",
+        "id": "ikura",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "t4p3piqsbr6",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Ikura",
+        "id": "ikura",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1klcs48ps2xam",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order17",
+        "id": "order17",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "z8quvhyq8s9j",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order17",
+        "id": "order17",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "uvn312u9qqas",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order17",
+        "id": "order17",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1av4mmladvbyp",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order17",
+        "id": "order17",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "12r6om2dvmgr3",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order17",
+        "id": "order17",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1c9pemjmm26w8",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Martin Frederique Citeaux",
+        "id": "citeaux",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1m0ttk9pe5cib",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Martin Frederique Citeaux",
+        "id": "citeaux",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "6g9m2pxhxis7",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Martin Frederique Citeaux",
+        "id": "citeaux",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "3vgn2dsrrmwc",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Teatime Chocolate Biscuits",
+        "id": "teatime",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1d5a8gheznukt",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Teatime Chocolate Biscuits",
+        "id": "teatime",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1g3cqqf03l0ok",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Teatime Chocolate Biscuits",
+        "id": "teatime",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "13rxidmkvqi2s",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order29",
+        "id": "order29",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "p9j65mwhtx4t",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order29",
+        "id": "order29",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ovkimncymnix",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order29",
+        "id": "order29",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1nsbxla3o9p1j",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order29",
+        "id": "order29",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "18gl5od7nmsgo",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order29",
+        "id": "order29",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "vdsaf1m20hx",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order33",
+        "id": "order33",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "10tup56pifcog",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order33",
+        "id": "order33",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "19wwavx3eh6hr",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order33",
+        "id": "order33",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "zida2j367kez",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order33",
+        "id": "order33",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1b63yukcyyrhn",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order33",
+        "id": "order33",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1dohrmpsgcjgw",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order21",
+        "id": "order21",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "127ems23tsx0e",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order21",
+        "id": "order21",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "14gui0ne1tpk3",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order21",
+        "id": "order21",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1feulvkblihiu",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order21",
+        "id": "order21",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1bahjidhu1z1i",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order21",
+        "id": "order21",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1mtanldljmi5j",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order05",
+        "id": "order05",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "g28ar8xcnjvc",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order05",
+        "id": "order05",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "17xwei3z59has",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order05",
+        "id": "order05",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1mdfxnxncmbsu",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order05",
+        "id": "order05",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "zkejoxlz4vk2",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order05",
+        "id": "order05",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "qmjpsxirgkkd",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Elizabetz Lincoln",
+        "id": "lincoln",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "tif404jcdfu5",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Elizabetz Lincoln",
+        "id": "lincoln",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "19jtca641er0y",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Elizabetz Lincoln",
+        "id": "lincoln",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "7q04c7txava7",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Francisco Chang",
+        "id": "francisco",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "8n4og8obz9o5",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Francisco Chang",
+        "id": "francisco",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "yqs1nbtly0pm",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Francisco Chang",
+        "id": "francisco",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "xciwxthgyu3j",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Chef Antons Gumbo Mix",
+        "id": "gumbo",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "u70ga97u2n8d",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Chef Antons Gumbo Mix",
+        "id": "gumbo",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "56g152see7oq",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Chef Antons Gumbo Mix",
+        "id": "gumbo",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1lrt681f1egqd",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gumbär Gummibärchen",
+        "id": "gumbaer",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "31707t4bk0ws",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gumbär Gummibärchen",
+        "id": "gumbaer",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1fwzabm5aa1ao",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gumbär Gummibärchen",
+        "id": "gumbaer",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1a16mx1jeh0ou",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Guaraná Fantástica",
+        "id": "guarana",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "waug5gtcbog6",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Guaraná Fantástica",
+        "id": "guarana",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1e5uf81c0otac",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Guaraná Fantástica",
+        "id": "guarana",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1pu3y73fused",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Ana Trujillo",
+        "id": "trujillo",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ttt2xknkmxwk",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Ana Trujillo",
+        "id": "trujillo",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "p1h6xq2jlkz1",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Ana Trujillo",
+        "id": "trujillo",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "cn6iosguy0b4",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order06",
+        "id": "order06",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1m9o6klc1clwy",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order06",
+        "id": "order06",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1wt61sy2djb3t",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order06",
+        "id": "order06",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "13la3vxdyvg1a",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order06",
+        "id": "order06",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "7gn1cg9xdt02",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order06",
+        "id": "order06",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "kfnreh7nixrk",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order18",
+        "id": "order18",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "171ziekefh0f4",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order18",
+        "id": "order18",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "vcu9osuhvkp0",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order18",
+        "id": "order18",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1pg7z56wkfs37",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order18",
+        "id": "order18",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "qp9d0b4m7765",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order18",
+        "id": "order18",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1wf11he28ln8g",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order22",
+        "id": "order22",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "16atamxx250gl",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order22",
+        "id": "order22",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "5teud6axw7rz",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order22",
+        "id": "order22",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "e53vto992lub",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order22",
+        "id": "order22",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1e7eom9dhklnq",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order22",
+        "id": "order22",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1aahu1tiojfvo",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order34",
+        "id": "order34",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "kdijn1n5d1zi",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order34",
+        "id": "order34",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "dw3e53l7cj3d",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order34",
+        "id": "order34",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "p8p0g8w1z3ez",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order34",
+        "id": "order34",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ow1qcn67zge2",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order34",
+        "id": "order34",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "hvhdb9pa16lm",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Tofu",
+        "id": "tofu",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1r5dq6tf83duf",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Tofu",
+        "id": "tofu",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "qso9aa1pakew",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Tofu",
+        "id": "tofu",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1k9ui3e2o9qj5",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order10",
+        "id": "order10",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1uwd72eq16s05",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order10",
+        "id": "order10",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "9jxtuhroyp0r",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order10",
+        "id": "order10",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1hyzkxgjw3orr",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order10",
+        "id": "order10",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "pkjv4ybw6onu",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order10",
+        "id": "order10",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1aa3h5s60wj71",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Chai",
+        "id": "chai",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1vlj8s5j1wi8c",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Chai",
+        "id": "chai",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1hptfsefh3ee8",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Chai",
+        "id": "chai",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1sc3n34xyqyn6",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Patricio Simpson",
+        "id": "simpson",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ajsw9ybmy6a7",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Patricio Simpson",
+        "id": "simpson",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "fc59imx2yq8r",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Patricio Simpson",
+        "id": "simpson",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1na1wquppp32b",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Schoggi Schokolade",
+        "id": "schoggi",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "y3f2x7kvau8l",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Schoggi Schokolade",
+        "id": "schoggi",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1bq4fcxyq9a6w",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Schoggi Schokolade",
+        "id": "schoggi",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "10kweipovjw22",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Northwoods Cranberry Sauce",
+        "id": "northwoods",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "9uidynjk21s1",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Northwoods Cranberry Sauce",
+        "id": "northwoods",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1w2smo2th4m2o",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Northwoods Cranberry Sauce",
+        "id": "northwoods",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "18up5vu1d4q3p",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order39",
+        "id": "order37",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "qb56wnrnoyiu",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order39",
+        "id": "order37",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1onunfalwqiic",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order39",
+        "id": "order37",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "6ag53v70e8sa",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order39",
+        "id": "order37",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "mt5icua6vj0h",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order39",
+        "id": "order37",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "34n348bkg5e6",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gorgonzola Telino",
+        "id": "gorgonzola",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Supplier'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "ehmknhxnv102",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gorgonzola Telino",
+        "id": "gorgonzola",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Price'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1gt76376qfws",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Gorgonzola Telino",
+        "id": "gorgonzola",
+        "type": "Product"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Category'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "nxmjs3j52jke",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Christina Berglund",
+        "id": "berglund",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Birth date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1hrya9bahss0u",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Christina Berglund",
+        "id": "berglund",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Sex'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "10sx91e5jyy0v",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Christina Berglund",
+        "id": "berglund",
+        "type": "Customer"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Company'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "oqdt1hzbjwq1",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order31",
+        "id": "order31",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ae8ws1ywbw9j",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order31",
+        "id": "order31",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1ljckiytdzvej",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order31",
+        "id": "order31",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "encq6kefrham",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order31",
+        "id": "order31",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "1hgrwn7y6box6",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order31",
+        "id": "order31",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "14lm8khdqoeg8",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order15",
+        "id": "order15",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "60z1ok0dk1wl",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order15",
+        "id": "order15",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Product'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "pv4la69uqd8a",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order15",
+        "id": "order15",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Customer'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "roqmn3z11h0",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order15",
+        "id": "order15",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Shipping date'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "clp31i6ranzw",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order15",
+        "id": "order15",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Discount'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "x8mrxeq15289",
+        "when": "26.11.2015 05:34"
+      }
+    },
+    {
+      "entityBreadcrumb": [],
+      "eventType": "CHANGE",
+      "user": {
+        "name": "Max Mustermann",
+        "id": "jkff8ffg05jv"
+      },
+      "space": {
+        "name": "Northwind",
+        "id": "northwind"
+      },
+      "entity": {
+        "name": "Order27",
+        "id": "order27",
+        "type": "Order"
+      },
+      "changeset": {
+        "changes": [
+          {
+            "changedFeatureName": "'Quantity'",
+            "changeType": "simpleValue",
+            "change": {
+              "value": {
+                "type": "string",
+                "value": "[]"
+              }
+            }
+          }
+        ],
+        "id": "11g5av0bi4ls3",
+        "when": "26.11.2015 05:34"
+      }
     }
-  ],
-  "id": "10555745zgi0u",
-  "rootEntity": {
-    "name": "Ana Trujillo",
-    "id": "trujillo"
-  },
-  "user": {
-    "versions": [
-      {
-        "date": "2015-11-19T16:58:05.604",
-        "changes": [],
-        "action": "Added",
-        "type": "_new"
-      }
-    ],
-    "name": "Max Mustermann",
-    "mayEdit": true,
-    "groups": [
-      {
-        "name": "Membership of Max Mustermann in Administrators",
-        "id": "pqzut1ea9irg"
-      }
-    ],
-    "id": "rytx6qsc9qlm",
-    "href": "http://localhost:8083/intern/tricia/api/v1/users/rytx6qsc9qlm",
-    "lastLoginDate": "2015-11-19 16:59:06.42",
-    "email": "mustermann@test.sc"
-  }
+  ]
 }
