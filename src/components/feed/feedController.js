@@ -1,10 +1,13 @@
-(function () {
+(function (angular) {
 
     /**
-     * Controller for the feed directive.
-     *
+     * @ngdoc controller
      * @name feedCtrl
      * @type FeedController
+     * @requires scEventService
+     * @description
+     *
+     * Controller for the feed directive.
      */
     angular
         .module('scFeed')
@@ -17,14 +20,10 @@
 
         feedCtrl.hasError = false;
 
-        /**
-         * @type {Error}
-         */
+        /** @type {Error} */
         feedCtrl.error = null;
 
-         /**
-         * @type {EventPage}
-         */
+         /** @type {ScEventPage} */
         feedCtrl.eventPage = null;
 
         eventService.getEvents().then(
@@ -37,4 +36,4 @@
 
             });
     }
-})();
+})(angular);

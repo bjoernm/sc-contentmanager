@@ -2,69 +2,76 @@
     'use strict';
 
     /**
-     * JSDoc type definition for a simple entity referenced by events and changesets.
-     *
-     * @typedef {Object} Entity
-     *
+     * @typedef {Object} ScEntity
      * @property {string} id The uniqe id of the entity.
      * @property {string} name The name of the entity
+     * @description
+     *
+     * Type definition for a simple entity referenced by events and changesets.
      */
 
     /**
-     * JSDoc type definition for a simple entity referenced by events and changesets.
-     *
-     * @typedef {Entity} HybridEntity
-     *
+     * @typedef {ScEntity} ScHybridEntity
      * @property {string} type The type of entity.
+     * @description
+     *
+     * Type definition for a simple entity referenced by events and changesets.
      */
 
     /**
-     * JSDoc type definition for a change related to a changeset.
-     *
-     * @typedef {Object} Change
-     *
+     * @typedef {Object} ScChange
      * @property {string} changedFeatureName The name of the feature that changed.
      * @property {string} changeType The type of change.
      * @property {Object} change The change value (varies).
+     * @description
+     *
+     * Type definition for a change related to a changeset.
      */
 
     /**
-     * JSDoc type definition for a changeset related to an event.
-     *
-     * @typedef {Object} Changeset
-     *
-     * @property {string} id The uniqe id of the changeset.
+     * @typedef {Object} ScChangeset
+     * @property {string} id The unique id of the changeset.
      * @property {string} when When was the changeset created.
-     * @property {Array<Change>} changes Changes that were made.
-
+     * @property {Array<ScChange>} changes Changes that were made.
+     * @description
+     *
+     * JSDoc type definition for a changeset related to an event.
      */
 
     /**
-     * JSDoc type definition for an event in an event page.
-     *
-     * @typedef {Object} Event
-     *
-     * @property {Array<Entity>} entityBreadcrumb A list of entities to display in the breadcrumb.
+     * @typedef {Object} ScEvent
+     * @property {Array<ScEntity>} entityBreadcrumb A list of entities to display in the breadcrumb.
      * @property {string} eventType The type of event (ADD, REMOVE, CHANGE, RESTORE or UNKNOWN.
-     * @property {Entity} user The user responsible for the change.
-     * @property {Entity} space The space or workspace for the change.
-     * @property {HybridEntity} entity The changed entity.
-     * @property {Changeset} changeset The releated changeset.
+     * @property {ScEntity} user The user responsible for the change.
+     * @property {ScEntity} space The space or workspace for the change.
+     * @property {ScHybridEntity} entity The changed entity.
+     * @property {ScChangeset} changeset The related changeset.
+     * @description
+     *
+     * Type definition for an event in an event page.
      */
 
     /**
-     * JSDoc type definition for an event page loaded via this service.
-     *
-     * @typedef {Object} EventPage
-     *
+     * @typedef {Object} ScEventPage
      * @property {integer} pageIndex The index of the page starting at 0.
      * @property {boolean} hasNext Whether there is another event page.
      * @property {integer} requestedPageSize The requested size of the page.
      * @property {integer} totalNumberOfEvents The total number of events.
      * @property {integer} totalNumberOfPages The total number of pages.
-     * @property {Array<Event>} events The events on this page.
+     * @property {Array<ScEvent>} events The events on this page.
+     * @description
+     *
+     * Type definition for an event page loaded via this service.
      */
 
+    /**
+     * @ngdoc service
+     * @type ScEventService
+     * @requires $resource $http $base64
+     * @description
+     *
+     * The service for loading events for the feed from the server.
+     */
     angular
         .module('scFeed')
         .service('scEventService', ScEventService);
@@ -83,7 +90,7 @@
          * @const
          * @static
          */
-        const SC_INSTANCE_URL = 'http://localhost:8083/intern/tricia/';
+        var SC_INSTANCE_URL = 'http://localhost:8083/intern/tricia/';
 
         /**
          * Credentials for Basic Authentication.
@@ -92,29 +99,31 @@
          * @const
          * @static
          */
-        const CREDENTIALS = {
+        var CREDENTIALS = {
             user: 'mustermann@test.sc',
             password: 'ottto'
         };
 
         /**
          * Definition of resources for service.
+         * @type {Resource}
          */
-        var Events =
+        var EventResource =
             $resource(apiToInstanceUrl('api/v1/changesets'));
 
-        /** Service initialization. */
+
         initializeBasicAuthentication();
+
 
         /**
          * Retrieves an event page from the server.
          *
-         * @promise {EventPage} A page of events.
+         * @promise {ScEventPage} A page of events.
          * @reject {Error} An error if one occurred.
          * @public
          **/
         function getEvents() {
-            return Events.get().$promise;
+            return EventResource.get().$promise;
         }
 
         /**
