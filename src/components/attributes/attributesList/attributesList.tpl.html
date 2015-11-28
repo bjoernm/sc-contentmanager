@@ -1,0 +1,55 @@
+<dl>
+    <dt ng-repeat-start="attribute in attributes | orderBy: 'name' track by attribute.name"
+        layout="row"
+        layout-align="space-between end">
+
+    <div class="attributesName">{{::attribute.name}}</div>
+    <div>
+        <md-icon ng-if="!!attribute.edit" ng-click="abortEditing(attribute)">undo</md-icon>
+        <md-icon ng-if="!!attribute.edit" ng-click="updateAttribute(attribute)">done</md-icon>
+    </div>
+    <md-menu ng-if="!attribute.edit">
+        <!-- Trigger element is a md-button with an icon -->
+        <md-icon ng-click="$mdOpenMenu($event)"
+                 class="md-icon-button"
+                 aria-label="Open context menu">
+            more_vert
+        </md-icon>
+        <md-menu-content>
+            <md-menu-item>
+                <md-button ng-click="editAttribute(attribute)">
+                    <md-icon md-font-icon>edit</md-icon>
+                    Edit
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="deleteAttribute(attribute)">
+                    <md-icon md-font-icon>delete</md-icon>
+                    Delete
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+    </dt>
+    <dd ng-if="!attribute.edit">
+        <ul class="attributeValueList">
+            <li ng-repeat="value in attribute.values track by $index">
+                <sc-attribute-value value="value" type="{{attribute.type}}"></sc-attribute-value>
+            </li>
+        </ul>
+    </dd>
+    <dd ng-repeat-end ng-if="!!attribute.edit">
+        <ul class="attributeValueList">
+            <li ng-repeat="value in attribute.values track by $index" layout-align="space-between end" layout="row">
+                <sc-attribute-value-edit values="attribute.values"
+                                         index="$index"
+                                         type="{{attribute.type}}"
+                                         flex="grow"
+                                         on-change="updateAttribute(attribute)"></sc-attribute-value-edit>
+                <md-icon ng-click="attribute.values.splice($index, 1)"
+                         ng-if="$index + 1 < attribute.values.length">clear
+                </md-icon>
+            </li>
+        </ul>
+    </dd>
+</dl>

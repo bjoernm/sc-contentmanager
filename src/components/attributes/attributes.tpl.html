@@ -6,10 +6,32 @@
     </md-toolbar>
     <md-tabs md-dynamic-height md-stretch-tabs="always">
         <md-tab label="Attributes">
-                <sc-attributes-table entity="entity" layout-fill></sc-attributes-table>
+            <div class="attributesTable" on-change="onChange()" layout-fill>
+                <sc-attributes-list attributes="entity.attributes" on-change="onChange()"></sc-attributes-list>
+                <div>
+                    <md-input-container class="withoutPadding withoutMargin">
+                        <label>New Attribute</label>
+                        <input ng-keyup="addNewEntityAttribute($event, vm.newAttributeName)"
+                               ng-model="vm.newAttributeName"/>
+                    </md-input-container>
+                </div>
+            </div>
         </md-tab>
         <md-tab label="Tasks">
-                <sc-attributes-task-table entity="entity" layout-fill></sc-attributes-task-table>
+            <div>
+                <sc-attributes-task-list tasks="entity.tasks" page-attributes="entity.attributes" on-change="onChange()" layout-fill></sc-attributes-task-list>
+
+                <div class="attributesTable">
+                    <div layout="row">
+                        <md-input-container flex="grow">
+                            <label>Add new task</label>
+                            <input type="text"
+                                   ng-model="newTaskName"/>
+                        </md-input-container>
+                        <md-icon ng-click="addNewTask(newTaskName)">done</md-icon>
+                    </div>
+                </div>
+            </div>
         </md-tab>
     </md-tabs>
 </md-card>

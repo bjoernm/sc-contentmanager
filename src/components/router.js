@@ -34,7 +34,7 @@
     function resolveEntityData($route, scMainNavService, scMainContentService, sharedNavDataService, $log) {
         var entityId = $route.current.params.entityId;
 
-        $log.info("start:");
+        $log.info("start:", $route.current.params);
         var start = new Date().getTime();
         return scMainContentService.getPage(entityId)
             .then(extendSharedNavData(sharedNavDataService, scMainNavService))
@@ -48,11 +48,11 @@
 
     resolveWorkspaceData.$inject = ['$route', 'scMainNavService', 'scMainContentService', 'sharedNavDataService', '$log'];
     function resolveWorkspaceData($route, scMainNavService, scMainContentService, sharedNavDataService, $log) {
-        var workspaceUid = "workspaces/" + $route.current.params.workspaceId;
+        var workspaceId = $route.current.params.workspaceId;
 
-        $log.info("start:", workspaceUid);
+        $log.info("start:", workspaceId);
         var start = new Date().getTime();
-        return scMainNavService.loadTextPages(workspaceUid)
+        return scMainNavService.loadTextPages(workspaceId)
             .then(getSingleEntity(scMainContentService))
             .then(fillSharedNavData(sharedNavDataService))
             .then(function () {
@@ -70,7 +70,7 @@
             }
 
             if (shared.currentWorkspaceId !== entity.workspace.id) {
-                return scMainNavService.loadTextPages("workspaces/" + entity.workspace.id)
+                return scMainNavService.loadTextPages(entity.workspace.id)
                     .then(fill)
             } else {
                 return fill(shared.entities);

@@ -6,29 +6,25 @@
         .service('scMainContentService', mainContentService);
 
 
-    mainContentService.$inject = ['$q', '$log', 'scCrud', '$cacheFactory', 'scAuth'];
-    function mainContentService($q, $log, scCrud, $cacheFactory, scAuth) {
-        var cache = $cacheFactory('scMainContentServiceCache');
+    mainContentService.$inject = ['$q', '$log', 'scData', 'scModel', '$cacheFactory'];
+    function mainContentService($q, $log, scData, scModel, $cacheFactory) {
 
         return {
-            getPage: getPage,
+            getPage: getPage
         };
 
         function getPage(entityId) {
-
-            var options = {
-                includeDetails: true,
-                resolveProperties: true,
-                unwrap: false,
-                resolveReferences: false
-            };
-
-            return scCrud.entities.findOne(scAuth, entityId)
-                //getCachedEntity(scAuth, entityUid)
+            return scData.Entity
+                .get({id: entityId}).$promise
                 .then(attachType)
-                .then(addTestTask)
+                //.then(addTestTask)
                 .then(formatEntity)
-                .catch($log.error);
+                .catch(errorInMainContentService);
+        }
+
+        function errorInMainContentService() {
+            $log.error("The following error appeared in the scMainContentService");
+            $log.error.apply($log, arguments);
         }
 
         function addTestTask(entity) {
@@ -36,34 +32,6 @@
 
             entity.tasks.push(getTestTask());
             return entity
-        }
-
-        function getCachedEntity(scAuth, uid) {
-            var cachedEntity = cache.get(uid);
-
-            if (angular.isObject(cachedEntity)) {
-                return $q.when(cachedEntity);
-            }
-
-            $log.info("entity ", uid, "was not in cache. getting from server...");
-
-            return scCrud.entities.findOne(scAuth, uid)
-                .then(cacheResults);
-        }
-
-        function cacheResults(result) {
-            if (angular.isArray(result)) {
-                result.forEach(cacheSingleResult);
-            } else if (angular.isObject(result)) {
-                cacheSingleResult(result);
-            }
-
-            return result;
-
-            function cacheSingleResult(singleResult) {
-                if (singleResult.id)
-                    cache.put(singleResult.id, singleResult);
-            }
         }
 
         function formatEntity(entity) {
@@ -89,15 +57,13 @@
                 throw new Error("the given entity has no entityType or entityType.id");
             }
 
-            return scCrud.types.findOne(scAuth, entity.entityType.id)
+            return scModel.EntityType
+                .get({id: entity.entityType.id}).$promise
                 .then(function success(entityType) {
                     entity.entityType = entityType;
                     return entity;
                 })
-                .catch(function error() {
-                    $log.error("could not get entityType", entity.entityType.id, "of entity", entity.id);
-                    $log.error.apply($log, arguments);
-                });
+                .catch(errorInMainContentService);
         }
 
         function convertDates(entity) {
@@ -105,8 +71,13 @@
             if (entity.tasks) {
                 for (var i = 0; i < entity.tasks.length; i++) {
                     var task = entity.tasks[i];
-                    task.begin = new Date(task.begin);
-                    task.end = new Date(task.end);
+                    if (!!task.begin) {
+                        task.begin = new Date(task.begin);
+                    }
+
+                    if (!!task.end) {
+                        task.end = new Date(task.end);
+                    }
                 }
             }
 
@@ -115,7 +86,9 @@
                     var attribute = entity.attributes[i];
                     if (attribute.type === "date") {
                         for (var j = 0; j < attribute.values.length; j++) {
-                            attribute.values[j] = new Date(attribute.values[j]);
+                            if (!!attribute.values[j]) {
+                                attribute.values[j] = new Date(attribute.values[j]);
+                            }
                         }
                     }
                 }

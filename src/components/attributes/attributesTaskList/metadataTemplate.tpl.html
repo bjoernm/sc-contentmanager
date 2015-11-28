@@ -1,14 +1,13 @@
-<dl ng-form="metadataForm">
+<dl ng-form="metadataForm" class="metadataForm">
     <dt class="attributesName">Progress:</dt>
     <dd ng-if="isInEdit(task.id)">
         <md-input-container>
             <input type="number"
                    max="100"
                    min="0"
-                   ng-keyup="pressedEnter($event, metadataForm.progressInput.$valid)"
+                   ng-keyup="$event.keyCode == 13 ? updateMetadata(tasks, $index) : angular.noop"
                    ng-model="task.progress"
                    required
-                   sc-percentage-input
                    name="progressInput"/>
 
             <div ng-messages="metadataForm.progressInput.$error"
@@ -19,13 +18,13 @@
             </div>
         </md-input-container>
     </dd>
-    <dd ng-if="!isInEdit(task.id)">{{task.progress | percentage: 2}}</dd>
+    <dd ng-if="!isInEdit(task.id)">{{task.progress}}%</dd>
 
 
     <dt class="attributesName" ng-if="!!task.begin || isInEdit(task.id)">Start date:</dt>
     <dd ng-if="isInEdit(task.id)">
         <md-datepicker ng-model="task.begin"
-                       ng-change="pressedEnter({'keyCode':13}, !!task.start)"></md-datepicker>
+                       ng-change="submitMetadata($event)"></md-datepicker>
     </dd>
     <dd ng-if="!!task.begin && !isInEdit(task.id)">{{task.begin | date: 'fullDate'}}</dd>
 
@@ -33,7 +32,7 @@
     <dt class="attributesName" ng-if="!!task.end || isInEdit(task.id)">End date:</dt>
     <dd ng-if="isInEdit(task.id)">
         <md-datepicker ng-model="task.end"
-                       ng-change="pressedEnter({'keyCode':13}, !!task.end)"></md-datepicker>
+                       ng-change="submitMetadata($event)"></md-datepicker>
     </dd>
     <dd ng-if="!!task.end && !isInEdit(task.id)">{{task.end | date: 'fullDate'}}</dd>
 
@@ -46,7 +45,6 @@
                          md-search-text="searchText"
                          md-items="item in getUsersBySearch(searchText)"
                          md-item-text="item.name"
-                         md-selected-item-change="pressedEnter({'keyCode':13}, !!value)"
                          md-floating-label="">
             <md-item-template>
                 <span md-highlight-text="searchText">{{item.name}}</span>
@@ -62,7 +60,7 @@
     <dd ng-if="isInEdit(task.id)" ng-repeat="expertise in task.expertises track by $index">
         <md-input-container>
             <input type="text"
-                   ng-keyup="ensureEmptyLastValue(task.expertises)"
+                   ng-keyup="ensureEmptyLastValue(task.expertises) && submitMetadata($event)"
                    ng-model="task.expertises[$index]"
                    name="progressInput"/>
         </md-input-container>

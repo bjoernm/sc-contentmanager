@@ -3,25 +3,27 @@
 
     angular
         .module('scAttributes')
-        .directive('scAttributesTaskTable', attributesTaskTableDirective);
+        .directive('scAttributesTaskList', scAttributesTaskList);
 
-    attributesTaskTableDirective.$inject = ['$log', 'scCrud', 'scAuth'];
+    scAttributesTaskList.$inject = ['$log', 'scAttributesService'];
 
-    function attributesTaskTableDirective($log, scCrud, scAuth) {
+    function scAttributesTaskList($log, scAttributesService) {
         return {
             restrict: 'E',
-            templateUrl: 'components/attributes/attributesTaskTable/attributesTaskTable.tpl.html',
+            templateUrl: 'components/attributes/attributesTaskList/attributesTaskList.tpl.html',
             replace: true,
             scope: {
-                entity: '='
+                tasks: '=',
+                pageAttributes: '=',
+                onChange: '&'
             },
             link: function (scope, element, attrs) {
-                if (!angular.isObject(scope.entity) || !angular.isArray(scope.entity.tasks)) {
+                if (!angular.isArray(scope.tasks)) {
                     $log.warn('the attribute \'tasks\' must be of type array: tasks = ', scope.tasks);
                     scope.tasks = [];
                 }
 
-                var orgTasks = angular.copy(scope.entity.tasks);
+                var orgTasks = angular.copy(scope.tasks);
 
                 scope.metadataOnKeyUp = metadataOnKeyUp;
                 scope.ensureEmptyLastValue = ensureEmptyLastValue;
@@ -58,7 +60,7 @@
                 }
 
                 function getUsersBySearch(partName) {
-                    return scCrud.users.findAll(scAuth)
+                    return scAttributesService.findAllUsers()
                         .then(function (users) {
                             return users.filter(byLowerCasePartialName(partName))
                         }).catch(function () {
@@ -69,7 +71,8 @@
                 function byLowerCasePartialName(partName) {
                     var search = angular.lowercase(partName);
                     return function byLowerCasePartialNameFunction(user) {
-                        return user.name.indexOf(search) !== -1;
+                        var lowerName = angular.lowercase(user.name);
+                        return lowerName.indexOf(search) !== -1;
                     }
                 }
 
@@ -77,8 +80,16 @@
                     setMetadataEdit(tasks[$index], false);
                     cleanExpertises(tasks, $index);
 
-                    //TODO implement task update!
-                    $log.warn("implement task update!");
+                    var task = tasks[$index];
+                    var orgTask = orgTasks[$index];
+                    if(Math.round(task.progress) !== orgTask.progress) {
+                        task.isProgressCalculated = false;
+                    }
+
+                    scAttributesService.updateTask(task).then(function(uTask) {
+                        tasks[$index] = uTask;
+                        orgTasks[$index] = angular.copy(uTask);
+                    })
 
                     // after successful update add both lines:
                     // entity.tasks[$index] = updatedTask
@@ -122,17 +133,8 @@
                 }
 
                 function addNewTask(newTaskName) {
-                    if(!newTaskName || newTaskName == '') {
-                        throw new Error("taskname must not be empty.");
-                    }
-
-                    if(taskNameIsAlreadyPresent) {
-                        throw Error("task must only be once in the page");
-                    }
-
-                    scCrud.tasks
-                        .create(newTaskName)
-                        .then(function(newTask) {
+                    scAttributesService.createTaskWithName(newTaskName)
+                        .then(function (newTask) {
                             scope.entity.tasks.push(newTask);
                             orgTasks.push(angular.copy(newTask));
                             scope.newTaskName = '';

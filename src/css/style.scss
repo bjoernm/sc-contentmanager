@@ -40,6 +40,15 @@ html {
     padding-bottom: inherit;
   }
 
+  .newTaskAttributeForm md-input-container {
+    margin: 0;
+  }
+
+  .attributeValueForm > *, .metadataForm dd > * {
+    padding: 0;
+    margin: 0;
+  }
+
   md-datepicker {
     background: $attributesBackground;
   }
@@ -232,4 +241,12 @@ md-content.content {
     }
   }
 
+}
+
+.withoutPadding {
+  padding: 0;
+}
+
+.withoutMargin {
+  margin: 0;
 }

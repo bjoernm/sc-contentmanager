@@ -2,7 +2,7 @@
     <div class="md-toolbar-tools" layout="row">
         <div layout-align="end center" layout="row" ng-if="ctrl.entity.tasks.length > 0">
             <sc-pie-chart diameter="2em"
-                          percentage="{{ctrl.sum(ctrl.entity.tasks, 'progress') / ctrl.entity.tasks.length}}"
+                          percentage="{{ctrl.sum(ctrl.entity.tasks, 'progress') / ctrl.entity.tasks.length / 100}}"
                           show-percentage="false"></sc-pie-chart>
             <!--
             scColorService is no longer available. if you want to use it, add it as dependency again.
@@ -36,10 +36,10 @@
                     ng-show="ctrl.showGantChart"></sc-gantt-chart>
 </div>
 <div flex layout-gt-md="row" layout="column" layout-fill layout-margin layout-padding class="childsHaveNoPadding">
-        <pre>{{ctrl.entity.tasks | json: 2}}</pre>
+    <pre>{{ctrl.entity.tasks | json: 2}}</pre>
     <div ng-bind-html="ctrl.entity.content" flex>
     </div>
     <div flex-gt-md="33" flex-gt-lg="25" flex ng-if="ctrl.entity">
-        <sc-attributes entity="ctrl.entity"></sc-attributes>
+        <sc-attributes entity="ctrl.entity" on-change="ctrl.refreshEntity()"></sc-attributes>
     </div>
 </div>

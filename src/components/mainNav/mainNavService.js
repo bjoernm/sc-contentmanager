@@ -4,36 +4,26 @@
     angular.module('scMainNav')
         .service('scMainNavService', scMainNavService);
 
-    scMainNavService.$inject = ['scCrud', '$cacheFactory', '$q', '$filter', 'scAuth'];
-    function scMainNavService(scCrud, $cacheFactory, $q, $filter, scAuth) {
-        var cache = $cacheFactory('scMainNavServiceCache');
+    scMainNavService.$inject = ['scData', '$q', '$filter'];
+    function scMainNavService(scData, $q, $filter) {
+        // var cache = $cacheFactory('scMainNavServiceCache');
 
         return {
             loadAllWorkspaces: loadAllWorkspaces,
-            loadTextPages: loadTextPages,
-            loadWorkspaceFromEntityUid: loadWorkspaceFromEntityUid
+            loadTextPages: loadTextPages
         };
-
-        function loadWorkspaceFromEntityUid(entityUid) {
-            return scCrud.findOneResource(scAuth, entityUid).then(function (entity) {
-                return entity.workspace;
-            })
-        }
 
         function loadAllWorkspaces() {
             // Simulate async nature of real remote calls
-            return scCrud.workspaces.findAll(scAuth);
+            return scData.Workspace.query().$promise;
         }
 
-        function loadTextPages(workspaceUid) {
-            var cachedEntity = cache.get(workspaceUid);
-            // $log.info("cached enitity is resolved to ", cachedEntity);
-
-            if (angular.isDefined(cachedEntity)) {
-                return $q.when(cachedEntity);
-            }
-
-            return scCrud.findAll(scAuth, workspaceUid + '/entities?meta=parent,workspace')
+        function loadTextPages(workspaceId) {
+            return scData.Workspace
+                .getEntities({
+                    'id': workspaceId,
+                    'meta': 'parent,workspace'
+                }).$promise
                 .then(buildTree);
 
             function buildTree(entities) {
@@ -116,7 +106,7 @@
                 for (var i = 0; i < types.length; i++) {
                     var type = types[i];
                     var id = type.id.substr(1 + type.id.indexOf("/"));
-                    promises.push(scCrud.entities.findAll(scAuth, id));
+                    promises.push(scCrud.entities.findAll(id));
                 }
 
                 return $q.all(promises).then(function flatten(entities) {
