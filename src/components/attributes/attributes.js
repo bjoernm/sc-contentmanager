@@ -6,7 +6,6 @@
             'ngMaterial',
             'ngAnimate',
             'ngMessages',
-            'scCharts',
-            'scInputFilters'
+            'scCharts'
         ])
 })();
