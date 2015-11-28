@@ -15,13 +15,11 @@
     <!-- lib:css -->
     <!-- bower installed css files will go here... -->
     <!-- endinject -->
-    <link rel="stylesheet" href="components/charts/scCharts.css"/>
-    <link rel="stylesheet" href="components/main.css"/>
 </head>
 
 <body ng-controller="IndexCtrl as ctrl">
 <div layout="row" id="header">
-    <h1><a href="#"><img src="" alt="sebis Logo"/></a></h1>
+    <h1><a href="#"><img src="images/logo.png" alt="sebis Logo"/></a></h1>
 
     <div layout="column" flex>
         <div>searchbar <a href="#/feed">Feed</a> alarm profile options</div>
@@ -31,8 +29,8 @@
                  md-selected="ctrl.selectedTabIndex"
                  class="md-primary"
                  ng-if="ctrl.workspaces">
-            <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.uid"
-                    ng-click="::ctrl.setPathTo(workspace.uid)"
+            <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.id"
+                    ng-click="::ctrl.setPathTo('workspaces/' + workspace.id)"
                     label="{{::workspace.name}}">
             </md-tab>
         </md-tabs>
@@ -62,16 +60,14 @@
 
 <script src="components/attributes/attributes.js"></script>
 <script src="components/attributes/attributesDirective.js"></script>
-<script src="components/attributes/attributesTable/attributesTableDirective.js"></script>
-<script src="components/attributes/attributesTaskTable/attributesTaskTableDirective.js"></script>
-<script src="components/attributes/attributesTaskTable/scTaskMetadataHelper/scTaskMetadataHelperDirective.js"></script>
+<script src="components/attributes/attributesService.js"></script>
+<script src="components/attributes/attributesList/attributesListDirective.js"></script>
+<script src="components/attributes/attributesTaskList/attributesTaskListDirective.js"></script>
 <script src="components/attributes/attributeValue/attributeValueDirective.js"></script>
 <script src="components/attributes/attributeValueEdit/attributeValueEditDirective.js"></script>
-<script src="components/attributes/attributesTaskTable/attributesTaskTableService.js"></script>
 
 <script src="components/mainContent/mainContent.js"></script>
 <script src="components/mainContent/mainContentService.js"></script>
-<script src="components/mainContent/mainContentDirective.js"></script>
 <script src="components/mainContent/mainContentController.js"></script>
 
 <script src="components/feed/feedModule.js"></script>
@@ -86,7 +82,7 @@
 <script src="components/charts/scGanttChartDirective.js"></script>
 
 <script src="components/common/scColorService.js"></script>
-<script src="components/common/scAuth.js"></script>
+<script src="components/common/scInputFilter.js"></script>
 
 
 </body>

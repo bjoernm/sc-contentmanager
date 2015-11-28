@@ -23,17 +23,17 @@
                 $scope.maxTitleLength = 0;
                 var lengths = {};
                 var lengthKeys = [];
-                this.setTitleLength = function (taskUid, length) {
-                    lengthKeys.push(taskUid);
-                    lengths[taskUid] = length;
+                this.setTitleLength = function (taskId, length) {
+                    lengthKeys.push(taskId);
+                    lengths[taskId] = length;
                     $scope.maxTitleLength = lengthKeys.reduce(function (a, b) {
                         return Math.max(a, lengths[b]);
                     }, 0);
                 };
 
                 $scope.taskTitleHeights = {};
-                this.setTitleHeight = function (taskUid, height) {
-                    $scope.taskTitleHeights[taskUid] = height;
+                this.setTitleHeight = function (taskId, height) {
+                    $scope.taskTitleHeights[taskId] = height;
                 }
             },
             link: function (scope, element, attrs) {
@@ -51,6 +51,9 @@
                 scope.getProgressDate = getProgressDate;
                 scope.getProgressTextDate = getProgressTextDate;
                 scope.calculatedValues = setCalculatedTemplateValues(scope.tasks.length, scope.lineHeight.value, scope.getLinePosition);
+                scope.getOffset = function () {
+                    return getOffset(scope);
+                };
                 scope.elementWidth = 0;
 
                 // this line is a fallback for a resize event on an element
@@ -101,31 +104,52 @@
                 }
 
                 function getProgressDate(task) {
-                    var diff = task.enddate.getTime() - task.startdate.getTime();
-                    var fraction = diff * task.progress;
-                    return new Date(task.startdate.getTime() + fraction);
+                    if (!task.end || !task.begin) {
+                        //throw new Error('both end and begin are needed. task.begin = ' +
+                        //    task.begin + '; task.end = ' + task.end);
+                        return task.begin;
+                    }
+
+                    var diff = task.end.getTime() - task.begin.getTime();
+                    var fraction = diff * task.progress / 100;
+                    return new Date(task.begin.getTime() + fraction);
                 }
 
                 function getProgressTextDate(task) {
-                    var a = getProgressDate(task).getTime();
-                    var b = task.startdate.getTime();
+                    var progressDate = getProgressDate(task);
+                    if (!progressDate) {
+                        return progressDate;
+                    }
+
+                    var a = progressDate.getTime();
+                    var b = task.begin.getTime();
                     return new Date((a + b) / 2);
                 }
 
 
                 //FIXME returns NAN -> makes error in scSvgX2
                 function getDatesPosition(date) {
-                    if (!date || 'function' !== typeof date.getTime) {
-                        throw new Error("date must have a function called getTime (like a date object). date = " + date);
+                    //if ('function' !== typeof date.getTime) {
+                    //    throw new Error("date must have a function called getTime (like a date object). date = " + date);
+                    //}
+
+                    var offset = getOffset(scope);
+
+                    if (!date) {
+                        return offset;
                     }
 
-                    var offset = scope.calculatedValues.title.offset.x + scope.maxTitleLength + 20;
+                    try {
+                        var staticDates = getStaticDates(scope.tasks);
 
-                    return inner(date, scope.tasks, offset, scope.elementWidth);
+                        return inner(date, staticDates, offset, scope.elementWidth);
+                    } catch (err) {
+                        $log.error('date =', date, '; scope.tasks =', scope.tasks, '; scope =', scope);
+                        return offset;
+                    }
 
-                    function inner(date, tasks, offset, elementWidth) {
+                    function inner(date, staticDates, offset, elementWidth) {
                         date = date.getTime();
-                        var staticDates = getStaticDates(tasks);
 
                         var normalizedDate = {
                             'begin': 0,
@@ -142,17 +166,34 @@
 
                         var result = offset + (elementWidth - offset) * percentage;
 
-                        return Math.max(result, 0);
+                        return Math.max(result, offset);
                     }
 
-                    function getStaticDates(tasks) {
-                        return tasks.reduce(function (a, b) {
-                            return {
-                                'earliestDate': Math.min(a.earliestDate, b.startdate.getTime()),
-                                'latestDate': Math.max(a.latestDate, b.enddate.getTime())
-                            };
-                        }, {'earliestDate': scope.now, 'latestDate': scope.now});
-                    }
+                }
+
+                function getOffset(scope) {
+                    return scope.calculatedValues.title.offset.x + scope.maxTitleLength + 20;
+                }
+
+                function getStaticDates(tasks) {
+                    return tasks.reduce(function (a, b) {
+                        return {
+                            'earliestDate': getMin(a.earliestDate, b.begin),
+                            'latestDate': getMax(a.latestDate, b.end)
+                        };
+
+                        function getMin(a, date) {
+                            if (!date) return a;
+                            else if (!a) return date.getTime();
+                            else return Math.min(a, date.getTime());
+                        }
+
+                        function getMax(a, date) {
+                            if (!date) return a;
+                            else if (!a) return date.getTime();
+                            else return Math.max(a, date.getTime());
+                        }
+                    }, {'earliestDate': scope.now, 'latestDate': scope.now});
                 }
 
                 function resizeGantt() {
@@ -271,8 +312,8 @@
                         nativeElement.lastChild.appendChild(doc.createTextNode("..."));
                     }
 
-                    scGanttChartController.setTitleLength(scope.$parent.task.uid, nativeElement.getBBox()["width"]);
-                    scGanttChartController.setTitleHeight(scope.$parent.task.uid, nativeElement.getBBox()["height"]);
+                    scGanttChartController.setTitleLength(scope.$parent.task.id, nativeElement.getBBox()["width"]);
+                    scGanttChartController.setTitleHeight(scope.$parent.task.id, nativeElement.getBBox()["height"]);
                 }
 
                 function removeChildren(element) {
@@ -309,6 +350,13 @@
                 }
 
                 var rect = nativeElement.ownerDocument.createElementNS(svgNS, "rect");
+                if (attrs['scSvgBackgroundClass']) {
+                    attrs['scSvgBackgroundClass'].split(/\s+/)
+                        .forEach(function (clazz) {
+                            // tried to give rect.classList.add es argument but failed. "Illegal Invocation"
+                            rect.classList.add(clazz);
+                        })
+                }
 
                 scope.$watch(function watchBBox() {
                     var bBox = nativeElement.getBBox();
@@ -350,9 +398,9 @@
                     throw new Error("the parent element must be of the svg namespace. namespace was " + element.namespaceURI)
                 }
 
-                if (!isFinite(parseFloat(scope.scSvgX2))) {
-                    throw new Error("value of scSvgX2 must be a finite number. was " + scope.scSvgX2);
-                }
+                //if (!isFinite(parseFloat(scope.scSvgX2))) {
+                //    throw new Error("value of scSvgX2 must be a finite number. was " + scope.scSvgX2 + "; typeof " + (typeof scope.scSvgX2));
+                //}
 
                 scope.$watch(function () {
                     return nativeElement.getBBox().x;
@@ -361,6 +409,8 @@
                 scope.$watch('scSvgX2', scSvgX2Watch);
 
                 function scSvgX2Watch(newVal, oldVal, scope) {
+                    if (!isFinite(parseFloat(scope.scSvgX2)))
+                        return;
                     element.attr("width", Math.max(0, parseFloat(scope.scSvgX2) - nativeElement.getBBox().x));
                     //scope.$apply();
                 }

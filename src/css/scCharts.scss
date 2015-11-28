@@ -1,0 +1,64 @@
+.scPieChart, .scGanttChart {
+  .foreground, .foreground {
+    fill: #417505;
+  }
+
+  .background, .background {
+    fill: #CCCCCC;
+  }
+}
+
+.scGanttChart .pageBackground {
+  fill: #FFF;
+}
+
+.scPieChart.overdue, .scGanttChart .overdue {
+  .foreground {
+    fill: #D20015;
+  }
+  .background {
+    fill: #E3B6BB;
+  }
+}
+
+.scPieChart.inconsistent, .scGanttChart .inconsistent {
+  .foreground {
+    fill: wheat;
+  }
+  .background {
+    fill: goldenrod;
+  }
+}
+
+.scGanttChart .coordinateSystemLines {
+  stroke: #DDD;
+  stroke-width: 1px;
+
+  &.percentageArea {
+    stroke-dasharray: 5;
+  }
+}
+
+.scGanttChart .taskProgress {
+  text-anchor: middle;
+
+  &.left {
+    text-anchor: start;
+  }
+}
+
+.scGanttChart .todayMark {
+  text {
+    text-anchor: middle;
+  }
+
+  &.right text {
+    text-anchor: end;
+  }
+
+  line {
+    stroke: #F00;
+    stroke-width: 1px;
+  }
+}
+

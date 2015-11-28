@@ -1,6 +1,6 @@
-(function () {
-    'use strict';
+'use strict';
 
+(function () {
     angular
         .module('scAttributes')
         .directive('scAttributeValue', attributeValueDirective);
@@ -13,14 +13,13 @@
             templateUrl: 'components/attributes/attributeValue/attributeValue.tpl.html',
             replace: true,
             scope: {
-                attribute: "="
+                value: "=",
+                type: "@"
             },
             link: function (scope, element, attrs) {
-                if (angular.isArray(scope.attribute) || !angular.isObject(scope.attribute)) {
-                    throw new TypeError('the attribute \'attribute\' is required');
+                if (angular.isUndefined(scope.value) || (angular.isObject(scope.value) && angular.isUndefined(scope.value.name) && !angular.isDate(scope.value)) ) {
+                    $log.error('value is required. value =', scope.value);
                 }
-
-                scope.attribute.edit = false;
             }
         };
     }

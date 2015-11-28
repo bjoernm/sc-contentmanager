@@ -1,17 +1,17 @@
 <script type="text/ng-template" id="sideNavTree">
     <span ng-style="::{'padding-left': getHierarchyLevel(entity)}">
-        <a ng-href="#{{entity.uid}}">{{entity.name}}</a>
+        <a ng-href="#/entities/{{entity.id}}">{{entity.name}}</a>
 
     </span>
     <ul ng-if="entity.children.length > 0 && entity.showChildren">
-        <li ng-repeat="entity in entity.children track by entity.uid"
+        <li ng-repeat="entity in entity.children track by entity.id"
             ng-include="'sideNavTree'"
             ng-class="{active: entity.isCurrentEntity}"></li>
     </ul>
 </script>
 
 <ul class="sideNav">
-    <li ng-repeat="entity in entities.tree track by entity.uid"
+    <li ng-repeat="entity in entities.tree track by entity.id"
         ng-include="'sideNavTree'"
         ng-class="{active: entity.isCurrentEntity}"></li>
 </ul>

@@ -1,6 +1,6 @@
-(function () {
-    'use strict';
+'use strict';
 
+(function () {
     angular
         .module('scAttributes')
         .directive('scAttributeValueEdit', attributeValueEditDirective);
@@ -13,47 +13,43 @@
             templateUrl: 'components/attributes/attributeValueEdit/attributeValueEdit.tpl.html',
             replace: true,
             scope: {
-                orgAttribute: '=attribute',
-                onChange: '&',
-                onAbort: '&'
+                values: '=',
+                index: '=',
+                attributeName: '@',
+                type: '@',
+                onChange: '&'
             },
             link: function (scope, element, attrs) {
-                if (angular.isArray(scope.orgAttribute) || !angular.isObject(scope.orgAttribute)) {
-                    throw new TypeError('the attribute \'attribute\' is no object: typeof attribute == ' + (typeof scope.orgAttribute));
+                if (!angular.isArray(scope.values) || !(scope.values instanceof Array)) {
+                    $log.error('values must be an array. values =', scope.values, 'typeof =', typeof scope.values);
                 }
 
-                if (!angular.isArray(scope.orgAttribute.values)) {
-                    throw new TypeError('\'attribute.values\' is no array: attribute = ' + angular.toJson(scope.orgAttribute));
+                if (!isFinite(scope.index)) {
+                    $log.error('index must be a number. index =', scope.index, 'typeof =', typeof scope.index);
+                }
+
+                if (scope.index + 1 > scope.values.length || scope.index < 0) {
+                    $log.error('index must be in the range of the values array. index =', scope.index, 'values.length =', scope.values.length);
                 }
 
                 if (!angular.isFunction(scope.onChange)) {
-                    throw new TypeError('the attribute \'onChange\' must be of type \'function\'' +
-                    ': typeof onChange == ' + (typeof scope.onChange))
+                    $log.error('the attribute \'onChange\' must be of type \'function\': onChange =', scope.onChange, 'typeof =', typeof scope.onChange)
                 }
 
-                if (!angular.isFunction(scope.onAbort)) {
-                    throw new TypeError('the attribute \'onAbort\' must be of type \'function\'')
-                }
-
-                scope.attribute = angular.copy(scope.orgAttribute);
-                scope.attribute.values.push('');
-                $log.info("attribute: ", scope.attribute);
+                checkForLastEmptyElement();
 
                 scope.pressedEnter = pressedEnter;
-                scope.abort = abort;
                 scope.getMatches = getMatches;
 
                 // set view specific settings
                 //*
-                for (var i = 0; i < scope.attribute.values.length; i++) {
-                    switch (scope.attribute.type) {
-                        case 'percentage':
-                            scope.attribute.values[i] *= 100;
-                            break;
-                    }
+                switch (scope.type) {
+                    case 'percentage':
+                        scope.values[scope.index] *= 100;
+                        break;
                 }
-                // */
 
+                // */
                 /*
                  // selects the whole input field when gaining focus
                  // perhaps this behavior is not expected and therefore the code is commented
@@ -63,33 +59,45 @@
                  }
                  //*/
 
-                function abort() {
-                    scope.onAbort()
-                }
-
                 function pressedEnter(event, valid) {
                     if (valid && event && event.keyCode === 13) {
-                        var values = modifyValuesToModelValues(scope.attribute.values);
-                        $log.info("calling onChange", values, scope.attribute.values);
-                        scope.onChange({
-                            'newValues': values
-                        });
+                        modifyValuesToModelValues(scope.values);
+                        scope.onChange();
+                    } else {
+                        checkForLastEmptyElement();
+                    }
+                }
 
+                function checkForLastEmptyElement() {
+                    if (scope.values.length === 0) {
+                        scope.values.push('');
+                        return;
+                    }
+
+                    var lastValue = getStringValueOfType(scope.values.length - 1);
+
+                    if (lastValue != '') {
+                        scope.values.push('');
+                    }
+                }
+
+                function getStringValueOfType(index) {
+                    switch (scope.type) {
+                        case 'link':
+                            return scope.values[index].name;
+                        default:
+                            return scope.values[index];
                     }
                 }
 
                 function modifyValuesToModelValues(values) {
-                    values = angular.copy(values);
-
                     for (var i = 0; i < values.length; i++) {
-                        switch (scope.attribute.type) {
+                        switch (scope.type) {
                             case 'percentage':
                                 values[i] /= 100;
                                 break;
                         }
                     }
-
-                    return values;
                 }
 
                 function getMatches(searchText) {

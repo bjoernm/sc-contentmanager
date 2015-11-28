@@ -1,0 +1,72 @@
+<div>
+    <script type="text/ng-template" id="task_contextMenu">
+        <md-menu>
+            <!-- Trigger element is a md-button with an icon -->
+            <md-icon ng-click="$mdOpenMenu($event)"
+                     class="md-icon-button"
+                     aria-label="Open context menu">
+                more_vert
+            </md-icon>
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button ng-click="editAttribute(attribute)">
+                        <md-icon md-font-icon>edit</md-icon>
+                        Edit
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="deleteAttribute(attribute)">
+                        <md-icon md-font-icon>delete</md-icon>
+                        Delete
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </script>
+
+    <div class="attributesTable" ng-repeat="task in tasks | orderBy: 'name' track by task.id">
+        <div layout="row" layout-align="space-between center">
+            <sc-pie-chart diameter="2em"
+                          percentage="{{task.progress ? task.progress / 100 : 0}}"
+                          show-percentage="false"></sc-pie-chart>
+            <strong flex="grow"
+                    style="text-align:center;">{{task.name}}</strong>
+
+            <div ng-click="showMetaData = !showMetaData" aria-label="Open context menu" style="cursor: pointer;">
+                <md-icon md-font-icon ng-if="!showMetaData">expand_more</md-icon>
+                <md-icon md-font-icon ng-if="showMetaData">expand_less</md-icon>
+            </div>
+        </div>
+        <div class="metadataTable" ng-if="showMetaData">
+            <div layout="row" layout-align="start center">
+                <div flex="grow" class="metadataTitle">Metadata</div>
+                <div ng-if="!!isInEdit(task.id)" layout="row">
+                    <md-icon ng-click="abortMetadataEditing(tasks, $index)">undo</md-icon>
+                    <md-icon ng-click="updateMetadata(tasks, $index)">done</md-icon>
+                </div>
+                <div ng-if="!isInEdit(task.id)">
+                    <md-icon ng-click="editTask(task)">edit</md-icon>
+                </div>
+            </div>
+            <ng-include
+                    src="'components/attributes/attributesTaskList/metadataTemplate.tpl.html'"></ng-include>
+        </div>
+        <sc-attributes-list attributes="task.attributes" on-change="onChange()"></sc-attributes-list>
+        <div ng-form="newTaskAttributeForm" class="newTaskAttributeForm">
+            <md-autocomplete md-selected-item="newTaskAttribute[task.id]"
+                             md-search-text="searchText"
+                             md-items="item in searchInAttributes(searchText)"
+                             md-item-text="item.name"
+                             md-input-name="autocomplete"
+                             md-selected-item-change="pressedEnter({'keyCode':13}, !!value)"
+                             md-floating-label="Add Task Attribute">
+                <md-item-template>
+                    <span md-highlight-text="searchText">{{item.name}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No matches found!
+                </md-not-found>
+            </md-autocomplete>
+        </div>
+    </div>
+</div>
