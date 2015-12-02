@@ -20,8 +20,9 @@
                 showPercentage: '@'
             },
             link: function (scope, element, attrs) {
-                if (!angular.isDefined(scope.percentage) || !isFinite(scope.percentage)) {
-                    throw new Error("percentage must be a finite number: percentage = " + scope.percentage);
+                if (!angular.isDefined(scope.percentage) || !isFinite(parseInt(scope.percentage))) {
+                    $log.error("percentage must be a finite number: percentage = ", scope.percentage);
+                    scope.percentage = 0;
                 }
 
                 // undefined is ok because of fallback

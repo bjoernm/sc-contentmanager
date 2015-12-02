@@ -1,27 +1,34 @@
-(function () {
+(function (angular) {
 
     /**
-     * Controller for the feed directive.
-     *
+     * @ngdoc controller
      * @name feedCtrl
      * @type FeedController
+     * @requires scEventService
+     * @description
+     *
+     * Controller for the feed directive.
      */
     angular
         .module('scFeed')
         .controller('FeedController', FeedController);
 
-    FeedController.$inject = ['scChangeSetService', '$scope'];
+    FeedController.$inject = ['scEventService'];
 
-    function FeedController(changeSetService) {
+    function FeedController(eventService) {
         var feedCtrl = this;
 
         feedCtrl.hasError = false;
-        feedCtrl.error = null;
-        feedCtrl.changeSets = null;
 
-        changeSetService.getChangeSets().then(
-            function (changeSets) {
-                feedCtrl.changeSets = changeSets;
+        /** @type {Error} */
+        feedCtrl.error = null;
+
+         /** @type {ScEventPage} */
+        feedCtrl.eventPage = null;
+
+        eventService.getEvents().then(
+            function (eventPage) {
+                feedCtrl.eventPage = eventPage;
             },
             function (error) {
                 feedCtrl.hasError = true;
@@ -29,8 +36,4 @@
 
             });
     }
-
-    function FeedController($scope) {
-    $scope.imagePath = 'img/washedout.png';
-    }
-})();
+})(angular);

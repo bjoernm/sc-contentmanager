@@ -1,6 +1,15 @@
 (function () {
     'use strict';
 
+    /**
+     * @ngdoc directive
+     * @name scFeed
+     * @restrict E
+     * @scope
+     * @description
+     *
+     * The directive for the feed.
+     */
     angular
         .module('scFeed')
         .directive('scFeed', FeedDirective);

@@ -4,37 +4,35 @@
             <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
         </md-card-avatar>
         <md-card-header-text>
-            <span class="md-title" layout="row" layout-align="space-between start">
-              <div>{{ feedItemCtrl.event.user.name }}</div>
-              <div>{{ feedItemCtrl.event.changeset.when }}</div>
+            <div class="md-title" layout="row" layout-align="space-between start">
+                <div>{{ feedItemCtrl.event.user.name }}</div>
+                <div>{{ feedItemCtrl.event.changeset.when }}</div>
+            </div>
+            <span class="md-subhead" layout="row" layout-align="space-between start">
+                <div>Attribute changed</div>
+                <div><md-icon id="iconWhite" class="material-icons">storage</md-icon></div>
             </span>
-            <span class="md-subhead">Attribute changed</span>
         </md-card-header-text>
     </md-card-header>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">Set AttributeName to Value</span>
+            <span class="md-headline" ng-repeat="change in feedItemCtrl.event.changeset.changes">
+                Changed value of Attribute {{change.changedFeatureName}} to {{change.change.value.value}}
+            </span>
             <span class="md-subhead">
-                Breadcrump
+                {{feedItemCtrl.event.space.name}}
                 <md-icon class="material-icons">chevron_right</md-icon>
-                to
-                <md-icon class="material-icons">chevron_right</md-icon>
-                Page
+                {{feedItemCtrl.event.entity.name}}
             </span>
         </md-card-title-text>
     </md-card-title>
     <md-card-actions layout="row" layout-align="start center">
-        <md-button class="md-icon-button" aria-label="Favorite">
+        <md-button aria-label="Favorite">
             <md-icon class="material-icons">favorite</md-icon>
         </md-button>
-        <md-button>
+        <md-button aria-label="Comment">
             <md-icon class="material-icons">comment</md-icon>
         </md-button>
-        <md-card-icon-actions>
-            <md-button class="md-icon-button" aria-label="toggle">
-                <md-icon md-svg-icon="md-toggle-arrow"></md-icon>
-            </md-button>
-        </md-card-icon-actions>
     </md-card-actions>
     <md-card-content>
         <p>

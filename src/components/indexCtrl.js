@@ -20,85 +20,25 @@
             });
 
         $scope.$watch(function () {
-            return sharedNavDataService.currentWorkspaceUid;
+            return sharedNavDataService.currentWorkspaceId;
         }, function (newVal, oldVal, scope) {
             if (!angular.isArray(vm.workspaces)) {
                 return;
             }
 
             vm.selectedTabIndex = vm.workspaces.findIndex(function (workspace) {
-                return workspace.uid === newVal;
+                return workspace.id === newVal;
             })
         });
 
         function setPathTo(path) {
-            $log.warn("setPathTo was called");
+            $log.warn("setPathTo was called:", path);
 
             if (angular.isString(path)) {
                 $location.path(path);
             } else {
-                $log.error('path must be of type string');
+                $log.error('path must be of type string. path =', path);
             }
         }
-
-        /*
-
-         function routeNavigation(event, newUrl, oldUrl, newState, oldState) {
-         var newPath = $location.path();
-         var workspaceRegex = /^\/?(workspaces\/[^\/]+)/i;
-         var entityRegex = /^\/?(entities\/[^\/]+)/i;
-
-         // on a workspace route
-         var result;
-         if (angular.isArray(result = workspaceRegex.exec(newPath))) {
-         loadWorkspace(result[1]);
-         return;
-         }
-         // on a entity route
-         else if (angular.isArray(result = entityRegex.exec(newPath))) {
-         loadEntity(result[1]);
-         return;
-         }
-         // load first workspace with first entity
-         else {
-         loadWorkspace(vm.workspaces[0].uid);
-         return;
-         }
-
-         }
-
-         function initWorkspaces(workspaces) {
-         vm.workspaces = workspaces
-         }
-
-         function loadEntity(uid) {
-         vm.currentEntityUid = uid;
-         $log.info("load Entity")
-         if (!vm.entities || !vm.entities.index || !vm.entities.index[vm.currentEntityUid]) {
-         scMainNavService.loadWorkspaceFromEntityUid(uid)
-         .then(function (workspace) {
-         vm.currentWorkspaceUid = workspace.uid;
-         });
-         }
-         }
-
-         function loadWorkspace(uid) {
-         vm.currentWorkspaceUid = uid;
-         setTopNavPosition(uid);
-         scMainNavService.loadTextPages(uid).then(function (entities) {
-         vm.entities = entities;
-         vm.currentEntityUid = entities.tree[0].uid;
-         })
-         }
-
-         function setTopNavPosition(workspaceUid) {
-         for(var i = 0; i < vm.workspaces.length; i++) {
-         if(vm.workspaces[i].uid === workspaceUid) {
-         vm.selectedTabIndex = i;
-         return
-         }
-         }
-         }
-         //*/
     }
 })(angular);
