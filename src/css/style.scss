@@ -64,6 +64,10 @@ html {
     dl {
       margin: 0;
     }
+
+    md-datepicker {
+      background: $taskMetaDataBackground;
+    }
   }
 }
 

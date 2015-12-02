@@ -1,5 +1,5 @@
-<div ng-switch="type">
-    <a ng-switch-when="link" ng-href="{{'/' + value.uid}}">{{value.name}}</a>
+<div ng-switch="getType()">
+    <a ng-switch-when="link" ng-href="#{{relativPath(value.href)}}">{{value.name}}</a>
     <span ng-switch-when="date">{{value | date: 'mediumDate'}}</span>
     <span ng-switch-when="percentage">{{value | percentage: 0}}</span>
     <span ng-switch-default>{{value}}</span>

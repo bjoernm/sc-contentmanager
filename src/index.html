@@ -38,7 +38,7 @@
 </div>
 <md-content layout="row" class="content">
     <md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="true">
-        <sc-side-nav entities="ctrl.navData.entities" current-entity-uid="ctrl.navData.currentEntityUid"
+        <sc-side-nav entities="ctrl.navData.entities" current-entity-id="ctrl.navData.currentEntityId"
                      ng-if="ctrl.navData.entities"></sc-side-nav>
     </md-sidenav>
     <md-card ng-view flex>
@@ -81,8 +81,7 @@
 <script src="components/charts/scPieChartDirective.js"></script>
 <script src="components/charts/scGanttChartDirective.js"></script>
 
-<script src="components/common/scColorService.js"></script>
-
+<script src="components/common/scTypeGuessing.js"></script>
 
 </body>
 </html>

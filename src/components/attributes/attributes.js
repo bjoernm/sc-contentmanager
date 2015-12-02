@@ -6,6 +6,8 @@
             'ngMaterial',
             'ngAnimate',
             'ngMessages',
-            'scCharts'
+            'scCharts',
+            'scTypeGuessing',
+            'scMainNav'
         ])
 })();

@@ -19,16 +19,19 @@
         </md-tab>
         <md-tab label="Tasks">
             <div>
-                <sc-attributes-task-list tasks="entity.tasks" page-attributes="entity.attributes" on-change="onChange()" layout-fill></sc-attributes-task-list>
+                <sc-attributes-task-list tasks="entity.tasks" page-attributes="entity.attributes" on-change="onChange()"
+                                         layout-fill></sc-attributes-task-list>
 
                 <div class="attributesTable">
                     <div layout="row">
                         <md-input-container flex="grow">
                             <label>Add new task</label>
                             <input type="text"
-                                   ng-model="newTaskName"/>
+                                   ng-model="newTaskName"
+                                   ng-keyup="$event.keyCode == 13 ? addNewTask() : angular.noop()"/>
                         </md-input-container>
-                        <md-icon ng-click="addNewTask(newTaskName)">done</md-icon>
+                        <md-icon ng-if="!!newTaskName && newTaskName !== ''" ng-click="addNewTask(newTaskName)">done
+                        </md-icon>
                     </div>
                 </div>
             </div>

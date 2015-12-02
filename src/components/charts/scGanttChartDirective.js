@@ -51,6 +51,7 @@
                 scope.getProgressDate = getProgressDate;
                 scope.getProgressTextDate = getProgressTextDate;
                 scope.calculatedValues = setCalculatedTemplateValues(scope.tasks.length, scope.lineHeight.value, scope.getLinePosition);
+                scope.isLeft = isLeft;
                 scope.getOffset = function () {
                     return getOffset(scope);
                 };
@@ -144,7 +145,7 @@
 
                         return inner(date, staticDates, offset, scope.elementWidth);
                     } catch (err) {
-                        $log.error('date =', date, '; scope.tasks =', scope.tasks, '; scope =', scope);
+                        $log.error(err);
                         return offset;
                     }
 
@@ -183,9 +184,14 @@
                         };
 
                         function getMin(a, date) {
-                            if (!date) return a;
-                            else if (!a) return date.getTime();
-                            else return Math.min(a, date.getTime());
+                            try {
+                                if (!date) return a;
+                                else if (!a) return date.getTime();
+                                else return Math.min(a, date.getTime());
+                            } catch (e) {
+                                $log.info(a, date);
+                                throw e;
+                            }
                         }
 
                         function getMax(a, date) {
@@ -200,6 +206,12 @@
                     if (element[0] && element[0].offsetWidth) {
                         scope.elementWidth = element[0].offsetWidth;
                     }
+                }
+
+                function isLeft(task) {
+                    var textPosition = getDatesPosition(getProgressTextDate(task));
+                    return textPosition - getOffset(scope) < 20
+                        || textPosition - getDatesPosition(task.begin) < 10;
                 }
             }
         };
@@ -350,6 +362,7 @@
                 }
 
                 var rect = nativeElement.ownerDocument.createElementNS(svgNS, "rect");
+
                 if (attrs['scSvgBackgroundClass']) {
                     attrs['scSvgBackgroundClass'].split(/\s+/)
                         .forEach(function (clazz) {
@@ -380,6 +393,10 @@
                 } else {
                     nativeElement.parentElement.insertBefore(rect, nativeElement);
                 }
+
+                scope.$on('$destroy', function () {
+                    rect.parentElement.removeChild(rect);
+                });
             }
         };
     }

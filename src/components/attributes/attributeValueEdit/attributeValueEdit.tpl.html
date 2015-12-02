@@ -1,10 +1,10 @@
-<ng-form name="attributeValueForm" ng-switch="type" class="attributeValueForm">
+<ng-form name="attributeValueForm" ng-switch="::getType()" class="attributeValueForm">
     <!-- NUMBER -->
     <md-input-container ng-switch-when="number">
         <label ng-if="!!attributeName">{{attributeName}}</label>
         <input type="number"
                ng-keyup="pressedEnter($event, attributeValueForm.valueInput.$valid)"
-               ng-model="values[index]"
+               ng-model="attribute.values[currentIndex]"
                name="valueInput"/>
 
         <div ng-messages="attributeValueForm.valueInput.$error" ng-if="attributeValueForm.valueInput.$dirty">
@@ -19,7 +19,7 @@
                max="100"
                min="0"
                ng-keyup="pressedEnter($event, attributeValueForm.valueInput.$valid)"
-               ng-model="values[index]"
+               ng-model="attribute.values[currentIndex]"
                name="valueInput"/>
 
         <div ng-messages="attributeValueForm.valueInput.$error" ng-if="attributeValueForm.valueInput.$dirty">
@@ -32,33 +32,42 @@
     <!-- DATE -->
     <div ng-switch-when="date">
         <label ng-if="!!attributeName">{{attributeName}}</label>
-        <md-datepicker ng-model="values[index]"
-                       ng-change="pressedEnter({'keyCode':13}, !!values[index])"></md-datepicker>
+        <md-datepicker ng-model="attribute.values[currentIndex]"></md-datepicker>
+        <!-- ng-change="pressedEnter({'keyCode':13}, !!attribute.values[currentIndex])" -->
     </div>
 
     <!-- LINK -->
-    <md-autocomplete md-input-name="valueInput"
-                     md-selected-item="value"
+    <md-autocomplete ng-switch-when="link"
+                     md-input-name="valueInput"
+                     md-selected-item="attribute.values[currentIndex]"
                      md-search-text="searchText"
                      md-items="item in getMatches(searchText)"
-                     md-item-text="item.name"
-                     md-floating-label="{{attributeName}}"
-                     md-selected-item-change="pressedEnter({'keyCode':13}, !!value)"
-                     ng-switch-when="link"
-                     required>
+                     md-floating-label="true"
+                     class="removeFloatingLabel"
+                     md-item-text="item.name">
         <md-item-template>
             <span md-highlight-text="searchText">{{item.name}}</span>
         </md-item-template>
-        <div ng-messages="attributeValueForm.valueInput.$error" ng-if="attributeValueForm.valueInput.$dirty">
-            <div ng-message="required">This field is required</div>
-        </div>
+        <md-not-found>
+            No matches found.
+        </md-not-found>
     </md-autocomplete>
+
+    <md-input-container ng-switch-when="enumeration">
+        <md-select ng-model="attribute.values[currentIndex]">
+            <md-option
+                    value="{{option}}"
+                    ng-repeat="option in attribute.attributeDefinition.options.enumerationValues track by $index">
+                {{option}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 
     <!-- DEFAULT -->
     <md-input-container ng-switch-default>
         <label ng-if="!!attributeName">{{attributeName}}</label>
         <input ng-keyup="pressedEnter($event, true)"
-               ng-model="values[index]"
+               ng-model="attribute.values[currentIndex]"
                name="valueInput"/>
     </md-input-container>
 </ng-form>

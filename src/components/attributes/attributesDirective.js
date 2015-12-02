@@ -22,6 +22,8 @@
                 }
 
                 scope.addNewEntityAttribute = addNewEntityAttribute;
+                scope.addNewTask = addNewTask;
+                scope.newTaskName = '';
                 scope.vm = {};
 
                 function addNewEntityAttribute($event, name) {
@@ -43,18 +45,41 @@
                         .persistEntity(scope.entity)
                         .then(manageUI)
                         .then(scope.onChange)
+                        .catch(logError)
                         .finally(enable);
 
                     function enable() {
-                        $event.srcElement.disabled = true;
+                        $event.srcElement.disabled = false;
                     }
 
                     function manageUI() {
                         if (scope.vm && scope.vm.newAttributeName)
                             scope.vm.newAttributeName = '';
 
+
                         $event.srcElement.blur();
                     }
+                }
+
+                function addNewTask() {
+                    var newTaskName = scope.newTaskName;
+
+                    if (!newTaskName || newTaskName === '') {
+                        return;
+                    }
+
+                    scAttributesService
+                        .createNewTask(newTaskName, scope.entity)
+                        .then(function (task) {
+                            scope.entity.tasks.push(task);
+                            scope.newTaskName = '';
+                            scope.onChange();
+                        })
+                        .catch(logError);
+                }
+
+                function logError() {
+                    $log.error.apply($log, arguments);
                 }
             }
         };

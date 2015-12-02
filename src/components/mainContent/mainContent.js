@@ -8,6 +8,7 @@
             'ngSanitize',
             'scAttributes',
             'scCharts',
-            'sociocortex'
+            'sociocortex',
+            'scTypeGuessing'
         ])
 })(angular);

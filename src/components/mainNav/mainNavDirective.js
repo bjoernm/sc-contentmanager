@@ -10,21 +10,22 @@
     angular.module('scMainNav')
         .directive('scSideNav', scSideNavDirective);
 
-    scSideNavDirective.$inject = ['$log'];
-    function scSideNavDirective($log) {
+    scSideNavDirective.$inject = ['$log', 'sharedNavDataService'];
+    function scSideNavDirective($log, sharedNavDataService) {
         return {
             restrict: 'E',
             templateUrl: 'components/mainNav/sideNav.tpl.html',
             scope: {
                 entities: '=',
-                currentEntityUid: '='
+                currentEntityId: '='
             },
             link: function link(scope, element, attrs) {
-                scope.$watch('currentEntityUid', openTree);
+                scope.$watch('currentEntityId', openTree);
                 scope.getHierarchyLevel = getHierarchyLevel;
                 scope.isShowing = isShowing;
                 scope.isAnotherLevel = isAnotherLevel(scope);
                 scope.getNextShowing = getNextShowing(scope);
+                scope.isCurrentEntity = isCurrentEntity(scope);
             }
         };
 
@@ -34,13 +35,12 @@
             }
 
             var currentEntity = scope.entities.index[newValue];
-            var oldEntity = scope.entities.index[oldValue];
-
-            if (oldEntity) {
-                oldEntity.isCurrentEntity = false;
-            }
-
-            currentEntity.isCurrentEntity = true;
+            //var oldEntity = scope.entities.index[oldValue];
+            //if (oldEntity) {
+            //    oldEntity.isCurrentEntity = false;
+            //}
+            //
+            //currentEntity.isCurrentEntity = true;
 
             if (!currentEntity) {
                 return;
@@ -83,6 +83,12 @@
                     if (list[i] && isShowing(list[i]))
                         return list[i];
                 }
+            }
+        }
+
+        function isCurrentEntity(scope) {
+            return function isCurrentEntityFunction(entityId) {
+                return scope.currentEntityId === entityId
             }
         }
     }

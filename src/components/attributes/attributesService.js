@@ -4,8 +4,8 @@
         .module('scAttributes')
         .service('scAttributesService', scAttributesTableService);
 
-    scAttributesTableService.$inject = ['scData', 'scPrincipal'];
-    function scAttributesTableService(scData, scPrincipal) {
+    scAttributesTableService.$inject = ['$log', 'scData', 'scPrincipal'];
+    function scAttributesTableService($log, scData, scPrincipal) {
         return {
             updateEntity: updateEntity,
             updateAttribute: updateAttribute,
@@ -13,7 +13,11 @@
             createTaskWithName: createTaskWithName,
             findAllUsers: findAllUsers,
             persistEntity: persistEntity,
-            updateTask: updateTask
+            createNewTask: createNewTask,
+            updateTask: updateTask,
+            deleteTask: deleteTask,
+            findEntitiesOfWorkspace: findEntitiesOfWorkspace,
+            findAllExpertises: findAllExpertises
         };
 
         function findAllUsers() {
@@ -65,7 +69,9 @@
             });
         }
 
-        function updateTask(task) {
+        function updateTask(orgTask, repeatScope) {
+            var task = angular.copy(orgTask);
+
             //forTaskDateProps(task, function (prop) {
             //    return prop.getTime();
             //})
@@ -75,12 +81,46 @@
                 .update(task)
                 .$promise
                 .then(function formatDates(nTask) {
-                    //forTaskDateProps(nTask, function formatDatesPerProp(prop) {
-                    //    return new Date(prop);
-                    //});
+                    $log.warn('received');
+                    forTaskDateProps(nTask, function formatDatesPerProp(prop) {
+                        return new Date(prop);
+                    });
 
                     return nTask;
                 });
+        }
+
+        function findEntitiesOfWorkspace(workspaceId) {
+            var searchObject = {'id': workspaceId};
+            return scData.Workspace.getEntities(searchObject).$promise;
+        }
+
+        function createNewTask(taskName, entity) {
+            if (!taskName || !entity) {
+                $log.error('could not create task, because either taskName or entity was not defined: taskName =', taskName, '; entity =', entity)
+                return;
+            }
+
+            var task = {
+                'name': taskName,
+                'entity': {
+                    'id': entity.id
+                }
+            }
+
+            return scData.Task.save(task).$promise;
+        }
+
+        function findAllExpertises() {
+            return scData.Expertise.query().$promise;
+        }
+
+        function deleteTask(task) {
+            var id = {
+                'id': task.id
+            }
+
+            return scData.Task.delete(id).$promise;
         }
     }
 })(angular);
