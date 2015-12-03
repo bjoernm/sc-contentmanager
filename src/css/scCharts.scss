@@ -1,10 +1,20 @@
 .scPieChart, .scGanttChart {
-  .foreground, .foreground {
+  .foreground {
     fill: #417505;
   }
 
-  .background, .background {
+  .background {
     fill: #CCCCCC;
+  }
+
+  &.deactivated {
+    .foreground {
+      fill: #9B9B9B;
+    }
+
+    .background {
+      fill: #EEEEEE;
+    }
   }
 }
 
@@ -40,6 +50,7 @@
 }
 
 .scGanttChart .taskProgress {
+  opacity: .8;
   text-anchor: middle;
 
   &.left {
@@ -50,6 +61,8 @@
 .scGanttChart .todayMark {
   text {
     text-anchor: middle;
+    font-size: 70%;
+    opacity: .5;
   }
 
   &.right text {

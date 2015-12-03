@@ -90,18 +90,23 @@
 
                     calculatedValues.halfTitlePadding = calculatedValues.title.padding / 2;
                     calculatedValues.outerLineHeight = lineHeight + calculatedValues.title.padding;
-                    calculatedValues.linePositions = [];
-                    calculatedValues.upperLinePositions = [];
-                    calculatedValues.linePositionsWithOffset = [];
-                    for (var $index = 0; $index < numberOfTasks; $index++) {
-                        var lP = getLinePosition($index);
-                        var lPWO = lP + calculatedValues.line.offset.y;
-                        calculatedValues.linePositions[$index] = lP;
-                        calculatedValues.linePositionsWithOffset[$index] = lPWO;
-                        calculatedValues.upperLinePositions[$index] = lPWO - (calculatedValues.outerLineHeight) / 2;
-                    }
+                    calculatedValues.linePositions = getlP;
+                    calculatedValues.linePositionsWithOffset = getlPWO;
+                    calculatedValues.upperLinePositions = getUpperLinePositions;
 
                     return calculatedValues;
+                }
+
+                function getUpperLinePositions($index) {
+                    return getlPWO($index) - (scope.calculatedValues.outerLineHeight) / 2;
+                };
+
+                function getlPWO($index) {
+                    return getlP($index) + scope.calculatedValues.line.offset.y;
+                }
+
+                function getlP($index) {
+                    return scope.getLinePosition($index);
                 }
 
                 function getProgressDate(task) {

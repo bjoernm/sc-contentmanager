@@ -107,13 +107,13 @@
 
                 function abortMetadataEditing(task) {
                     // using this two values directly in the template did not work
-                    var $index = scope.tasks.indexOf(task);
-                    var tasks = scope.tasks;
+                    var index = scope.tasks.indexOf(task);
+                    var orgTask = orgTasks[index];
 
-                    setMetadataEdit(tasks[$index], false);
-                    $log.info(tasks[$index], orgTasks[$index]);
-                    ['progress', 'begin', 'end', 'owner', 'expertises'].forEach(function(prop) {
-                        tasks[$index][prop] = orgTasks[$index][prop];
+                    setMetadataEdit(task, false);
+                    $log.info(task, orgTask);
+                    ['progress', 'begin', 'end', 'owner', 'expertises'].forEach(function (prop) {
+                        task[prop] = angular.copy(orgTask[prop]);
                     });
                 }
 
@@ -151,7 +151,7 @@
                 function addNewTask(newTaskName) {
                     scAttributesService.createTaskWithName(newTaskName)
                         .then(function (newTask) {
-                            scope.entity.tasks.push(newTask);
+                            scope.tasks.push(newTask);
                             orgTasks.push(angular.copy(newTask));
                             scope.newTaskName = '';
                         })
@@ -223,15 +223,24 @@
                     }
 
                     function removeTaskFromList() {
-                        var index = scope.tasks.indexOf(task);
-
-                        $log.info("index is", index);
-                        scope.tasks.splice(index, 1);
+                        var index = scope.tasks.findIndex(byId(task.id));
+                        if (index > -1) {
+                            scope.tasks.splice(index, 1);
+                            orgTasks.splice(index, 1);
+                        } else {
+                            $log.warn("could not remove task from tasks list because index of task was", index);
+                        }
                     }
                 }
 
                 function logError() {
                     $log.error.apply($log, arguments);
+                }
+
+                function byId(id) {
+                    return function(other) {
+                        return other.id === id;
+                    }
                 }
             }
         };

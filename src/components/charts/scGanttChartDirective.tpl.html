@@ -5,16 +5,16 @@
     <svg xmlns="http://www.w3.org/2000/svg" class="scCharts scGanttChart"
          ng-attr-view_box="0 {{::(-lineHeight.value)}} {{elementWidth}} {{getLinePosition(tasks.length)}}">
         <g ng-attr-transform="translate(0, {{::lineHeight.value}})">
-            <g ng-repeat="task in tasks | orderBy: 'name' track by $index">
+            <g ng-repeat="task in tasks | orderBy: 'name' track by task.id">
                 <line x1="1"
                       ng-attr-x2="{{getOffset()}}"
-                      ng-attr-y1="{{::(calculatedValues.linePositionsWithOffset[$index])}}"
-                      ng-attr-y2="{{::(calculatedValues.linePositionsWithOffset[$index])}}"
+                      ng-attr-y1="{{(calculatedValues.linePositionsWithOffset($index))}}"
+                      ng-attr-y2="{{(calculatedValues.linePositionsWithOffset($index))}}"
                       class="coordinateSystemLines"></line>
                 <line ng-attr-x1="{{getOffset()}}"
                       ng-attr-x2="{{elementWidth}}"
-                      ng-attr-y1="{{::(calculatedValues.linePositionsWithOffset[$index])}}"
-                      ng-attr-y2="{{::(calculatedValues.linePositionsWithOffset[$index])}}"
+                      ng-attr-y1="{{(calculatedValues.linePositionsWithOffset($index))}}"
+                      ng-attr-y2="{{(calculatedValues.linePositionsWithOffset($index))}}"
                       class="coordinateSystemLines percentageArea"></line>
                 <g ng-class="{overdue: task.isOverdue, inconsistent: task.isInconsistent}" class="task">
                     <text class="taskTitle"
@@ -24,9 +24,9 @@
                           sc-svg-background-insert-as-first-child="true"
                           text="task.name"
                           ng-attr-x="{{::(calculatedValues.title.offset.x)}}"
-                          ng-attr-y="{{(calculatedValues.linePositionsWithOffset[$index]) + lineHeight.value - (taskTitleHeights[task.id] || 0) / 2}}">
+                          ng-attr-y="{{(calculatedValues.linePositionsWithOffset($index)) + lineHeight.value - (taskTitleHeights[task.id] || 0) / 2}}">
                     </text>
-                    <rect ng-attr-y="{{::calculatedValues.upperLinePositions[$index]}}"
+                    <rect ng-attr-y="{{calculatedValues.upperLinePositions($index)}}"
                           ng-attr-x="{{getDatesPosition(task.begin)}}"
                           sc-svg-x2="{{getDatesPosition(task.end)}}"
                           ng-attr-height="{{::calculatedValues.outerLineHeight}}"
@@ -36,28 +36,28 @@
                           sc-svg-background-padding="{{::calculatedValues.halfTitlePadding}}"
                           sc-svg-background-insert-as-first-child="true"
                           class="background"></rect>
-                    <rect ng-attr-y="{{::calculatedValues.upperLinePositions[$index]}}"
+                    <rect ng-attr-y="{{calculatedValues.upperLinePositions($index)}}"
                           ng-attr-x="{{getDatesPosition(task.begin)}}"
                           sc-svg-x2="{{getDatesPosition(getProgressDate(task))}}"
-                          ng-attr-height="{{::calculatedValues.outerLineHeight}}"
-                          ng-attr-rx="{{::calculatedValues.halfTitlePadding}}"
-                          ng-attr-ry="{{::calculatedValues.halfTitlePadding}}"
+                          ng-attr-height="{{calculatedValues.outerLineHeight}}"
+                          ng-attr-rx="{{calculatedValues.halfTitlePadding}}"
+                          ng-attr-ry="{{calculatedValues.halfTitlePadding}}"
                           class="foreground"></rect>
                     <text class="taskProgress"
-                          ng-attr-y="{{(calculatedValues.linePositions[$index])}}"
+                          ng-attr-y="{{(calculatedValues.linePositions($index))}}"
                           ng-attr-x="{{getDatesPosition(getProgressTextDate(task))}}"
                           ng-class="{'left': isLeft(task)}"
                           ng-if="!!task.begin && !! task.end">
                         {{task.progress / 100 | percentage: 0}}
                     </text>
                     <text class="taskProgress left"
-                          ng-attr-y="{{(calculatedValues.linePositions[$index])}}"
+                          ng-attr-y="{{(calculatedValues.linePositions($index))}}"
                           ng-attr-x="{{getOffset()}}"
                           sc-svg-background
                           sc-svg-background-padding="{{::calculatedValues.halfTitlePadding}}"
                           sc-svg-background-class="noMetadata"
                           ng-if="!task.begin || !task.end">
-                        {{task.progress / 100 | percentage: 0}}
+                        Metadata not completed!
                     </text>
                 </g>
             </g>
@@ -65,7 +65,7 @@
                   x2="1"
                   y1="-1000"
                   class="coordinateSystemLines"
-                  ng-attr-y2="{{::(calculatedValues.linePositionsWithOffset[tasks.length - 1])}}"></line>
+                  ng-attr-y2="{{(calculatedValues.linePositionsWithOffset(tasks.length - 1))}}"></line>
         </g>
         <g class="todayMark"
            ng-attr-transform="translate({{getDatesPosition(now) - 1}}, {{::lineHeight.value}})"

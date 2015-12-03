@@ -13,10 +13,12 @@
                 background="{{scColorService.getColor('progress.valid.background')}}"
                 style="fill: currentColor"
                 -->
-                <md-button ng-click="ctrl.showGantChart = !ctrl.showGantChart" aria-label="Show task gant chart">
+                <div ng-click="ctrl.showGantChart = !ctrl.showGantChart"
+                     style="cursor: pointer; padding: 0 .5em;"
+                     aria-label="Show task gant chart">
                     <md-icon ng-if="!ctrl.showGantChart" md-font-icon>expand_more</md-icon>
                     <md-icon ng-if="ctrl.showGantChart" md-font-icon>expand_less</md-icon>
-                </md-button>
+                </div>
             </div>
             <div layout="column">
                 <h1>{{::ctrl.entity.name}}</h1>

@@ -28,11 +28,12 @@
         <div layout="row" layout-align="space-between center">
             <sc-pie-chart diameter="2em"
                           percentage="{{task.progress ? task.progress / 100 : 0}}"
+                          style="margin: 0 .5em;"
                           show-percentage="false"></sc-pie-chart>
-            <strong flex="grow"
-                    style="text-align:center;">{{task.name}}</strong>
+            <strong flex="grow">{{task.name}}</strong>
 
-            <div ng-click="vm[task.id].showMetaData = !vm[task.id].showMetaData" aria-label="Open context menu" style="cursor: pointer;">
+            <div ng-click="vm[task.id].showMetaData = !vm[task.id].showMetaData" aria-label="Open context menu"
+                 style="cursor: pointer;">
                 <md-icon md-font-icon ng-if="!vm[task.id].showMetaData">expand_more</md-icon>
                 <md-icon md-font-icon ng-if="vm[task.id].showMetaData">expand_less</md-icon>
             </div>

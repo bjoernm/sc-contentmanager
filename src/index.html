@@ -22,10 +22,24 @@
     <h1><a href="#"><img src="images/logo.png" alt="sebis Logo"/></a></h1>
 
     <div layout="column" flex>
-        <div>searchbar <a href="#/feed">Feed</a> alarm profile options</div>
+        <div layout="row">
+            <md-autocomplete md-input-name="searchInput"
+                             md-search-text="searchText"
+                             md-selected-item="searchItem"
+                             md-items="item in ctrl.getSearchHints(searchText).hints"
+                             md-item-text="item.name"
+                             ng-keyup="$event.keyCode == 13 ? search(search) : angular.noop"
+                             md-floating-label="">
+                <md-item-template>
+                    <span md-highlight-text="searchedExpertises">{{item.name}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No matches found. {{searchText}}
+                </md-not-found>
+            </md-autocomplete>
+            <a href="#/feed">Feed</a> alarm profile options
+        </div>
         <md-tabs md-dynamic-height
-                 md-border-bottom
-                 md-stretch-tabs="always"
                  md-selected="ctrl.selectedTabIndex"
                  class="md-primary"
                  ng-if="ctrl.workspaces">
@@ -36,6 +50,7 @@
         </md-tabs>
     </div>
 </div>
+
 <md-content layout="row" class="content">
     <md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="true">
         <sc-side-nav entities="ctrl.navData.entities" current-entity-id="ctrl.navData.currentEntityId"

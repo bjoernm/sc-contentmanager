@@ -4,14 +4,21 @@
     angular.module('scMainNav')
         .service('scMainNavService', scMainNavService);
 
-    scMainNavService.$inject = ['scData', '$q', '$filter'];
-    function scMainNavService(scData, $q, $filter) {
+    scMainNavService.$inject = ['scData', '$q', '$filter', 'scUtil', '$resource'];
+    function scMainNavService(scData, $q, $filter, scUtil, $resource) {
         // var cache = $cacheFactory('scMainNavServiceCache');
+
+        var searchHints = $resource(scUtil.getFullUrl("searchHints"));
 
         return {
             loadAllWorkspaces: loadAllWorkspaces,
-            loadTextPages: loadTextPages
+            loadTextPages: loadTextPages,
+            getSearchHints: getSearchHints
         };
+
+        function getSearchHints(searchText) {
+            return searchHints.get({'q': searchText}).$promise;
+        }
 
         function loadAllWorkspaces() {
             // Simulate async nature of real remote calls
