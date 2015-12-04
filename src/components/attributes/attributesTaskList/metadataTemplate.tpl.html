@@ -1,4 +1,20 @@
 <dl ng-form="metadataForm" class="metadataForm">
+    <dt class="attributesName" ng-if="!!task.begin || isInEdit(task.id)">Start date:</dt>
+    <dd ng-if="isInEdit(task.id)">
+        <md-datepicker ng-model="task.begin"
+                       ng-change="submitMetadata($event)"></md-datepicker>
+    </dd>
+    <dd ng-if="!!task.begin && !isInEdit(task.id)">{{task.begin | date: 'mediumDate'}}</dd>
+
+
+    <dt class="attributesName" ng-if="!!task.end || isInEdit(task.id)">End date:</dt>
+    <dd ng-if="isInEdit(task.id)">
+        <md-datepicker ng-model="task.end"
+                       ng-change="submitMetadata($event)"></md-datepicker>
+    </dd>
+    <dd ng-if="!!task.end && !isInEdit(task.id)">{{task.end | date: 'mediumDate'}}</dd>
+
+
     <dt class="attributesName">Progress:</dt>
     <dd ng-if="isInEdit(task.id)">
         <md-input-container>
@@ -19,22 +35,6 @@
         </md-input-container>
     </dd>
     <dd ng-if="!isInEdit(task.id)">{{task.progress}}%</dd>
-
-
-    <dt class="attributesName" ng-if="!!task.begin || isInEdit(task.id)">Start date:</dt>
-    <dd ng-if="isInEdit(task.id)">
-        <md-datepicker ng-model="task.begin"
-                       ng-change="submitMetadata($event)"></md-datepicker>
-    </dd>
-    <dd ng-if="!!task.begin && !isInEdit(task.id)">{{task.begin | date: 'mediumDate'}}</dd>
-
-
-    <dt class="attributesName" ng-if="!!task.end || isInEdit(task.id)">End date:</dt>
-    <dd ng-if="isInEdit(task.id)">
-        <md-datepicker ng-model="task.end"
-                       ng-change="submitMetadata($event)"></md-datepicker>
-    </dd>
-    <dd ng-if="!!task.end && !isInEdit(task.id)">{{task.end | date: 'mediumDate'}}</dd>
 
 
     <dt class="attributesName" ng-if="!!task.owner || isInEdit(task.id)">Owner:</dt>

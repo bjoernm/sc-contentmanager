@@ -28,7 +28,7 @@
         <div layout="row" layout-align="space-between center">
             <sc-pie-chart diameter="2em"
                           percentage="{{task.progress ? task.progress / 100 : 0}}"
-                          style="margin: 0 .5em;"
+                          style="margin: 0 0.5em 0 0;"
                           show-percentage="false"></sc-pie-chart>
             <strong flex="grow">{{task.name}}</strong>
 
@@ -60,9 +60,11 @@
                 </md-menu-content>
             </md-menu>
         </div>
-        <div class="metadataTable" ng-if="vm[task.id].showMetaData">
+        <div class="metadataTable" ng-if="vm[task.id].showMetaData" layout="row" layout-align="start start">
+            <ng-include
+                    flex="grow"
+                    src="'components/attributes/attributesTaskList/metadataTemplate.tpl.html'"></ng-include>
             <div layout="row" layout-align="start center">
-                <div flex="grow" class="metadataTitle">Metadata</div>
                 <div ng-if="!!isInEdit(task.id)" layout="row">
                     <md-icon ng-click="abortMetadataEditing(task)">undo</md-icon>
                     <md-icon ng-click="updateMetadata(task)">done</md-icon>
@@ -71,8 +73,6 @@
                     <md-icon ng-click="editTask(task)">edit</md-icon>
                 </div>
             </div>
-            <ng-include
-                    src="'components/attributes/attributesTaskList/metadataTemplate.tpl.html'"></ng-include>
         </div>
         <sc-attributes-list attributes="task.attributes" on-change="onChange()"></sc-attributes-list>
         <div ng-form="newTaskAttributeForm" class="newTaskAttributeForm" layout="row" layout-align="start end">

@@ -50,7 +50,7 @@
                           ng-if="!!task.begin && !! task.end">
                         {{task.progress / 100 | percentage: 0}}
                     </text>
-                    <text class="taskProgress left"
+                    <text class="taskProgress left noMetadata"
                           ng-attr-y="{{(calculatedValues.linePositions($index))}}"
                           ng-attr-x="{{getOffset()}}"
                           sc-svg-background
