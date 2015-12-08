@@ -19,10 +19,20 @@
      */
 
     /**
+     * @typedef {Object} ScProperty
+     * @property {string} name The name of the property.
+     * @property {string} type The type of entity.
+     * @description
+     *
+     * Type definition for a property of an entity.
+     */
+
+    /**
      * @typedef {Object} ScChange
-     * @property {string} changedFeatureName The name of the feature that changed.
-     * @property {string} changeType The type of change.
-     * @property {Object} change The change value (varies).
+     * @property {ScProperty} property The changed property.
+     * @property {string} type The type of change.
+     * @property {Object} oldValue The value before the change.
+     * @property {Object} newValue The new value after the change.
      * @description
      *
      * Type definition for a change related to a changeset.
@@ -33,6 +43,7 @@
      * @property {string} id The unique id of the changeset.
      * @property {string} when When was the changeset created.
      * @property {Array<ScChange>} changes Changes that were made.
+     * @property {ScHybridEntity} entity The changed entity.
      * @description
      *
      * JSDoc type definition for a changeset related to an event.
@@ -44,7 +55,6 @@
      * @property {string} eventType The type of event (ADD, REMOVE, CHANGE, RESTORE or UNKNOWN.
      * @property {ScEntity} user The user responsible for the change.
      * @property {ScEntity} space The space or workspace for the change.
-     * @property {ScHybridEntity} entity The changed entity.
      * @property {ScChangeset} changeset The related changeset.
      * @description
      *
@@ -109,8 +119,7 @@
          * @type {Resource}
          */
         var EventResource =
-            $resource(apiToInstanceUrl('api/v1/changesets'));
-
+            $resource(apiToInstanceUrl('api/v1/events'));
 
         initializeBasicAuthentication();
 
