@@ -8,21 +8,31 @@
                 <div>{{ feedItemCtrl.event.user.name }}</div>
                 <div>{{ feedItemCtrl.event.changeset.when }}</div>
             </div>
-            <span class="md-subhead" layout="row" layout-align="space-between start">
+            <div class="md-subhead" layout="row" layout-align="space-between start">
                 <div>Attribute changed</div>
                 <div><md-icon id="iconWhite" class="material-icons">storage</md-icon></div>
-            </span>
+            </div>
         </md-card-header-text>
     </md-card-header>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline" ng-repeat="change in feedItemCtrl.event.changeset.changes">
-                Changed value of Attribute {{change.changedFeatureName}} to {{change.change.value.value}}
-            </span>
             <span class="md-subhead">
                 {{feedItemCtrl.event.space.name}}
                 <md-icon class="material-icons">chevron_right</md-icon>
                 {{feedItemCtrl.event.entity.name}}
+            </span>
+            <span class="md-headline" ng-repeat="change in feedItemCtrl.event.changeset.changes">
+                <div ng-if="change.type === 'richString'">
+                    Changed {{ change.property.name }} of {{ feedItemCtrl.event.changeset.entity.name }}.
+                </div>
+                <div ng-if="change.type === 'simpleValue'">
+                    <div ng-if="change.property.type === 'HYBRID_TYPE'">
+                        Changed value of {{ change.property.name }} from {{change.oldValue.value}} to {{change.newValue.value}}
+                    </div>
+                    <div ng-if="change.property.type !== 'HYBRID_TYPE'">
+                        Changed value of {{ change.property.name }} from {{change.oldValue}} to {{change.newValue}}
+                    </div>
+                </div>
             </span>
         </md-card-title-text>
     </md-card-title>

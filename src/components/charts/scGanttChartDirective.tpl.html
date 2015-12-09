@@ -5,7 +5,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" class="scCharts scGanttChart"
          ng-attr-view_box="0 {{::(-lineHeight.value)}} {{elementWidth}} {{getLinePosition(tasks.length)}}">
         <g ng-attr-transform="translate(0, {{::lineHeight.value}})">
-            <g ng-repeat="task in tasks | orderBy: 'name' track by task.id">
+            <g ng-repeat="task in tasks | orderBy: ['begin','name'] track by task.id">
                 <line x1="1"
                       ng-attr-x2="{{getOffset()}}"
                       ng-attr-y1="{{(calculatedValues.linePositionsWithOffset($index))}}"
