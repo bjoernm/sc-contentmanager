@@ -20,7 +20,9 @@
     function ScEventService($resource, $http, $base64) {
         var service = {
             getEvents: getEvents,
-            generateData: generateData
+            generateWorkspace: generateWorkspace,
+            generatePage: generatePage,
+            generateChange: generateChange
         };
 
         /**
@@ -50,7 +52,10 @@
          */
         var WorkspaceResource =
             $resource(apiToInstanceUrl('api/v1/workspaces'));
-
+        var WebAppLabResource =
+                    $resource(apiToInstanceUrl('api/v1/workspaces/webapplab/entities'));
+         var EntityResource =
+                    $resource(apiToInstanceUrl('api/v1/entities/testpage'));
 
 
         initializeBasicAuthentication();
@@ -92,24 +97,43 @@
         }
 
         //workspace erstellen
-        function generateData() {
+        function generateWorkspace() {
 
-            var data = {
-                name: 'Testspace1'
+            var space = {
+                name: 'WebApplicationLab',
+                id: 'webapplab'
             };
 
-            WorkspaceResource.save(data).$promise.then(function(workspace){console.log(workspace)}, function(error){console.log(error)});
-
-
-
-            //$http.post('http://localhost:8083/intern/tricia/api/v1/workspaces', data, config).then(successCallback, errorCallback);
+            WorkspaceResource.save(space).$promise.then(function(workspace){console.log(workspace)}, function(error){console.log(error)});
         }
 
-
-
         //page erstellen
+        function generatePage() {
+
+            var page = {
+                name: 'Testpage',
+                id: 'testpage'
+            };
+
+            WebAppLabResource.save(page).$promise.then(function(entity){console.log(entity)}, function(error){console.log(error)});
+
+        }
 
         //changes vornehmen
+        function generateChange() {
+
+            /*var entity = EntityResource.get(function() {
+              entity.attributes = [{
+                                  values: ['What has been changed'],
+                                  name: 'change'
+                                  },
+                                  {
+                                  values: ['Testing a change'],
+                                  name: 'testchange'
+                                  }];
+              entity.$save();
+            });*/
+        }
 
 
 

@@ -26,6 +26,8 @@
          /** @type {ScEventPage} */
         feedCtrl.eventPage = null;
         feedCtrl.postData = postData;
+        feedCtrl.postPages = postPages;
+        feedCtrl.postChange = postChange;
 
         eventService.getEvents().then(
             function (eventPage) {
@@ -38,7 +40,15 @@
             });
 
         function postData() {
-            generateDataService.generateData();
+            generateDataService.generateWorkspace();
+        }
+
+        function postPages() {
+            generateDataService.generatePage();
+        }
+
+        function postChange() {
+            generateDataService.generateChange();
         }
     }
 })(angular);

@@ -9,7 +9,18 @@
                 <div>{{ feedItemCtrl.event.changeset.when }}</div>
             </div>
             <div class="md-subhead" layout="row" layout-align="space-between start">
-                <div>Attribute changed</div>
+                <div ng-if="feedItemCtrl.event.eventType == 'ADD' && feedItemCtrl.event.entity.type != null ">
+                    Added a {{feedItemCtrl.event.entity.type}}
+                </div>
+                <div ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.entity.type != null ">
+                    Changed a {{feedItemCtrl.event.entity.type}}
+                </div>
+                <div ng-if="feedItemCtrl.event.eventType == 'ADD' && feedItemCtrl.event.entity.type == null ">
+                    Added a Workspace
+                </div>
+                <div ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.entity.type == null ">
+                    Changed a Workspace
+                </div>
                 <div><md-icon id="iconWhite" class="material-icons">storage</md-icon></div>
             </div>
         </md-card-header-text>

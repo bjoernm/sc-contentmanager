@@ -1,7 +1,11 @@
 <div ng-cloak="" class="carddemoInCardActions">
     <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
         <div flex="70" layout="column">
-            <md-button ng-click="feedCtrl.postData()">Generate Data</md-button>
+            <div layout="row">
+                <md-button ng-click="feedCtrl.postData()">Generate Workspace</md-button>
+                <md-button ng-click="feedCtrl.postPages()">Generate Pages</md-button>
+                <md-button ng-click="feedCtrl.postChange()">Generate Changes</md-button>
+            </div>
             <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events" sc-feed-event="event"></sc-feed-item>
         </div>
     </md-content>
