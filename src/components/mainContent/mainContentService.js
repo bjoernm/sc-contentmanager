@@ -6,16 +6,29 @@
         .service('scMainContentService', mainContentService);
 
 
-    mainContentService.$inject = ['$q', '$log', 'scData', 'scModel', '$cacheFactory'];
-    function mainContentService($q, $log, scData, scModel, $cacheFactory) {
+    mainContentService.$inject = ['$q', '$log', 'scData', 'scModel', '$cacheFactory', 'scTypeGuessing'];
+    function mainContentService($q, $log, scData, scModel, $cacheFactory, scTypeGuessing) {
 
         return {
             getPage: getPage
         };
 
         function getPage(entityId) {
+            var requestObject = {
+                'id': entityId,
+                'meta': [
+                    'attributeDefinition',
+                    'attributeType',
+                    'multiplicity',
+                    'values',
+                    'entityType',
+                    'workspace',
+                    'options'
+                ].join(',')
+            };
+
             return scData.Entity
-                .get({id: entityId}).$promise
+                .get(requestObject).$promise
                 .then(attachType)
                 //.then(addTestTask)
                 .then(formatEntity)
@@ -84,10 +97,15 @@
             if (entity.attributes) {
                 for (var i = 0; i < entity.attributes.length; i++) {
                     var attribute = entity.attributes[i];
-                    if (attribute.type === "date") {
+                    if (!!attribute && !!attribute.values) {
                         for (var j = 0; j < attribute.values.length; j++) {
-                            if (!!attribute.values[j]) {
-                                attribute.values[j] = new Date(attribute.values[j]);
+                            var value = attribute.values[j];
+                            var type = attribute.type;
+
+                            if (type === 'date' || ((!type || type === '') && scTypeGuessing.guessType(value) === 'date')) {
+                                if (!!value) {
+                                    attribute.values[j] = new Date(value);
+                                }
                             }
                         }
                     }

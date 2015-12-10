@@ -13,9 +13,9 @@
         .module('scFeed')
         .controller('FeedController', FeedController);
 
-    FeedController.$inject = ['scEventService'];
+    FeedController.$inject = ['scEventService', 'scGenerateDataService'];
 
-    function FeedController(eventService) {
+    function FeedController(eventService, generateDataService) {
         var feedCtrl = this;
 
         feedCtrl.hasError = false;
@@ -25,6 +25,9 @@
 
          /** @type {ScEventPage} */
         feedCtrl.eventPage = null;
+        feedCtrl.postData = postData;
+        feedCtrl.postPages = postPages;
+        feedCtrl.postChange = postChange;
 
         eventService.getEvents().then(
             function (eventPage) {
@@ -35,5 +38,17 @@
                 feedCtrl.error = error;
 
             });
+
+        function postData() {
+            generateDataService.generateWorkspace();
+        }
+
+        function postPages() {
+            generateDataService.generatePage();
+        }
+
+        function postChange() {
+            generateDataService.generateChange();
+        }
     }
 })(angular);

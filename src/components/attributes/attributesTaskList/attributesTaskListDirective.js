@@ -5,9 +5,9 @@
         .module('scAttributes')
         .directive('scAttributesTaskList', scAttributesTaskList);
 
-    scAttributesTaskList.$inject = ['$log', 'scAttributesService'];
+    scAttributesTaskList.$inject = ['$log', 'scAttributesService', '$mdDialog'];
 
-    function scAttributesTaskList($log, scAttributesService) {
+    function scAttributesTaskList($log, scAttributesService, $mdDialog) {
         return {
             restrict: 'E',
             templateUrl: 'components/attributes/attributesTaskList/attributesTaskList.tpl.html',
@@ -33,12 +33,18 @@
                 scope.isInEdit = isInEdit;
                 scope.editTask = editTask;
                 scope.searchInAttributes = searchInAttributes;
+                scope.addNewTaskAttribute = addNewTaskAttribute;
                 scope.addNewTask = addNewTask;
+                scope.enterPressed = enterPressed;
+                scope.getExpertisesBySearch = getExpertisesBySearch;
+                scope.deleteTask = deleteTask;
 
                 // view variables
 
                 scope.newTaskName = '';
                 scope.newTaskAttribute = {};
+                scope.searchTexts = {};
+                scope.vm = {};
 
                 function metadataOnKeyUp($event, expertises) {
                     if (pressedEnter($event)) {
@@ -63,9 +69,8 @@
                     return scAttributesService.findAllUsers()
                         .then(function (users) {
                             return users.filter(byLowerCasePartialName(partName))
-                        }).catch(function () {
-                            $log.error.apply($log, arguments);
-                        });
+                        })
+                        .catch(logError);
                 }
 
                 function byLowerCasePartialName(partName) {
@@ -76,29 +81,40 @@
                     }
                 }
 
-                function updateMetadata(tasks, $index) {
+                function updateMetadata(task) {
+                    // using this two values directly in the template did not work
+                    var $index = scope.tasks.indexOf(task);
+                    var tasks = scope.tasks;
+
                     setMetadataEdit(tasks[$index], false);
                     cleanExpertises(tasks, $index);
 
-                    var task = tasks[$index];
                     var orgTask = orgTasks[$index];
-                    if(Math.round(task.progress) !== orgTask.progress) {
+                    if (Math.round(task.progress) !== orgTask.progress) {
                         task.isProgressCalculated = false;
                     }
 
-                    scAttributesService.updateTask(task).then(function(uTask) {
-                        tasks[$index] = uTask;
-                        orgTasks[$index] = angular.copy(uTask);
-                    })
+                    scAttributesService
+                        .updateTask(task)
+                        .then(function (uTask) {
+                            tasks[$index] = uTask;
+                            orgTasks[$index] = angular.copy(uTask);
+                        })
+                        .then(scope.onChange)
+                        .catch(logError);
 
-                    // after successful update add both lines:
-                    // entity.tasks[$index] = updatedTask
-                    // orgTasks[$index] = angular.copy(updatedTask);
                 }
 
-                function abortMetadataEditing(tasks, $index) {
-                    setMetadataEdit(tasks[$index], false);
-                    tasks[$index] = angular.copy(orgTasks[$index]);
+                function abortMetadataEditing(task) {
+                    // using this two values directly in the template did not work
+                    var index = scope.tasks.indexOf(task);
+                    var orgTask = orgTasks[index];
+
+                    setMetadataEdit(task, false);
+                    $log.info(task, orgTask);
+                    ['progress', 'begin', 'end', 'owner', 'expertises'].forEach(function (prop) {
+                        task[prop] = angular.copy(orgTask[prop]);
+                    });
                 }
 
                 function editTask(task) {
@@ -111,7 +127,7 @@
                     task.expertises = task.expertises.filter(notEmpty);
 
                     function notEmpty(expertise) {
-                        return expertise != '';
+                        return angular.isObject(expertise) && expertise.name && expertise.name != '';
                     }
                 }
 
@@ -127,7 +143,7 @@
 
                 function searchInAttributes(searchText) {
                     var lower = angular.lowercase(searchText);
-                    return scope.entity.attributes.filter(function (attr) {
+                    return scope.pageAttributes.filter(function (attr) {
                         return angular.lowercase(attr.name).indexOf(lower) != -1;
                     })
                 }
@@ -135,10 +151,96 @@
                 function addNewTask(newTaskName) {
                     scAttributesService.createTaskWithName(newTaskName)
                         .then(function (newTask) {
-                            scope.entity.tasks.push(newTask);
+                            scope.tasks.push(newTask);
                             orgTasks.push(angular.copy(newTask));
                             scope.newTaskName = '';
-                        });
+                        })
+                        .catch(logError);
+                }
+
+                function addNewTaskAttribute(task) {
+                    var newAttr = scope.newTaskAttribute[task.id];
+
+                    if (!newAttr) {
+                        $log.info('could not add new task attribute; task =', task, '; newTaskAttribute =', scope.newTaskAttribute);
+                        return;
+                    } else if (!newAttr.id || !scope.pageAttributes.find(attributeById(newAttr.id))) {
+                        //FIXME show mdDialog beware that newAttr can be a string or an object from side effects?
+                        $log.error("do you want to create a new page attribute called", newAttr, '; pageAttributes =', scope.pageAttributes, '; findbyId =', scope.pageAttributes.find(attributeById(newAttr.id)));
+                    } else if (!!task.attributes.find(attributeById(newAttr.id))) {
+                        //FIXME show mdDialog
+                        $log.error("attribute is already in task");
+                    } else {
+                        task.attributes.push(newAttr);
+                        scAttributesService
+                            .updateTask(task)
+                            .then(function (nTask) {
+                                scope.newTaskAttribute[task.id] = null;
+                                scope.searchTexts[task.id] = null;
+                                scope.onChange();
+                            })
+                            .catch(logError);
+                    }
+
+                    $log.info(scope.newTaskAttribute);
+
+                    function attributeById(attrId) {
+                        return function attributeByIdFunction(pageAttr) {
+                            return pageAttr.id === attrId;
+                        }
+                    }
+                }
+
+                function enterPressed($event, task) {
+                    $log.info('enterPressed', $event, scope.newTaskAttribute[task.id]);
+                }
+
+                function getExpertisesBySearch(searchedExpertise) {
+                    return scAttributesService.findAllExpertises()
+                        .then(function (expertises) {
+                            return expertises.filter(byLowerCasePartialName(searchedExpertise));
+                        }).catch(logError);
+                }
+
+                function deleteTask(task) {
+                    var confirm = $mdDialog.confirm()
+                        .title('Please confirm')
+                        .textContent('Do you really want to delete the task \'' + task.name + '\'?')
+                        .ariaLabel('Delete confirm')
+                        .ok('Yes, delete!')
+                        .cancel('No!');
+
+                    $mdDialog
+                        .show(confirm)
+                        .then(confirmedDeletion, angular.noop);
+
+                    function confirmedDeletion() {
+                        scAttributesService
+                            .deleteTask(task)
+                            .then(removeTaskFromList)
+                            .then(scope.onChange())
+                            .catch(logError);
+                    }
+
+                    function removeTaskFromList() {
+                        var index = scope.tasks.findIndex(byId(task.id));
+                        if (index > -1) {
+                            scope.tasks.splice(index, 1);
+                            orgTasks.splice(index, 1);
+                        } else {
+                            $log.warn("could not remove task from tasks list because index of task was", index);
+                        }
+                    }
+                }
+
+                function logError() {
+                    $log.error.apply($log, arguments);
+                }
+
+                function byId(id) {
+                    return function(other) {
+                        return other.id === id;
+                    }
                 }
             }
         };

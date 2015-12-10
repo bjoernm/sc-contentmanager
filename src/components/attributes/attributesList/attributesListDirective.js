@@ -41,7 +41,7 @@
                     persistAttribute(attribute);
 
                     function notEmpty(value) {
-                        return getStringValueForType(value, attribute.type) != '';
+                        return !!value && getStringValueForType(value, attribute.type) != '';
                     }
                 }
 
@@ -73,6 +73,7 @@
                         })
                 }
 
+                // FIXME: check if this method is still in use
                 function createAttribute(event) {
                     if (!event || event.keyCode !== 13 || !scope.newAttributeName || scope.newAttributeName === '') {
                         return;
@@ -108,7 +109,9 @@
                 }
 
                 function abortEditing(attribute) {
-                    attribute.values = angular.copy(scope.orgAttributes.find(byId(attribute.id)).values);
+                    var orgAttr = scope.orgAttributes.find(byId(attribute.id)) || {}
+                    var orgValues = orgAttr.values || [];
+                    attribute.values = angular.copy(orgValues);
 
                     attribute.edit = false;
                 }

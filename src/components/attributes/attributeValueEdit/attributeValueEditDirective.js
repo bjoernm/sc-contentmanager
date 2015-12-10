@@ -5,31 +5,29 @@
         .module('scAttributes')
         .directive('scAttributeValueEdit', attributeValueEditDirective);
 
-    attributeValueEditDirective.$inject = ['$log'];
+    attributeValueEditDirective.$inject = ['scTypeGuessing', '$log', 'scAttributesService', 'sharedNavDataService'];
 
-    function attributeValueEditDirective($log) {
+    function attributeValueEditDirective(scTypeGuessing, $log, scAttributesService, sharedNavDataService) {
         return {
             restrict: 'E',
             templateUrl: 'components/attributes/attributeValueEdit/attributeValueEdit.tpl.html',
             replace: true,
             scope: {
-                values: '=',
-                index: '=',
-                attributeName: '@',
-                type: '@',
+                attribute: '=',
+                currentIndex: '=',
                 onChange: '&'
             },
             link: function (scope, element, attrs) {
-                if (!angular.isArray(scope.values) || !(scope.values instanceof Array)) {
-                    $log.error('values must be an array. values =', scope.values, 'typeof =', typeof scope.values);
+                if (!angular.isArray(scope.attribute.values) || !(scope.attribute.values instanceof Array)) {
+                    $log.error('values must be an array. values =', scope.attribute.values, 'typeof =', typeof scope.attribute.values);
                 }
 
-                if (!isFinite(scope.index)) {
-                    $log.error('index must be a number. index =', scope.index, 'typeof =', typeof scope.index);
+                if (!isFinite(scope.currentIndex)) {
+                    $log.error('index must be a number. index =', scope.currentIndex, 'typeof =', typeof scope.currentIndex);
                 }
 
-                if (scope.index + 1 > scope.values.length || scope.index < 0) {
-                    $log.error('index must be in the range of the values array. index =', scope.index, 'values.length =', scope.values.length);
+                if (scope.currentIndex + 1 > scope.attribute.values.length || scope.currentIndex < 0) {
+                    $log.error('index must be in the range of the values array. index =', scope.currentIndex, 'values.length =', scope.attribute.values.length);
                 }
 
                 if (!angular.isFunction(scope.onChange)) {
@@ -40,16 +38,10 @@
 
                 scope.pressedEnter = pressedEnter;
                 scope.getMatches = getMatches;
+                scope.getType = getType;
 
-                // set view specific settings
-                //*
-                switch (scope.type) {
-                    case 'percentage':
-                        scope.values[scope.index] *= 100;
-                        break;
-                }
+                scope.searchText = scope.attribute.values[scope.currentIndex].name;
 
-                // */
                 /*
                  // selects the whole input field when gaining focus
                  // perhaps this behavior is not expected and therefore the code is commented
@@ -61,7 +53,7 @@
 
                 function pressedEnter(event, valid) {
                     if (valid && event && event.keyCode === 13) {
-                        modifyValuesToModelValues(scope.values);
+                        modifyValuesToModelValues(scope.attribute.values);
                         scope.onChange();
                     } else {
                         checkForLastEmptyElement();
@@ -69,24 +61,44 @@
                 }
 
                 function checkForLastEmptyElement() {
-                    if (scope.values.length === 0) {
-                        scope.values.push('');
+                    // checks for one attribute value
+                    if (scope.attribute.values.length === 0) {
+                        scope.attribute.values.push('');
                         return;
                     }
 
-                    var lastValue = getStringValueOfType(scope.values.length - 1);
+                    // checks if more than one are allowed
+                    if (!multipleMultiplicity()) {
+                        return;
+                    }
 
+                    // adds an empty value if the last one is not empty
+                    var lastValue = getStringValueOfType(scope.attribute.values.length - 1);
                     if (lastValue != '') {
-                        scope.values.push('');
+                        scope.attribute.values.push('');
+                    }
+                }
+
+                function multipleMultiplicity() {
+                    var multiplicity = (((scope.attribute || {})
+                        .attributeDefinition || {})
+                        .multiplicity || '');
+
+                    switch (multiplicity) {
+                        case 'any':
+                        case 'atLeastOne':
+                            return true;
+                        default:
+                            return false;
                     }
                 }
 
                 function getStringValueOfType(index) {
                     switch (scope.type) {
                         case 'link':
-                            return scope.values[index].name;
+                            return scope.attribute.values[index].name;
                         default:
-                            return scope.values[index];
+                            return scope.attribute.values[index];
                     }
                 }
 
@@ -100,21 +112,33 @@
                     }
                 }
 
-                function getMatches(searchText) {
-                    return [
-                        {
-                            "uid": "entities/seafood",
-                            "name": "Seafood"
-                        },
-                        {
-                            "uid": "entities/landfood",
-                            "name": "Landfood"
-                        }
-                    ].filter(function (s) {
-                            var name = s.name.toLowerCase();
-                            var lowerSearch = searchText.toLowerCase();
-                            return name.indexOf(lowerSearch) !== -1
+                function getMatches(partName) {
+                    return scAttributesService.findEntitiesOfWorkspace(sharedNavDataService.currentWorkspaceId)
+                        .then(function (entities) {
+                            return entities.filter(byLowerCasePartialName(partName))
+                        }).catch(function () {
+                            $log.error.apply($log, arguments);
                         });
+                }
+
+                function byLowerCasePartialName(partName) {
+                    var search = angular.lowercase(partName);
+                    return function byLowerCasePartialNameFunction(entity) {
+                        var lowerName = angular.lowercase(entity.name);
+                        return lowerName.indexOf(search) !== -1;
+                    }
+                }
+
+                function getType() {
+                    var attributeDefinitionType = (scope.attribute.attributeDefinition || {}).attributeType;
+
+                    if (scope.type && scope.type !== '') {
+                        return scope.type;
+                    } else if (!!attributeDefinitionType) {
+                        return angular.lowercase(attributeDefinitionType);
+                    } else {
+                        return scTypeGuessing.guessType(scope.attribute.values[scope.currentIndex]);
+                    }
                 }
             }
         };

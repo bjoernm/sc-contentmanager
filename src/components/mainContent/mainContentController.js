@@ -9,6 +9,12 @@
     function mainContentController($scope, scMainContentService, $rootScope, $location, $log, data) {
         var vm = this;
 
+        if (!data) {
+            $log.error('could not initialize mainContentController because route data were', data);
+            data = {};
+            return;
+        }
+
         vm.entity = data.currentEntity;
         vm.sum = sum;
         vm.refreshEntity = refreshEntity;

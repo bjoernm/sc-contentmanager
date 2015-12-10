@@ -20,5 +20,4 @@
         var feedItemCtrl = this;
         // Variables in directive scope attribute are bound to this object a.k.a. feedItemCtrl.
     }
-
 })(angular);

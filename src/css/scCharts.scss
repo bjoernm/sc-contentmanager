@@ -1,37 +1,60 @@
+$pageBackground_color: #FFF;
+$greenForeground_color: #417505;
+$grayBackground_color: #CCCCCC;
+$deactivatedForeground_color: #9B9B9B;
+$deactivatedBackground_color: #EEEEEE;
+$inconsistentForeground_color: wheat;
+$inconsistentBackground_color: goldenrod;
+$timeline_color: #F00;
+$overdueForeground_color: #D20015;
+$overdueBackground_color: #E3B6BB;
+$coordinate_color: #DDD;
+
+
 .scPieChart, .scGanttChart {
-  .foreground, .foreground {
-    fill: #417505;
+  .foreground {
+    fill: $greenForeground_color;
   }
 
-  .background, .background {
-    fill: #CCCCCC;
+  .background {
+    fill: $grayBackground_color;
+  }
+
+  &.deactivated {
+    .foreground {
+      fill: $deactivatedForeground_color;
+    }
+
+    .background {
+      fill: $deactivatedBackground_color;
+    }
   }
 }
 
 .scGanttChart .pageBackground {
-  fill: #FFF;
+  fill: $pageBackground_color;
 }
 
 .scPieChart.overdue, .scGanttChart .overdue {
   .foreground {
-    fill: #D20015;
+    fill: $overdueForeground_color;
   }
   .background {
-    fill: #E3B6BB;
+    fill: $overdueBackground_color;
   }
 }
 
 .scPieChart.inconsistent, .scGanttChart .inconsistent {
   .foreground {
-    fill: wheat;
+    fill: $inconsistentForeground_color;
   }
   .background {
-    fill: goldenrod;
+    fill: $inconsistentBackground_color;
   }
 }
 
 .scGanttChart .coordinateSystemLines {
-  stroke: #DDD;
+  stroke: $coordinate_color;
   stroke-width: 1px;
 
   &.percentageArea {
@@ -40,7 +63,13 @@
 }
 
 .scGanttChart .taskProgress {
+  opacity: .8;
   text-anchor: middle;
+
+  &.noMetadata {
+    font-size: 80%;
+    opacity: .5;
+  }
 
   &.left {
     text-anchor: start;
@@ -50,6 +79,8 @@
 .scGanttChart .todayMark {
   text {
     text-anchor: middle;
+    font-size: 70%;
+    opacity: .5;
   }
 
   &.right text {
@@ -57,7 +88,7 @@
   }
 
   line {
-    stroke: #F00;
+    stroke: $timeline_color;
     stroke-width: 1px;
   }
 }

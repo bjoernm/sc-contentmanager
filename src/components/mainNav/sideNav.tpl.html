@@ -6,14 +6,14 @@
     <ul ng-if="entity.children.length > 0 && entity.showChildren">
         <li ng-repeat="entity in entity.children track by entity.id"
             ng-include="'sideNavTree'"
-            ng-class="{active: entity.isCurrentEntity}"></li>
+            ng-class="{active: isCurrentEntity(entity.id)}"></li>
     </ul>
 </script>
 
 <ul class="sideNav">
     <li ng-repeat="entity in entities.tree track by entity.id"
         ng-include="'sideNavTree'"
-        ng-class="{active: entity.isCurrentEntity}"></li>
+        ng-class="{active: isCurrentEntity(entity.id)}"></li>
 </ul>
 
 

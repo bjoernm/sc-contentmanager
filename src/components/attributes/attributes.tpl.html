@@ -1,7 +1,7 @@
 <md-card class="scAttributes">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            {{entity.type.name}}
+            {{entity.entityType.name}}
         </div>
     </md-toolbar>
     <md-tabs md-dynamic-height md-stretch-tabs="always">
@@ -19,16 +19,24 @@
         </md-tab>
         <md-tab label="Tasks">
             <div>
-                <sc-attributes-task-list tasks="entity.tasks" page-attributes="entity.attributes" on-change="onChange()" layout-fill></sc-attributes-task-list>
+                <sc-attributes-task-list tasks="entity.tasks" page-attributes="entity.attributes" on-change="onChange()"
+                                         layout-fill></sc-attributes-task-list>
 
                 <div class="attributesTable">
-                    <div layout="row">
+                    <div layout="row" layout-align="center center">
+                        <sc-pie-chart class="deactivated"
+                                      style="margin: 0 .5em; font-size: 90%;"
+                                      percentage="{{0.6}}"
+                                      diameter="2em"
+                                      show-percentage="false"></sc-pie-chart>
                         <md-input-container flex="grow">
                             <label>Add new task</label>
                             <input type="text"
-                                   ng-model="newTaskName"/>
+                                   ng-model="newTaskName"
+                                   ng-keyup="$event.keyCode == 13 ? addNewTask() : angular.noop()"/>
                         </md-input-container>
-                        <md-icon ng-click="addNewTask(newTaskName)">done</md-icon>
+                        <md-icon ng-if="!!newTaskName && newTaskName !== ''" ng-click="addNewTask(newTaskName)">done
+                        </md-icon>
                     </div>
                 </div>
             </div>

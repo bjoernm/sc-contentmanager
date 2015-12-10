@@ -36,6 +36,19 @@ html {
   $taskMetaDataBackground: $colors_backgroundColor2;
   background: $attributesBackground;
 
+  .attributesTable {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&amp;0.03+0,0+31 */
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 31%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0.03) 0%,rgba(0,0,0,0) 31%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(0,0,0,0.03) 0%,rgba(0,0,0,0) 31%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#08000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+
+  }
+
+  .md-tab:not(.md-active) {
+    background: $colors_backgroundColor2
+  }
+
   md-input-container {
     padding-bottom: inherit;
   }
@@ -60,9 +73,19 @@ html {
   .metadataTable {
     background: $taskMetaDataBackground;
     padding: 16px;
+    padding-left: 12px;
+    margin-left: 16px;
 
     dl {
       margin: 0;
+    }
+
+    dt {
+      margin-top: 1em;
+    }
+
+    md-datepicker {
+      background: $taskMetaDataBackground;
     }
   }
 }
@@ -89,7 +112,7 @@ html {
 
   .attributesName {
     font-style: italic;
-    color: $colors_secondaryTextColor;
+    color: rgba($colors_secondaryTextColor, .55);
     font-size: 90%;
   }
 

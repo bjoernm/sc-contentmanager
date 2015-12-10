@@ -51,6 +51,7 @@
                 scope.getProgressDate = getProgressDate;
                 scope.getProgressTextDate = getProgressTextDate;
                 scope.calculatedValues = setCalculatedTemplateValues(scope.tasks.length, scope.lineHeight.value, scope.getLinePosition);
+                scope.isLeft = isLeft;
                 scope.getOffset = function () {
                     return getOffset(scope);
                 };
@@ -89,18 +90,23 @@
 
                     calculatedValues.halfTitlePadding = calculatedValues.title.padding / 2;
                     calculatedValues.outerLineHeight = lineHeight + calculatedValues.title.padding;
-                    calculatedValues.linePositions = [];
-                    calculatedValues.upperLinePositions = [];
-                    calculatedValues.linePositionsWithOffset = [];
-                    for (var $index = 0; $index < numberOfTasks; $index++) {
-                        var lP = getLinePosition($index);
-                        var lPWO = lP + calculatedValues.line.offset.y;
-                        calculatedValues.linePositions[$index] = lP;
-                        calculatedValues.linePositionsWithOffset[$index] = lPWO;
-                        calculatedValues.upperLinePositions[$index] = lPWO - (calculatedValues.outerLineHeight) / 2;
-                    }
+                    calculatedValues.linePositions = getlP;
+                    calculatedValues.linePositionsWithOffset = getlPWO;
+                    calculatedValues.upperLinePositions = getUpperLinePositions;
 
                     return calculatedValues;
+                }
+
+                function getUpperLinePositions($index) {
+                    return getlPWO($index) - (scope.calculatedValues.outerLineHeight) / 2;
+                };
+
+                function getlPWO($index) {
+                    return getlP($index) + scope.calculatedValues.line.offset.y;
+                }
+
+                function getlP($index) {
+                    return scope.getLinePosition($index);
                 }
 
                 function getProgressDate(task) {
@@ -144,7 +150,7 @@
 
                         return inner(date, staticDates, offset, scope.elementWidth);
                     } catch (err) {
-                        $log.error('date =', date, '; scope.tasks =', scope.tasks, '; scope =', scope);
+                        $log.error(err);
                         return offset;
                     }
 
@@ -183,9 +189,14 @@
                         };
 
                         function getMin(a, date) {
-                            if (!date) return a;
-                            else if (!a) return date.getTime();
-                            else return Math.min(a, date.getTime());
+                            try {
+                                if (!date) return a;
+                                else if (!a) return date.getTime();
+                                else return Math.min(a, date.getTime());
+                            } catch (e) {
+                                $log.info(a, date);
+                                throw e;
+                            }
                         }
 
                         function getMax(a, date) {
@@ -200,6 +211,12 @@
                     if (element[0] && element[0].offsetWidth) {
                         scope.elementWidth = element[0].offsetWidth;
                     }
+                }
+
+                function isLeft(task) {
+                    var textPosition = getDatesPosition(getProgressTextDate(task));
+                    return textPosition - getOffset(scope) < 20
+                        || textPosition - getDatesPosition(task.begin) < 10;
                 }
             }
         };
@@ -350,6 +367,7 @@
                 }
 
                 var rect = nativeElement.ownerDocument.createElementNS(svgNS, "rect");
+
                 if (attrs['scSvgBackgroundClass']) {
                     attrs['scSvgBackgroundClass'].split(/\s+/)
                         .forEach(function (clazz) {
@@ -380,6 +398,10 @@
                 } else {
                     nativeElement.parentElement.insertBefore(rect, nativeElement);
                 }
+
+                scope.$on('$destroy', function () {
+                    rect.parentElement.removeChild(rect);
+                });
             }
         };
     }

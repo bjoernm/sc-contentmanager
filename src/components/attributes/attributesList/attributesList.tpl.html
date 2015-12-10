@@ -41,9 +41,8 @@
     <dd ng-repeat-end ng-if="!!attribute.edit">
         <ul class="attributeValueList">
             <li ng-repeat="value in attribute.values track by $index" layout-align="space-between end" layout="row">
-                <sc-attribute-value-edit values="attribute.values"
-                                         index="$index"
-                                         type="{{attribute.type}}"
+                <sc-attribute-value-edit attribute="attribute"
+                                         current-index="$index"
                                          flex="grow"
                                          on-change="updateAttribute(attribute)"></sc-attribute-value-edit>
                 <md-icon ng-click="attribute.values.splice($index, 1)"

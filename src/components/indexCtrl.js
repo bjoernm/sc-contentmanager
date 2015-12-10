@@ -12,12 +12,14 @@
         vm.selectedTabIndex = -1;
         vm.navData = sharedNavDataService;
         vm.setPathTo = setPathTo;
+        vm.getSearchHints = getSearchHints;
 
         // INIT
         scMainNavService.loadAllWorkspaces()
             .then(function (workspaces) {
                 vm.workspaces = workspaces;
-            });
+            })
+            .catch(logError);
 
         $scope.$watch(function () {
             return sharedNavDataService.currentWorkspaceId;
@@ -39,6 +41,17 @@
             } else {
                 $log.error('path must be of type string. path =', path);
             }
+        }
+
+        function getSearchHints(searchText) {
+            $log.info(searchText);
+            return scMainNavService
+                .getSearchHints(searchText)
+                .catch(logError);
+        }
+
+        function logError() {
+            $log.error.apply($log, arguments);
         }
     }
 })(angular);
