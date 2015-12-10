@@ -119,7 +119,7 @@
          * @type {Resource}
          */
         var EventResource =
-            $resource(apiToInstanceUrl('api/v1/changesets'));
+            $resource(apiToInstanceUrl('api/v1/events'));
 
         initializeBasicAuthentication();
 
