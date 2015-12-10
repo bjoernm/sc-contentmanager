@@ -1,5 +1,6 @@
 <md-card>
-    <md-card-header class="attribute-changed-header">
+
+    <md-card-header ng-if="feedItemCtrl.event.eventType == 'CHANGE'" class="attribute-changed-header">
         <md-card-avatar>
             <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
         </md-card-avatar>
@@ -9,22 +10,39 @@
                 <div>{{ feedItemCtrl.event.changeset.when }}</div>
             </div>
             <div class="md-subhead" layout="row" layout-align="space-between start">
-                <div ng-if="feedItemCtrl.event.eventType == 'ADD' && feedItemCtrl.event.entity.type != null ">
-                    Added a {{feedItemCtrl.event.entity.type}}
-                </div>
-                <div ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.entity.type != null ">
+                <div ng-if="feedItemCtrl.event.entity.type != null ">
                     Changed a {{feedItemCtrl.event.entity.type}}
                 </div>
-                <div ng-if="feedItemCtrl.event.eventType == 'ADD' && feedItemCtrl.event.entity.type == null ">
-                    Added a Workspace
-                </div>
-                <div ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.entity.type == null ">
+                <div ng-if="feedItemCtrl.event.entity.type == null ">
                     Changed a Workspace
                 </div>
-                <div><md-icon id="iconWhite" class="material-icons">storage</md-icon></div>
+                <div><md-icon id="iconWhite" class="material-icons">loop</md-icon></div>
             </div>
         </md-card-header-text>
     </md-card-header>
+
+    <md-card-header ng-if="feedItemCtrl.event.eventType == 'ADD'" class="add-event-header">
+        <md-card-avatar>
+            <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
+        </md-card-avatar>
+        <md-card-header-text>
+            <div class="md-title" layout="row" layout-align="space-between start">
+                <div>{{ feedItemCtrl.event.user.name }}</div>
+                <div>{{ feedItemCtrl.event.changeset.when }}</div>
+            </div>
+            <div class="md-subhead" layout="row" layout-align="space-between start">
+                <div ng-if="feedItemCtrl.event.entity.type != null ">
+                    Added a {{feedItemCtrl.event.entity.type}}
+                </div>
+                <div ng-if="feedItemCtrl.event.entity.type == null ">
+                    Added a Workspace
+                </div>
+                <div><md-icon id="iconWhite" class="material-icons">add_circle</md-icon></div>
+            </div>
+        </md-card-header-text>
+    </md-card-header>
+
+
     <md-card-title>
         <md-card-title-text>
             <span class="md-subhead">
