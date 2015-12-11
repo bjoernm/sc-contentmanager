@@ -25,9 +25,9 @@
 
          /** @type {ScEventPage} */
         feedCtrl.eventPage = null;
+
         feedCtrl.postData = postData;
-        feedCtrl.postPages = postPages;
-        feedCtrl.postChange = postChange;
+        feedCtrl.removeData = removeData;
 
         eventService.getEvents().then(
             function (eventPage) {
@@ -43,12 +43,8 @@
             generateDataService.generateWorkspace();
         }
 
-        function postPages() {
-            generateDataService.generatePage();
-        }
-
-        function postChange() {
-            generateDataService.generateChange();
+        function removeData() {
+            generateDataService.deleteWorkspace();
         }
     }
 })(angular);
