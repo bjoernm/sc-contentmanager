@@ -61,9 +61,11 @@
                     <div ng-if="change.property.type === 'HYBRID_TYPE'">
                         Changed value of <a class="value-highlight">{{ change.property.name }}</a>
                         from
-                        <a class="value-highlight">{{change.oldValue.value}}</a>
+                        <a ng-if="change.oldValue.type === 'dateValue'" class="value-highlight">{{change.oldValue.value | date: 'dd.MM.yyyy'}}</a>
+                        <a ng-if="change.oldValue.type !== 'dateValue'" class="value-highlight">{{change.oldValue.value}}</a>
                         to
-                        <a  class="value-highlight">{{change.newValue.value}}</a>d
+                        <a  ng-if="change.newValue.type === 'dateValue'" class="value-highlight">{{change.newValue.value | date: 'dd.MM.yyyy'}}</a>
+                        <a  ng-if="change.newValue.type !== 'dateValue'" class="value-highlight">{{change.newValue.value}}</a>
                     </div>
                     <div ng-if="change.property.type !== 'HYBRID_TYPE'">
                         Changed value of <a class="value-highlight">{{ change.property.name }}</a>
