@@ -63,11 +63,11 @@
 
     /**
      * @typedef {Object} ScEventPage
-     * @property {integer} pageIndex The index of the page starting at 0.
+     * @property {int} pageIndex The index of the page starting at 0.
      * @property {boolean} hasNext Whether there is another event page.
-     * @property {integer} requestedPageSize The requested size of the page.
-     * @property {integer} totalNumberOfEvents The total number of events.
-     * @property {integer} totalNumberOfPages The total number of pages.
+     * @property {int} requestedPageSize The requested size of the page.
+     * @property {int} totalNumberOfEvents The total number of events.
+     * @property {int} totalNumberOfPages The total number of pages.
      * @property {Array<ScEvent>} events The events on this page.
      * @description
      *
