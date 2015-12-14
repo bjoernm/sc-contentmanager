@@ -63,11 +63,11 @@
 
     /**
      * @typedef {Object} ScEventPage
-     * @property {integer} pageIndex The index of the page starting at 0.
+     * @property {int} pageIndex The index of the page starting at 0.
      * @property {boolean} hasNext Whether there is another event page.
-     * @property {integer} requestedPageSize The requested size of the page.
-     * @property {integer} totalNumberOfEvents The total number of events.
-     * @property {integer} totalNumberOfPages The total number of pages.
+     * @property {int} requestedPageSize The requested size of the page.
+     * @property {int} totalNumberOfEvents The total number of events.
+     * @property {int} totalNumberOfPages The total number of pages.
      * @property {Array<ScEvent>} events The events on this page.
      * @description
      *
@@ -161,4 +161,24 @@
 
         return service;
     }
+
+    angular.module('scFeed').filter('toDate', function() {
+         return function (dateString) {
+             var date = '';
+             if(dateString != null){
+                 var dateObject = new Date(dateString);
+                 var day = dateObject.getDate();
+                 var month = dateObject.getMonth() + 1;
+                 if(day < 10){
+                    day = '0' + day;
+                 }
+                 if(month < 10){
+                    month = '0' + month;
+                 }
+                 date = day + '.' + month + '.' + dateObject.getFullYear();
+              }
+             return date;
+         };
+    });
+
 })();

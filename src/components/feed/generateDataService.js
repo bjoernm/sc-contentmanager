@@ -13,8 +13,7 @@
      */
     angular
         .module('scFeed')
-
-    .service('scGenerateDataService', ScEventService);
+        .service('scGenerateDataService', ScEventService);
 
     ScEventService.$inject = ['$resource', '$http', '$base64'];
 
@@ -22,8 +21,7 @@
         var service = {
             getEvents: getEvents,
             generateWorkspace: generateWorkspace,
-            generatePage: generatePage,
-            generateChange: generateChange
+            deleteWorkspace: deleteWorkspace
         };
 
         /**
@@ -53,15 +51,29 @@
          */
         var WorkspaceResource =
             $resource(apiToInstanceUrl('api/v1/workspaces'));
+        var WorkspaceResourceDelete = $resource(apiToInstanceUrl('api/v1/workspaces/:id'));
         var WebAppLabResource =
                     $resource(apiToInstanceUrl('api/v1/workspaces/webapplab/entities'));
-        var EventResource =
-            $resource(apiToInstanceUrl('api/v1/events'));
+        var EntityResource =
+                $resource(apiToInstanceUrl('api/v1/entities/:id'), null,
+                    {
+                        'update': { method:'PUT' }
+                    });
+
 
         initializeBasicAuthentication();
 
 
-
+        /**
+         * Retrieves an event page from the server.
+         *
+         * @promise {ScEventPage} A page of events.
+         * @reject {Error} An error if one occurred.
+         * @public
+         **/
+        function getEvents() {
+            return EventResource.get().$promise;
+        }
 
         /**
          * Converts an API URL to an URL for the SocioCortex instance.
@@ -87,19 +99,6 @@
                 $base64.encode(CREDENTIALS.user + ':' + CREDENTIALS.password);
         }
 
-        /**
-         * Retrieves an event page from the server.
-         *
-         * @promise {ScEventPage} A page of events.
-         * @reject {Error} An error if one occurred.
-         * @public
-         **/
-        function getEvents() {
-            return EventResource.get().$promise;
-        }
-
-
-        //workspace erstellen
         function generateWorkspace() {
 
             var space = {
@@ -107,34 +106,50 @@
                 id: 'webapplab'
             };
 
-            WorkspaceResource.save(space).$promise.then(function(workspace){console.log(workspace)}, function(error){console.log(error)});
+            WorkspaceResource.save(space).$promise.then(
+                function(workspace){
+                    generatePage();
+                },
+                function(error){
+                    console.log(error)
+                }
+            );
         }
 
-        //page erstellen
-        function generatePage() {
+        function deleteWorkspace() {
+            WorkspaceResourceDelete.delete( { id: 'webapplab'} ).$promise.then(
+                function(success){
 
+                },
+                function(error){
+                    console.log(error)
+                }
+            );
+        }
+
+        function generatePage() {
             var page = {
                 name: 'Testpage',
-                id: 'testpage'
+                id: 'testpage',
+                content: 'This is a test page.'
             };
 
-            WebAppLabResource.save(page).$promise.then(function(entity){console.log(entity)}, function(error){console.log(error)});
-
+            WebAppLabResource.save(page).$promise.then(
+                function(entity){
+                    generateChange();
+                },
+                function(error){
+                    console.log(error)
+                }
+            );
         }
 
-        //changes vornehmen
         function generateChange() {
-            /*var entity = EntityResource.get(function() {
-              entity.attributes = [{
-                                  values: ['What has been changed'],
-                                  name: 'change'
-                                  },
-                                  {
-                                  values: ['Testing a change'],
-                                  name: 'testchange'
-                                  }];
-              entity.$save();
-            });*/
+            var pageDiff = {
+                content: 'This is a change in the test page.'
+            };
+
+            EntityResource.update( { id: 'testpage' }, pageDiff );
         }
 
 
