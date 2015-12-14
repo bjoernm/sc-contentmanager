@@ -1,29 +1,26 @@
-/**
- * Created by albert on 26.11.15.
- */
 (function (angular) {
 
     /**
      * Controller for the feed directive.
      *
-     * @name feedItemCtrl
+     * @name feedTaskCtrl
      * @property {ScEvent} event The event property from the directive scope.
-     * @type FeedItemController
+     * @type FeedTaskController
      */
     angular
         .module('scFeed')
-        .controller('FeedItemController', FeedItemController);
+        .controller('FeedTaskController', FeedTaskController);
 
-    FeedItemController.$inject = [];
+    FeedTaskController.$inject = [];
 
-    function FeedItemController() {
-        var feedItemCtrl = this;
+    function FeedTaskController() {
+        var feedTaskCtrl = this;
         // Variables in directive scope attribute are bound to this object a.k.a. feedItemCtrl.
 
-        feedItemCtrl.hasError = false;
+        feedTaskCtrl.hasError = false;
 
         /** @type {Error} */
-        feedItemCtrl.error = null;
+        feedTaskCtrl.error = null;
 
         /** @type {ScEventPage} */
 

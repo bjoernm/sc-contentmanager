@@ -13,7 +13,8 @@
      */
     angular
         .module('scFeed')
-        .service('scGenerateDataService', ScEventService);
+
+    .service('scGenerateDataService', ScEventService);
 
     ScEventService.$inject = ['$resource', '$http', '$base64'];
 
@@ -54,23 +55,13 @@
             $resource(apiToInstanceUrl('api/v1/workspaces'));
         var WebAppLabResource =
                     $resource(apiToInstanceUrl('api/v1/workspaces/webapplab/entities'));
-         var EntityResource =
-                    $resource(apiToInstanceUrl('api/v1/entities/testpage'));
-
+        var EventResource =
+            $resource(apiToInstanceUrl('api/v1/events'));
 
         initializeBasicAuthentication();
 
 
-        /**
-         * Retrieves an event page from the server.
-         *
-         * @promise {ScEventPage} A page of events.
-         * @reject {Error} An error if one occurred.
-         * @public
-         **/
-        function getEvents() {
-            return EventResource.get().$promise;
-        }
+
 
         /**
          * Converts an API URL to an URL for the SocioCortex instance.
@@ -95,6 +86,18 @@
                 'Basic ' +
                 $base64.encode(CREDENTIALS.user + ':' + CREDENTIALS.password);
         }
+
+        /**
+         * Retrieves an event page from the server.
+         *
+         * @promise {ScEventPage} A page of events.
+         * @reject {Error} An error if one occurred.
+         * @public
+         **/
+        function getEvents() {
+            return EventResource.get().$promise;
+        }
+
 
         //workspace erstellen
         function generateWorkspace() {
@@ -121,7 +124,6 @@
 
         //changes vornehmen
         function generateChange() {
-
             /*var entity = EntityResource.get(function() {
               entity.attributes = [{
                                   values: ['What has been changed'],
