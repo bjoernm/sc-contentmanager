@@ -1,27 +1,101 @@
-<div ng-cloak="" class="carddemoInCardActions">
-    <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
-        <div flex="70" layout="column">
-            <div layout="row">
-                <md-button ng-click="feedCtrl.postData()">Generate Workspace</md-button>
-                <md-button ng-click="feedCtrl.removeData()">Remove Workspace</md-button>
+<div layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage">
+    <section layout="row" flex="">
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+
+            <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools">Filter</h1>
+            </md-toolbar>
+            <md-content layout-padding="">
+                <div>
+                    <md-radio-group ng-model="data.group1">
+
+                        <md-radio-button value="Discussion" class="discussion-button">Discussion</md-radio-button>
+                        <md-radio-button value="Task" class="task-button">Task</md-radio-button>
+                        <md-radio-button value="Data" class="data-button">Data</md-radio-button>
+                    </md-radio-group>
+                </div>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>Workspace</label>
+                    <md-select ng-model="user.state">
+                        <md-option ng-repeat="workspace in workspaces" value="{{workspace}}">
+                            {{workspace}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>Type</label>
+                    <md-select ng-model="user.state">
+                        <md-option ng-repeat="type in types" value="{{type}}">
+                            {{type}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>Activity</label>
+                    <md-select ng-model="user.state">
+                        <md-option ng-repeat="actitvity in activities" value="{{activity}}">
+                            {{activity}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>Time Span</label>
+                    <md-select ng-model="user.state">
+                        <md-option ng-repeat="type in types" value="{{time}}">
+                            {{time}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>Filter User</label>
+                    <input ng-model="user">
+                </md-input-container>
+
+                <md-checkbox ng-model="data.cb1">
+                    Show my own activities
+                </md-checkbox>
+
+            </md-content>
+
+        </md-sidenav>
+
+        <md-content flex="" layout-padding="">
+            <div layout="column" layout-fill="" layout-align="top center">
+                <div ng-cloak="" class="carddemoInCardActions">
+                    <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
+                        <div flex="70" layout="column">
+                            <div layout="row">
+                                <md-button ng-click="feedCtrl.postData()">Generate Workspace</md-button>
+                                <md-button ng-click="feedCtrl.removeData()">Remove Workspace</md-button>
+                            </div>
+                            <sc-feed-task sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-task>
+                            <sc-feed-discussion sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-discussion>
+                            <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events" sc-feed-event="event" ></sc-feed-item>
+                        </div>
+                    </md-content>
+
+                    <ul class="pagination" layout="column"  ng-show="feedCtrl.eventPage.events.length > 0 && !feedCtrl.loading">
+                        <li ng-class="feedCtrl.prevPageDisabled()">
+                            <a href ng-click="feedCtrl.prevPage()">&laquo; Prev</a>
+                        </li>
+                        <li ng-repeat="n in feedCtrl.range()" ng-class="{active: n == feedCtrl.currentPage}" ng-click="feedCtrl.setPage(n)">
+                            <a>{{n+1}}</a>
+                        </li>
+                        <li ng-class="feedCtrl.nextPageDisabled()">
+                            <a href ng-click="feedCtrl.nextPage()">&raquo; Next</a>
+                        </li>
+                    </ul>
+
+                </div>
+
             </div>
-            <sc-feed-task sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-task>
-            <sc-feed-discussion sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-discussion>
-            <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events" sc-feed-event="event" ></sc-feed-item>
-        </div>
-    </md-content>
-
-    <ul class="pagination" layout="column"  ng-show="feedCtrl.eventPage.events.length > 0 && !feedCtrl.loading">
-        <li ng-class="feedCtrl.prevPageDisabled()">
-            <a href ng-click="feedCtrl.prevPage()">&laquo; Prev</a>
-        </li>
-        <li ng-repeat="n in feedCtrl.range()" ng-class="{active: n == feedCtrl.currentPage}" ng-click="feedCtrl.setPage(n)">
-            <a>{{n+1}}</a>
-        </li>
-        <li ng-class="feedCtrl.nextPageDisabled()">
-            <a href ng-click="feedCtrl.nextPage()">&raquo; Next</a>
-        </li>
-    </ul>
-
+        </md-content>
+    </section>
 </div>
+
 

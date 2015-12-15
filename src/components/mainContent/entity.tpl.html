@@ -1,3 +1,9 @@
+<md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="true">
+    <sc-side-nav entities="indexCtrl.navData.entities" current-entity-id="indexCtrl.navData.currentEntityId"
+                 ng-if="indexCtrl.navData.entities"></sc-side-nav>
+</md-sidenav>
+
+<md-card  flex>
 <div ng-if="!!ctrl.entity">
     <md-toolbar>
         <div class="md-toolbar-tools" layout="row">
@@ -50,3 +56,4 @@
 <div ng-if="!ctrl.entity">
     <p>The content could not be loaded yet.</p>
 </div>
+</md-card>

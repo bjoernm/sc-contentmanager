@@ -17,7 +17,7 @@
     <!-- endinject -->
 </head>
 
-<body ng-controller="IndexCtrl as ctrl">
+<body ng-controller="IndexCtrl as indexCtrl">
 <div layout="row" id="header">
     <h1><a href="#"><img src="images/logo.png" alt="sebis Logo"/></a></h1>
 
@@ -42,22 +42,16 @@
         <md-tabs md-dynamic-height
                  md-selected="ctrl.selectedTabIndex"
                  class="md-primary"
-                 ng-if="ctrl.workspaces">
-            <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.id"
-                    ng-click="::ctrl.setPathTo('workspaces/' + workspace.id)"
+                 ng-if="indexCtrl.workspaces">
+            <md-tab ng-repeat="workspace in indexCtrl.workspaces track by workspace.id"
+                    ng-click="::indexCtrl.setPathTo('workspaces/' + workspace.id)"
                     label="{{::workspace.name}}">
             </md-tab>
         </md-tabs>
     </div>
 </div>
 
-<md-content layout="row" class="content">
-    <md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="true">
-        <sc-side-nav entities="ctrl.navData.entities" current-entity-id="ctrl.navData.currentEntityId"
-                     ng-if="ctrl.navData.entities"></sc-side-nav>
-    </md-sidenav>
-    <md-card ng-view flex>
-    </md-card>
+<md-content class="content" ng-view layout="row">
 </md-content>
 
 <!-- lib:js -->

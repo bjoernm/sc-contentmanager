@@ -254,7 +254,7 @@ a {
 md-content.content {
   background: $colors_backgroundColor1;
 
-  body > & > md-card {
+  body > & > div > md-card {
     $border-radius: 3px;
     margin: 25px;
     border-radius: $border-radius;
