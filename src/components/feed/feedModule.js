@@ -1,3 +1,7 @@
 (function () {
-    angular.module('scFeed', ['ngResource', 'base64']);
+    angular.module('scFeed', [
+        'ngResource',
+        'base64',
+        'ui.bootstrap'
+    ]);
 })();

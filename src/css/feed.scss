@@ -2,11 +2,11 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 .attribute-changed-header {
-  background-color: #F9E8A8;
+  background-color: #E3B6BB;
 }
 
 .add-event-header {
-  background-color: #C87D6E;
+  background-color: #E3B6BB;
 }
 
 .link-change {
@@ -15,4 +15,15 @@
 
 .value-highlight {
    color: #646464;
+}
+.discussion-header {
+  background-color: #ffe87c;
+}
+.task-header {
+  background-color: lightgreen;
+}
+.active
+{
+  font-weight: bold;
+
 }
