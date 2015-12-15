@@ -3,15 +3,21 @@
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
             <md-toolbar class="md-theme-indigo">
-                <h1 class="md-toolbar-tools">Filter</h1>
+                <h1 id="filter-heading" class="md-toolbar-tools">Filter</h1>
             </md-toolbar>
             <md-content layout-padding="">
                 <div>
                     <md-radio-group ng-model="data.group1">
 
-                        <md-radio-button value="Discussion" class="discussion-button">Discussion</md-radio-button>
-                        <md-radio-button value="Task" class="task-button">Task</md-radio-button>
-                        <md-radio-button value="Data" class="data-button">Data</md-radio-button>
+                        <md-radio-button value="Discussion">
+                            <span class="discussion-button">Discussion</span>
+                        </md-radio-button>
+                        <md-radio-button value="Task">
+                            <span class="task-button">Task</span>
+                        </md-radio-button>
+                        <md-radio-button value="Data">
+                            <span class="data-button">Data</span>
+                        </md-radio-button>
                     </md-radio-group>
                 </div>
 

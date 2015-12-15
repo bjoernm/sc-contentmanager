@@ -17,10 +17,10 @@
    color: #646464;
 }
 .discussion-header {
-  background-color: #ffe87c;
+  background-color: #F9E8A8;
 }
 .task-header {
-  background-color: lightgreen;
+  background-color: #C3DFA5;
 }
 .active
 {
@@ -30,3 +30,18 @@
 .feed-container{
     width: 100%;
 }
+
+.discussion-button {
+  background-color: #F9E8A8;
+}
+.data-button {
+  background-color: #E3B6BB;
+}
+.task-button {
+  background-color: #C3DFA5;
+}
+
+#filter-heading{
+   background-color: #C0C0C0;
+}
+
