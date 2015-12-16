@@ -19,17 +19,20 @@
 
 <body ng-controller="IndexCtrl as indexCtrl">
 <div layout="row" id="header">
-    <h1><a href="#"><img src="images/logo.png" alt="sebis Logo"/></a></h1>
+    <h1>
+        <a href="#"><img src="images/logo.png" alt="sebis Logo"></a>
+    </h1>
 
     <div layout="column" flex>
-        <div layout="row">
-            <md-autocomplete md-input-name="searchInput"
+        <div id="header-actionbar" class="md-padding" layout="row">
+            <md-autocomplete flex="50" md-input-name="searchInput"
                              md-search-text="searchText"
                              md-selected-item="searchItem"
                              md-items="item in ctrl.getSearchHints(searchText).hints"
                              md-item-text="item.name"
                              ng-keyup="$event.keyCode == 13 ? search(search) : angular.noop"
-                             md-floating-label="">
+                             md-floating-label=""
+                             placeholder="Search...">
                 <md-item-template>
                     <span md-highlight-text="searchedExpertises">{{item.name}}</span>
                 </md-item-template>
@@ -37,7 +40,18 @@
                     No matches found. {{searchText}}
                 </md-not-found>
             </md-autocomplete>
-            <a href="#/feed">Feed</a> alarm profile options
+            <md-button href="#/feed" class="md-icon-button" aria-label="More">
+                <md-icon class="material-icons">timelapse</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="More">
+                <md-icon class="material-icons">notifications_none</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="More">
+                <md-icon class="material-icons">person</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="More">
+                <md-icon class="material-icons">more_vert</md-icon>
+            </md-button>
         </div>
         <md-tabs md-dynamic-height
                  md-selected="ctrl.selectedTabIndex"

@@ -249,6 +249,15 @@ a {
     max-height: 60px;
     opacity: .87;
   }
+
+  #header-actionbar {
+    md-autocomplete {
+      background: $colors_backgroundColor3;
+    }
+    md-icon {
+      color: $colors_backgroundColor3
+    }
+  }
 }
 
 md-content.content {

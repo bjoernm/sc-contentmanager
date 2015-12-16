@@ -70,15 +70,16 @@
 
         </md-sidenav>
 
-        <md-content flex="" layout-padding="">
+            <md-card>
+                <md-card-content>
             <div layout="column" layout-fill="" layout-align="top center">
                 <div ng-cloak="" class="carddemoInCardActions">
                     <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
-                        <div flex="70" layout="column">
-                            <div layout="row">
-                                <md-button ng-click="feedCtrl.postData()">Generate Workspace</md-button>
-                                <md-button ng-click="feedCtrl.removeData()">Remove Workspace</md-button>
-                            </div>
+                        <div flex="70" flex-sm="90" layout="column">
+                            <!--<div layout="row">-->
+                                <!--<md-button ng-click="feedCtrl.postData()">Generate Workspace</md-button>-->
+                                <!--<md-button ng-click="feedCtrl.removeData()">Remove Workspace</md-button>-->
+                            <!--</div>-->
                             <sc-feed-task sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-task>
                             <sc-feed-discussion sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-discussion>
                             <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events" sc-feed-event="event" ></sc-feed-item>
@@ -100,7 +101,8 @@
                 </div>
 
             </div>
-        </md-content>
+                </md-card-content>
+            </md-card>
     </section>
 </div>
 
