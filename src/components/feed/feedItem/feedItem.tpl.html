@@ -41,61 +41,64 @@
                     Added a Workspace
                 </div>
             </div>
+
         </md-card-header-text>
     </md-card-header>
 
+    <span class="breadcrumb-item">
+        {{feedItemCtrl.event.space.name}}
+        <md-icon class="material-icons">chevron_right</md-icon>
+        {{feedItemCtrl.event.changeset.entity.name}}
+    </span>
 
     <md-card-title>
         <md-card-title-text>
-            <span class="md-subhead">
-                {{feedItemCtrl.event.space.name}}
-                <md-icon class="material-icons">chevron_right</md-icon>
-                {{feedItemCtrl.event.changeset.entity.name}}
-            </span>
-            <span class="md-headline" ng-repeat="change in feedItemCtrl.event.changeset.changes">
-                <div ng-if="change.type === 'richString'">
-                    Changed <a class="value-highlight">{{ change.property.name }}</a> of
-                    <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
-                </div>
-                <div ng-if="change.type === 'simpleValue'">
-                    <div ng-if="change.property.type === 'HYBRID_TYPE'">
-                        Changed value of <a class="value-highlight">{{ change.property.name }}</a>
-                        from
-                        <a ng-if="change.oldValue.type === 'dateValue'" class="value-highlight">{{change.oldValue.value | date: 'dd.MM.yyyy'}}</a>
-                        <a ng-if="change.oldValue.type !== 'dateValue'" class="value-highlight">{{change.oldValue.value}}</a>
-                        to
-                        <a  ng-if="change.newValue.type === 'dateValue'" class="value-highlight">{{change.newValue.value | date: 'dd.MM.yyyy'}}</a>
-                        <a  ng-if="change.newValue.type !== 'dateValue'" class="value-highlight">{{change.newValue.value}}</a>
-                    </div>
-                    <div ng-if="change.property.type !== 'HYBRID_TYPE'">
-                        Changed value of <a class="value-highlight">{{ change.property.name }}</a>
-                        from <a class="value-highlight">{{change.oldValue}}</a> to <a class="value-highlight">{{change.newValue}}</a>
-                    </div>
-                </div>
-            </span>
-            <span class="md-headline" ng-if="feedItemCtrl.event.eventType == 'ADD'">
-                <div ng-if="feedItemCtrl.event.changeset.entity.type != null ">
-                    Added the {{feedItemCtrl.event.changeset.entity.type}}:
-                    <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
-                </div>
-                <div ng-if="feedItemCtrl.event.changeset.entity.type == null ">
-                    Added the Workspace:
-                    <a class="link-change" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">{{feedItemCtrl.event.space.name}}</a>
-                </div>
-            </span>
         </md-card-title-text>
     </md-card-title>
-    <md-card-actions layout="row" layout-align="start center">
-        <md-button aria-label="Favorite">
-            <md-icon class="material-icons">favorite</md-icon>
-        </md-button>
-        <md-button aria-label="Comment">
-            <md-icon class="material-icons">comment</md-icon>
-        </md-button>
-    </md-card-actions>
     <md-card-content>
+        <span class="md-headline" ng-repeat="change in feedItemCtrl.event.changeset.changes">
+            <div ng-if="change.type === 'richString'">
+                Changed <a class="value-highlight">{{ change.property.name }}</a> of
+                <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
+            </div>
+            <div ng-if="change.type === 'simpleValue'">
+                <div ng-if="change.property.type === 'HYBRID_TYPE'">
+                    Changed value of <a class="value-highlight">{{ change.property.name }}</a>
+                    from
+                    <a ng-if="change.oldValue.type === 'dateValue'" class="value-highlight">{{change.oldValue.value | date: 'dd.MM.yyyy'}}</a>
+                    <a ng-if="change.oldValue.type !== 'dateValue'" class="value-highlight">{{change.oldValue.value}}</a>
+                    to
+                    <a  ng-if="change.newValue.type === 'dateValue'" class="value-highlight">{{change.newValue.value | date: 'dd.MM.yyyy'}}</a>
+                    <a  ng-if="change.newValue.type !== 'dateValue'" class="value-highlight">{{change.newValue.value}}</a>
+                </div>
+                <div ng-if="change.property.type !== 'HYBRID_TYPE'">
+                    Changed value of <a class="value-highlight">{{ change.property.name }}</a>
+                    from <a class="value-highlight">{{change.oldValue}}</a> to <a class="value-highlight">{{change.newValue}}</a>
+                </div>
+            </div>
+        </span>
+        <span class="md-headline" ng-if="feedItemCtrl.event.eventType == 'ADD'">
+            <div ng-if="feedItemCtrl.event.changeset.entity.type != null ">
+                Added the {{feedItemCtrl.event.changeset.entity.type}}:
+                <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
+            </div>
+            <div ng-if="feedItemCtrl.event.changeset.entity.type == null ">
+                Added the Workspace:
+                <a class="link-change" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">{{feedItemCtrl.event.space.name}}</a>
+            </div>
+        </span>
+    </md-card-content>
+    <md-card-footer>
+        <md-card-actions layout="row" layout-align="start center">
+            <md-button aria-label="Favorite">
+                <md-icon class="material-icons">favorite</md-icon>
+            </md-button>
+            <md-button aria-label="Comment">
+                <md-icon class="material-icons">comment</md-icon>
+            </md-button>
+        </md-card-actions>
         <p>
             Space for Comments
         </p>
-    </md-card-content>
+    </md-card-footer>
 </md-card>
