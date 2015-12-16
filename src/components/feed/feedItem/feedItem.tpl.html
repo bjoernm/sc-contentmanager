@@ -55,12 +55,8 @@
         </a>
     </span>
 
-    <md-card-title>
-        <md-card-title-text>
-        </md-card-title-text>
-    </md-card-title>
     <md-card-content>
-        <span class="md-headline" ng-repeat="change in feedItemCtrl.event.changeset.changes">
+        <div ng-repeat="change in feedItemCtrl.event.changeset.changes">
             <div ng-if="change.type === 'richString'">
                 Changed <a class="value-highlight">{{ change.property.name }}</a> of
                 <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
@@ -85,8 +81,8 @@
                     <a class="value-highlight">{{change.oldValue}}</a> to <a class="value-highlight">{{change.newValue}}</a>
                 </div>
             </div>
-        </span>
-        <span class="md-headline" ng-if="feedItemCtrl.event.eventType == 'ADD'">
+        </div>
+        <div ng-if="feedItemCtrl.event.eventType == 'ADD'">
             <div ng-if="feedItemCtrl.event.changeset.entity.type != null ">
                 Added the {{feedItemCtrl.event.changeset.entity.type}}:
                 <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
@@ -95,8 +91,9 @@
                 Added the Workspace:
                 <a class="link-change" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">{{feedItemCtrl.event.space.name}}</a>
             </div>
-        </span>
+        </div>
     </md-card-content>
+    <md-divider></md-divider>
     <md-card-actions layout="row" layout-align="start center">
         <md-button aria-label="Favorite">
             <md-icon class="material-icons">favorite</md-icon>
@@ -105,10 +102,5 @@
             <md-icon class="material-icons">comment</md-icon>
         </md-button>
     </md-card-actions>
-    <md-card-footer>
-        <p>
-            Space for Comments
-        </p>
-    </md-card-footer>
 
 </md-card>

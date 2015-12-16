@@ -10,19 +10,21 @@
 }
 
 .link-breadcrumb {
-   color: #646464;
-}
-.link-change {
   color: #646464;
   text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
-a.link-change:hover {
-  color: #646464;
-  text-decoration: underline;
+.link-change {
+  color: #195B8B;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
-
 .value-highlight {
-   color: #646464;
+   color: #195B8B;
 }
 .discussion-header {
   background-color: #F9E8A8;

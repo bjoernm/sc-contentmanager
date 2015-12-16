@@ -19,24 +19,21 @@
     </md-card-header>
 
     <span id="breadcrumb-task" class="md-body-1">
-        {{feedTaskCtrl.event.space.name}}
+        <a class="link-breadcrumb" ng-href="http://localhost:8000/#/workspaces/{{feedTaskCtrl.event.space.id}}">
+            {{feedTaskCtrl.event.space.name}}
+        </a>
         <md-icon class="material-icons">chevron_right</md-icon>
-        {{feedItemCtrl.event.changeset.entity.name}}
+        <a class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedTaskCtrl.event.changeset.entity.id}}">
+            {{feedTaskCtrl.event.changeset.entity.name}}
+        </a>
     </span>
 
-    <md-card-title>
-        <md-card-title-text>
-
-        </md-card-title-text>
-    </md-card-title>
-
     <md-card-content>
-        <span class="md-headline">
-            <div>
-                Finished task Create for ...
-            </div>
-        </span>
+        <div>
+            Updated task <span class="value-highlight">'Asses results'</span> to <span class="value-highlight">90%</span>.
+        </div>
     </md-card-content>
+    <md-divider></md-divider>
     <md-card-actions layout="row" layout-align="start center">
         <md-button aria-label="Favorite">
             <md-icon class="material-icons">favorite</md-icon>
@@ -45,9 +42,4 @@
             <md-icon class="material-icons">comment</md-icon>
         </md-button>
     </md-card-actions>
-    <md-card-footer>
-        <p>
-            Space for Comments
-        </p>
-    </md-card-footer>
 </md-card>
