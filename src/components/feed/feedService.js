@@ -102,6 +102,10 @@
          */
         var SC_INSTANCE_URL = 'http://localhost:8083/intern/tricia/';
 
+        var SC_PAGE_INDEX = 0;
+
+        var SC_PAGE_SIZE = 50;
+
         /**
          * Credentials for Basic Authentication.
          *
@@ -132,7 +136,7 @@
          * @public
          **/
         function getEvents() {
-            return EventResource.get().$promise;
+            return EventResource.get({ pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE }).$promise;
         }
 
         /**

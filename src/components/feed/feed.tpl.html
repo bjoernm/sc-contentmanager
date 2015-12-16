@@ -1,5 +1,5 @@
 <div layout="row" ng-cloak>
-    <section layout="row" flex>
+    <section layout="row">
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
             <md-toolbar class="md-theme-indigo">
                 <h1 id="filter-heading" class="md-toolbar-tools">Filter</h1>
@@ -69,15 +69,15 @@
 
         </md-sidenav>
     </section>
-    <section>
+    <section flex>
         <div class="md-padding" layout="row" layout-align="center start">
             <div flex="70" flex-sm="90" layout="column">
                 <!--<div layout="row">-->
                     <!--<md-button ng-click="feedCtrl.postData()">Generate Workspace</md-button>-->
                     <!--<md-button ng-click="feedCtrl.removeData()">Remove Workspace</md-button>-->
                 <!--</div>-->
-                <sc-feed-task sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-task>
-                <sc-feed-discussion sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-discussion>
+                <!--<sc-feed-task sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-task>-->
+                <!--<sc-feed-discussion sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-discussion>-->
                 <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events" sc-feed-event="event" ></sc-feed-item>
             </div>
         </div>
