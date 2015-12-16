@@ -35,4 +35,27 @@
         </md-button>
     </md-card-actions>
 
+    <md-card-footer>
+        <md-card>
+        <md-card-header>
+            <md-icon class="round-comment-icon">
+                <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
+            </md-icon>
+            <md-card-header-text class="md-subhead" layout="row" layout-align="space-between center">
+                <span>{{ feedDiscussionCtrl.event.user.name }}</span>
+                <span>{{ feedDiscussionCtrl.event.changeset.when }}</span>
+            </md-card-header-text>
+        </md-card-header>
+            <md-divider></md-divider>
+            <md-card-content>
+                <div class="md-subhead" layout="row" layout-align="space-between start">
+
+                        We already started the assessment of the first two exercises and you will get the results within the next few days. In case you have any questions regarding your performance, please contact your individual advisor.
+
+                </div>
+            </md-card-content>
+        </md-card>
+
+    </md-card-footer>
+
 </md-card>
