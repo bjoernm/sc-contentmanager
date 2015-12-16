@@ -46,9 +46,13 @@
     </md-card-header>
 
     <span id="breadcrumb-item" class="md-body-1">
-        {{feedItemCtrl.event.space.name}}
+        <a class="link-breadcrumb" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">
+            {{feedItemCtrl.event.space.name}}
+        </a>
         <md-icon class="material-icons">chevron_right</md-icon>
-        {{feedItemCtrl.event.changeset.entity.name}}
+        <a class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
+            {{feedItemCtrl.event.changeset.entity.name}}
+        </a>
     </span>
 
     <md-card-title>
@@ -63,7 +67,11 @@
             </div>
             <div ng-if="change.type === 'simpleValue'">
                 <div ng-if="change.property.type === 'HYBRID_TYPE'">
-                    Changed value of <a class="value-highlight">{{ change.property.name }}</a>
+                    Changed value of
+                    <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
+                        {{ change.property.name }}
+                    </a>
+
                     <a ng-if="change.oldValue != null">from</a-->
                     <a ng-if="change.oldValue.type === 'dateValue'" class="value-highlight">{{change.oldValue.value | date: 'dd.MM.yyyy'}}</a>
                     <a ng-if="change.oldValue.type !== 'dateValue'" class="value-highlight">{{change.oldValue.value}}</a>
