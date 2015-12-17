@@ -13,7 +13,7 @@ $colors_backgroundColor3: #FAFAFA;
 $colors_primaryTextColor1Alpha: rgba($colors_primaryTextColor1, .87);
 
 html {
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
 
   body {
     background: $colors_backgroundColor1;
@@ -38,10 +38,10 @@ html {
 
   .attributesTable {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&amp;0.03+0,0+31 */
-    background: -moz-linear-gradient(top,  rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 31%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(0,0,0,0.03) 0%,rgba(0,0,0,0) 31%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(0,0,0,0.03) 0%,rgba(0,0,0,0) 31%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#08000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0) 31%, rgba(0, 0, 0, 0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0) 31%, rgba(0, 0, 0, 0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0) 31%, rgba(0, 0, 0, 0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#08000000', endColorstr='#00000000', GradientType=0); /* IE6-9 */
 
   }
 
@@ -230,6 +230,8 @@ a {
 
   color: $colors_primaryTextColor1Alpha;
 
+  padding-top: 10px;
+
   a {
     text-decoration: none;
     color: $colors_primaryTextColor1Alpha;
@@ -272,4 +274,16 @@ md-content.content {
 
 .withoutMargin {
   margin: 0;
+}
+
+.searchBar {
+  margin: 0 10px;
+}
+
+.png-icon{
+  @media screen and (max-width: 960px) {
+    display: inline-flex;
+    vertical-align: middle;
+    padding-bottom: 5px;
+  }
 }
