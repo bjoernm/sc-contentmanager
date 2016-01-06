@@ -91,6 +91,7 @@
     function ScEventService($resource, $http, $base64) {
         var service = {
             getEvents: getEvents,
+            getUsers: getUsers,
             getFilteredEvents: getFilteredEvents
         };
 
@@ -128,6 +129,9 @@
         var EventResource =
             $resource(apiToInstanceUrl('api/v1/events/'));
 
+        var UserResource =
+            $resource(apiToInstanceUrl('api/v1/users/'));
+
         initializeBasicAuthentication();
 
 
@@ -142,7 +146,7 @@
             return EventResource.get({ pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE}).$promise;
         }
 
-        function getFilteredEvents(onlyWatchedEntities, startDate, endDate) {
+        function getFilteredEvents(onlyWatchedEntities, startDate, endDate, user) {
             var parameters = {};
 
             parameters.pageIndex = SC_PAGE_INDEX;
@@ -161,7 +165,15 @@
                 parameters.endDate = endDate;
             }
 
+            if (user) {
+                parameters.user = user;
+            }
+
             return EventResource.get(parameters).$promise;
+        }
+
+        function getUsers() {
+            return UserResource.query().$promise;
         }
 
         /**

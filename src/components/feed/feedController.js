@@ -35,6 +35,8 @@
         feedCtrl.startDay = null;
         feedCtrl.endDay = null;
 
+        feedCtrl.users = [];
+
         /** @type {ScEventPage} */
         feedCtrl.eventPage = null;
 
@@ -46,6 +48,16 @@
                 feedCtrl.eventPage = eventPage;
                 feedCtrl.events = eventPage.events;
                 feedCtrl.loading = false;
+            },
+            function (error) {
+                feedCtrl.hasError = true;
+                feedCtrl.error = error;
+
+            });
+
+        eventService.getUsers().then(
+            function (users) {
+                feedCtrl.users = users;
             },
             function (error) {
                 feedCtrl.hasError = true;
@@ -123,7 +135,7 @@
                 feedCtrl.endDate = null;
             }
 
-            eventService.getFilteredEvents(feedCtrl.onlyWatchedEntities, feedCtrl.startDate, feedCtrl.endDate).then(function (eventPage) {
+            eventService.getFilteredEvents(feedCtrl.onlyWatchedEntities, feedCtrl.startDate, feedCtrl.endDate, feedCtrl.userId).then(function (eventPage) {
                 feedCtrl.eventPage = eventPage;
                 feedCtrl.events = eventPage.events;
                 feedCtrl.loading = false;
@@ -150,5 +162,7 @@
             return day + "." + month +"."
                 + date.getFullYear() +" "+ hours +":"+ minutes;
         }
+
+
     }
 })(angular);
