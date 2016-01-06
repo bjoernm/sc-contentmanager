@@ -138,8 +138,8 @@
          * @reject {Error} An error if one occurred.
          * @public
          **/
-        function getEvents() {
-            return EventResource.get({ pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE}).$promise;
+        function getEvents(pageIndex, pageSize) {
+            return EventResource.get({ pageIndex: pageIndex, pageSize: pageSize}).$promise;
         }
 
         function getFilteredEvents(onlyWatchedEntities, startDate, endDate) {

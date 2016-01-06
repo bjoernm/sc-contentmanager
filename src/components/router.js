@@ -23,7 +23,14 @@
                 }
             })
             .when('/feed', {
-                'templateUrl': '/components/mainContent/templates/feed.tpl.html'
+                resolve: {
+                    eventPage: ['scEventService', '$route', function(scEventService, $route) {
+                        return scEventService.getEvents($route.current.params.pageIndex,$route.current.params.pageSize);
+                    }]
+                },
+                templateUrl: '/components/mainContent/templates/feed.tpl.html',
+                controller: 'scMainFeedController',
+                controllerAs: 'mainFeedCtrl'
             })
             .otherwise({
                 'redirectTo': '/workspaces/root'
