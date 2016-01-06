@@ -34,11 +34,17 @@
         feedCtrl.onlyWatchedEntities = true;
         feedCtrl.startDay = null;
         feedCtrl.endDay = null;
-
+        feedCtrl.userId = null;
         feedCtrl.users = [];
+        feedCtrl.eventType = null;
+        feedCtrl.workspaceId = null;
+        feedCtrl.workspaces = [];
+        feedCtrl.entityType = null;
 
         /** @type {ScEventPage} */
         feedCtrl.eventPage = null;
+
+        feedCtrl.eventTypes = ('ADD REMOVE CHANGE RESTORE UNKNOWN').split(' ');
 
         feedCtrl.postData = postData;
         feedCtrl.removeData = removeData;
@@ -58,6 +64,16 @@
         eventService.getUsers().then(
             function (users) {
                 feedCtrl.users = users;
+            },
+            function (error) {
+                feedCtrl.hasError = true;
+                feedCtrl.error = error;
+
+            });
+
+        eventService.getWorkspaces().then(
+            function (workspaces) {
+                feedCtrl.workspaces = workspaces;
             },
             function (error) {
                 feedCtrl.hasError = true;
@@ -135,11 +151,27 @@
                 feedCtrl.endDate = null;
             }
 
-            eventService.getFilteredEvents(feedCtrl.onlyWatchedEntities, feedCtrl.startDate, feedCtrl.endDate, feedCtrl.userId).then(function (eventPage) {
+            eventService.getFilteredEvents(feedCtrl.onlyWatchedEntities, feedCtrl.startDate, feedCtrl.endDate, feedCtrl.userId, feedCtrl.eventType, feedCtrl.workspaceId, feedCtrl.entityType).then(function (eventPage) {
                 feedCtrl.eventPage = eventPage;
                 feedCtrl.events = eventPage.events;
                 feedCtrl.loading = false;
             });
+        }
+
+        feedCtrl.getEntityTypes = function(){
+            if(feedCtrl.workspaceId !== null){
+                eventService.getEntityTypes(feedCtrl.workspaceId).then(
+                    function (entityTypes) {
+                        feedCtrl.entityTypes = entityTypes;
+                    },
+                    function (error) {
+                        feedCtrl.hasError = true;
+                        feedCtrl.error = error;
+
+                    });
+            }else{
+                feedCtrl.entityTypes = [];
+            }
         }
 
         function formatDate(date, time){

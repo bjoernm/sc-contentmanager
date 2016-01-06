@@ -92,6 +92,8 @@
         var service = {
             getEvents: getEvents,
             getUsers: getUsers,
+            getWorkspaces: getWorkspaces,
+            getEntityTypes: getEntityTypes,
             getFilteredEvents: getFilteredEvents
         };
 
@@ -132,6 +134,9 @@
         var UserResource =
             $resource(apiToInstanceUrl('api/v1/users/'));
 
+        var WorkspaceResource =
+            $resource(apiToInstanceUrl('api/v1/workspaces/'));
+
         initializeBasicAuthentication();
 
 
@@ -146,7 +151,7 @@
             return EventResource.get({ pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE}).$promise;
         }
 
-        function getFilteredEvents(onlyWatchedEntities, startDate, endDate, user) {
+        function getFilteredEvents(onlyWatchedEntities, startDate, endDate, user, eventType, workspaceId, entityType) {
             var parameters = {};
 
             parameters.pageIndex = SC_PAGE_INDEX;
@@ -169,11 +174,34 @@
                 parameters.user = user;
             }
 
+            if (eventType) {
+                parameters.eventType = eventType;
+            }
+
+            if (workspaceId) {
+                parameters.workspaceId = workspaceId;
+            }
+
+            if (entityType) {
+                parameters.entityType = entityType;
+            }
+
             return EventResource.get(parameters).$promise;
         }
 
         function getUsers() {
             return UserResource.query().$promise;
+        }
+
+        function getWorkspaces() {
+            return WorkspaceResource.query().$promise;
+        }
+
+        function getEntityTypes(workspaceId) {
+            var EntityTypeResource =
+                $resource(apiToInstanceUrl('api/v1/workspaces/' + workspaceId + '/entityTypes'));
+
+            return EntityTypeResource.query().$promise;
         }
 
         /**

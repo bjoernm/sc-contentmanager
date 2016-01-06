@@ -47,33 +47,33 @@
 
                 <md-input-container class="md-block" flex-gt-sm="">
                     <label>Workspace</label>
-                    <md-select ng-model="user.state">
-                        <md-option ng-repeat="workspace in workspaces" value="{{workspace}}">
-                            {{workspace}}
+                    <md-select ng-model="feedCtrl.workspaceId" ng-click="feedCtrl.getEntityType()">
+                        <md-option ng-repeat="workspace in feedCtrl.workspaces" value="{{workspace.id}}">
+                            {{workspace.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="">
-                    <label>Type</label>
-                    <md-select ng-model="user.state">
-                        <md-option ng-repeat="type in types" value="{{type}}">
-                            {{type}}
+                    <label>Entity Type</label>
+                    <md-select ng-model="feedCtrl.entityType" ng-disabled="feedCtrl.workspaceId === null">
+                        <md-option ng-repeat="entityType in feedCtrl.entityTypes" value="{{entityType.name}}">
+                            {{entityType.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="">
-                    <label>Activity</label>
-                    <md-select ng-model="user.state">
-                        <md-option ng-repeat="actitvity in activities" value="{{activity}}">
-                            {{activity}}
+                    <label>Event Type</label>
+                    <md-select ng-model="feedCtrl.eventType">
+                        <md-option ng-repeat="eventType in feedCtrl.eventTypes" value="{{eventType}}">
+                            {{eventType}}
                         </md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="">
-                    <label>Filter user</label>
+                    <label>User</label>
                     <md-select ng-model="feedCtrl.userId">
                         <md-option ng-repeat="user in feedCtrl.users" value="{{user.id}}">
                             {{user.name}}
@@ -81,7 +81,7 @@
                     </md-select>
                 </md-input-container>
 
-                <div>Selected user: {{feedCtrl.userId}}</div>
+                <div>Selected EntityType: {{feedCtrl.entityType}}</div>
 
                 <div>
                     <md-checkbox ng-model="data.cb2">
