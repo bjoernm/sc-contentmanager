@@ -90,7 +90,8 @@
 
     function ScEventService($resource, $http, $base64) {
         var service = {
-            getEvents: getEvents
+            getEvents: getEvents,
+            getFilteredEvents: getFilteredEvents
         };
 
         /**
@@ -118,12 +119,14 @@
             password: 'ottto'
         };
 
+        var basicAuthUser = '8sqf9bu46fyk';
+
         /**
          * Definition of resources for service.
          * @type {Resource}
          */
         var EventResource =
-            $resource(apiToInstanceUrl('api/v1/events'));
+            $resource(apiToInstanceUrl('api/v1/events/'));
 
         initializeBasicAuthentication();
 
@@ -136,7 +139,11 @@
          * @public
          **/
         function getEvents() {
-            return EventResource.get({ pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE }).$promise;
+            return EventResource.get({ pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE}).$promise;
+        }
+
+        function getFilteredEvents(onlyWatchedEntities) {
+            return EventResource.get({pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE, onlyWatchedEntities: onlyWatchedEntities, basicAuthUser: basicAuthUser}).$promise;
         }
 
         /**

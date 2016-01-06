@@ -5,6 +5,13 @@
                 <h1 id="filter-heading" class="md-toolbar-tools">Filter</h1>
             </md-toolbar>
             <md-content layout-padding="">
+
+                <div>
+                    <md-checkbox ng-model="feedCtrl.onlyWatchedEntities">
+                        Only show watched changes
+                    </md-checkbox>
+                </div>
+
                 <div>
                     <md-radio-group ng-model="data.group1">
 
@@ -61,9 +68,13 @@
                     <input ng-model="user">
                 </md-input-container>
 
-                <md-checkbox ng-model="data.cb1">
-                    Show my own activities
-                </md-checkbox>
+                <div>
+                    <md-checkbox ng-model="data.cb2">
+                        Show my own activities
+                    </md-checkbox>
+                </div>
+
+                <md-button class="md-raised" type="submit" ng-click="feedCtrl.onFilter()">Filter</md-button>
 
             </md-content>
 

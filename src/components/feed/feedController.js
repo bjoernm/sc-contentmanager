@@ -31,8 +31,9 @@
         feedCtrl.feedData = [];
         /** @type {Error} */
         feedCtrl.error = null;
+        feedCtrl.onlyWatchedEntities = true;
 
-         /** @type {ScEventPage} */
+        /** @type {ScEventPage} */
         feedCtrl.eventPage = null;
 
         feedCtrl.postData = postData;
@@ -85,11 +86,11 @@
         };
 
         feedCtrl.pageCount = function () {
-             var count = Math.ceil(feedCtrl.events.length / feedCtrl.itemsPerPage);
-             count = Math.max(1, count);
-             feedCtrl.currentPage = Math.min(feedCtrl.currentPage, count - 1);
+            var count = Math.ceil(feedCtrl.events.length / feedCtrl.itemsPerPage);
+            count = Math.max(1, count);
+            feedCtrl.currentPage = Math.min(feedCtrl.currentPage, count - 1);
 
-             return count;
+            return count;
 
         };
 
@@ -106,5 +107,13 @@
         feedCtrl.setPage = function (n) {
             feedCtrl.currentPage = n;
         };
+
+        feedCtrl.onFilter = function () {
+            eventService.getFilteredEvents(feedCtrl.onlyWatchedEntities).then(function (eventPage) {
+                feedCtrl.eventPage = eventPage;
+                feedCtrl.events = eventPage.events;
+                feedCtrl.loading = false;
+            });
+        }
     }
 })(angular);
