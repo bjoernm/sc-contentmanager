@@ -32,6 +32,8 @@
         /** @type {Error} */
         feedCtrl.error = null;
         feedCtrl.onlyWatchedEntities = true;
+        feedCtrl.startDay = null;
+        feedCtrl.endDay = null;
 
         /** @type {ScEventPage} */
         feedCtrl.eventPage = null;
@@ -109,11 +111,44 @@
         };
 
         feedCtrl.onFilter = function () {
-            eventService.getFilteredEvents(feedCtrl.onlyWatchedEntities).then(function (eventPage) {
+            if(feedCtrl.startDay !== null) {
+                feedCtrl.startDate = formatDate(feedCtrl.startDay, feedCtrl.startTime);
+            }else{
+                feedCtrl.startDate = null;
+            }
+
+            if(feedCtrl.endDay !== null) {
+                feedCtrl.endDate = formatDate(feedCtrl.endDay, feedCtrl.endTime);
+            }else{
+                feedCtrl.endDate = null;
+            }
+
+            eventService.getFilteredEvents(feedCtrl.onlyWatchedEntities, feedCtrl.startDate, feedCtrl.endDate).then(function (eventPage) {
                 feedCtrl.eventPage = eventPage;
                 feedCtrl.events = eventPage.events;
                 feedCtrl.loading = false;
             });
+        }
+
+        function formatDate(date, time){
+            var day = date.getDate();
+            var month = date.getMonth().valueOf()+1;
+            var hours = time.getHours();
+            var minutes = time.getMinutes();
+            if(day < 10){
+                day = '0' + day;
+            }
+            if(month < 10){
+                month = '0' + month;
+            }
+            if(hours < 10){
+                hours = '0' + hours;
+            }
+            if(minutes < 10){
+                minutes = '0' + minutes;
+            }
+            return day + "." + month +"."
+                + date.getFullYear() +" "+ hours +":"+ minutes;
         }
     }
 })(angular);

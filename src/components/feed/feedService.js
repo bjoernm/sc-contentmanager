@@ -142,8 +142,26 @@
             return EventResource.get({ pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE}).$promise;
         }
 
-        function getFilteredEvents(onlyWatchedEntities) {
-            return EventResource.get({pageIndex: SC_PAGE_INDEX, pageSize: SC_PAGE_SIZE, onlyWatchedEntities: onlyWatchedEntities, basicAuthUser: basicAuthUser}).$promise;
+        function getFilteredEvents(onlyWatchedEntities, startDate, endDate) {
+            var parameters = {};
+
+            parameters.pageIndex = SC_PAGE_INDEX;
+            parameters.pageSize = SC_PAGE_SIZE;
+            parameters.basicAuthUser = basicAuthUser;
+
+            if (onlyWatchedEntities) {
+                parameters.onlyWatchedEntities = onlyWatchedEntities;
+            }
+
+            if (startDate) {
+                parameters.startDate = startDate;
+            }
+
+            if (endDate) {
+                parameters.endDate = endDate;
+            }
+
+            return EventResource.get(parameters).$promise;
         }
 
         /**
