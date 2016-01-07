@@ -24,8 +24,5 @@
 
         /** @type {Error} */
         feedItemCtrl.error = null;
-
-        /** @type {ScEventPage} */
-
     }
 })(angular);

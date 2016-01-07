@@ -91,7 +91,9 @@
     function ScEventService($resource, $http, $base64) {
         var service = {
             getEvents: getEvents,
-            getFilteredEvents: getFilteredEvents
+            getUsers: getUsers,
+            getWorkspaces: getWorkspaces,
+            getEntityTypes: getEntityTypes
         };
 
         /**
@@ -128,8 +130,13 @@
         var EventResource =
             $resource(apiToInstanceUrl('api/v1/events/'));
 
-        initializeBasicAuthentication();
+        var UserResource =
+            $resource(apiToInstanceUrl('api/v1/users/'));
 
+        var WorkspaceResource =
+            $resource(apiToInstanceUrl('api/v1/workspaces/'));
+
+        initializeBasicAuthentication();
 
         /**
          * Retrieves an event page from the server.
@@ -138,30 +145,66 @@
          * @reject {Error} An error if one occurred.
          * @public
          **/
-        function getEvents(pageIndex, pageSize) {
-            return EventResource.get({ pageIndex: pageIndex, pageSize: pageSize}).$promise;
+        function getEvents(filterParameters, pageIndex, pageSize) {
+            return EventResource.get(getCleanFilterParameters(filterParameters, pageIndex, pageSize)).$promise;
         }
 
-        function getFilteredEvents(onlyWatchedEntities, startDate, endDate) {
-            var parameters = {};
+        function getCleanFilterParameters(filterParameters, pageIndex, pageSize) {
+            var parameters = {
+                pageIndex: SC_PAGE_INDEX,
+                pageSize: SC_PAGE_SIZE,
+                basicAuthUser: basicAuthUser
+            };
 
-            parameters.pageIndex = SC_PAGE_INDEX;
-            parameters.pageSize = SC_PAGE_SIZE;
-            parameters.basicAuthUser = basicAuthUser;
-
-            if (onlyWatchedEntities) {
-                parameters.onlyWatchedEntities = onlyWatchedEntities;
+            if (pageIndex) {
+                parameters.pageIndex = pageIndex;
+            }
+            if (pageSize) {
+                parameters.pageSize = pageSize;
+            }
+            if (filterParameters) {
+                if (filterParameters.onlyWatchedEntities) {
+                    parameters.onlyWatchedEntities = filterParameters.onlyWatchedEntities;
+                }
+                if (filterParameters.hideOwnActivites) {
+                    parameters.hideOwnActivites= filterParameters.hideOwnActivites;
+                }
+                if (filterParameters.startDate) {
+                    parameters.startDate = filterParameters.startDate;
+                }
+                if (filterParameters.endDate) {
+                    parameters.endDate = filterParameters.endDate;
+                }
+                if (filterParameters.workspaceId) {
+                    parameters.workspaceId = filterParameters.workspaceId;
+                }
+                if (filterParameters.userId) {
+                    parameters.userId = filterParameters.userId;
+                }
+                if (filterParameters.eventType) {
+                    parameters.eventType = filterParameters.eventType;
+                }
+                if (filterParameters.entityType) {
+                    parameters.entityType = filterParameters.entityType;
+                }
             }
 
-            if (startDate) {
-                parameters.startDate = startDate;
-            }
+            return parameters;
+        }
 
-            if (endDate) {
-                parameters.endDate = endDate;
-            }
+        function getUsers() {
+            return UserResource.query().$promise;
+        }
 
-            return EventResource.get(parameters).$promise;
+        function getWorkspaces() {
+            return WorkspaceResource.query().$promise;
+        }
+
+        function getEntityTypes(workspaceId) {
+            var EntityTypeResource =
+                $resource(apiToInstanceUrl('api/v1/workspaces/' + workspaceId + '/entityTypes'));
+
+            return EntityTypeResource.query().$promise;
         }
 
         /**

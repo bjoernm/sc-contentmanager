@@ -4,35 +4,34 @@
             <md-toolbar class="md-theme-indigo">
                 <h1 id="filter-heading" class="md-toolbar-tools">Filter</h1>
             </md-toolbar>
-            <form class="md-padding">
+            <form class="md-padding" layout="column">
 
                 <div>
-                    <md-checkbox ng-model="feedCtrl.onlyWatchedEntities">
+                    <md-checkbox ng-model="feedCtrl.filterForm.onlyWatchedEntities">
                         Only show watched changes
                     </md-checkbox>
                 </div>
 
                 <div layout="row">
-                    <md-datepicker ng-model="feedCtrl.startDay" md-placeholder="From date"></md-datepicker>
+                    <md-datepicker ng-model="feedCtrl.dateForm.startDay" md-placeholder="From date"></md-datepicker>
 
-                    <md-input-container class="md-block" flex-gt-xs>
+                    <md-input-container>
                         <label>From time</label>
-                        <input type="time" ng-model="feedCtrl.startTime"/>
+                        <input type="time" ng-model="feedCtrl.dateForm.startTime"/>
                     </md-input-container>
                 </div>
 
                 <div layout="row">
-                    <md-datepicker ng-model="feedCtrl.endDay" md-placeholder="Until date"></md-datepicker>
+                    <md-datepicker ng-model="feedCtrl.dateForm.endDay" md-placeholder="Until date"></md-datepicker>
 
                     <md-input-container class="md-block" flex-gt-xs>
                         <label>Until time</label>
-                        <input type="time" ng-model="feedCtrl.endTime"/>
+                        <input type="time" ng-model="feedCtrl.dateForm.endTime"/>
                     </md-input-container>
                 </div>
 
                 <div>
                     <md-radio-group ng-model="data.group1">
-
                         <md-radio-button value="Discussion">
                             <span class="discussion-button">Discussion</span>
                         </md-radio-button>
@@ -47,44 +46,53 @@
 
                 <md-input-container class="md-block" flex-gt-sm="">
                     <label>Workspace</label>
-                    <md-select ng-model="user.state">
-                        <md-option ng-repeat="workspace in workspaces" value="{{workspace}}">
-                            {{workspace}}
+                    <md-select ng-model="feedCtrl.filterForm.workspaceId"
+                               md-on-open="feedCtrl.loadWorkspaces()">
+                        <md-option ng-repeat="workspace in feedCtrl.workspaces" value="{{workspace.id}}">
+                            {{workspace.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="">
-                    <label>Type</label>
-                    <md-select ng-model="user.state">
-                        <md-option ng-repeat="type in types" value="{{type}}">
-                            {{type}}
+                    <label>Entity Type</label>
+                    <md-select ng-model="feedCtrl.filterForm.entityType"
+                               ng-disabled="feedCtrl.filterForm.workspaceId === null"
+                               md-on-open="feedCtrl.loadEntityTypes()">
+                        <md-option ng-repeat="entityType in feedCtrl.entityTypes"
+                                   value="{{entityType.name}}">
+                            {{entityType.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="">
-                    <label>Activity</label>
-                    <md-select ng-model="user.state">
-                        <md-option ng-repeat="actitvity in activities" value="{{activity}}">
-                            {{activity}}
+                    <label>Event Type</label>
+                    <md-select ng-model="feedCtrl.eventType">
+                        <md-option ng-repeat="eventType in feedCtrl.eventTypes" value="{{eventType}}">
+                            {{eventType}}
                         </md-option>
                     </md-select>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm="">
-                    <label>Filter User</label>
-                    <input ng-model="user">
+                    <label>User</label>
+                    <md-select ng-model="feedCtrl.filterForm.userId"  md-on-open="feedCtrl.loadUsers()">
+                        <md-option ng-repeat="user in feedCtrl.users" value="{{user.id}}">
+                            {{user.name}}
+                        </md-option>
+                    </md-select>
                 </md-input-container>
+
+                <div>Selected EntityType: {{feedCtrl.entityType}}</div>
 
                 <div>
-                    <md-checkbox ng-model="data.cb2">
+                    <md-checkbox ng-model="feedCtrl.filterForm.hideOwnActivities">
                         Show my own activities
                     </md-checkbox>
                 </div>
 
                 <md-button class="md-raised" type="submit" ng-click="feedCtrl.onFilter()">Filter</md-button>
-
             </form>
 
         </md-sidenav>
@@ -92,12 +100,21 @@
     <section flex>
         <div class="md-padding" layout="row" layout-align="center start">
             <div flex="70" flex-sm="90" layout="column">
-                <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events" sc-feed-event="event" ></sc-feed-item>
-                <div>
-                    <ul>
-                        <li ng-repeat="i in feedCtrl.getArrayOfSize(feedCtrl.eventPage.pageSize) track by $index">
-                    </ul>
-                </div>
+                <md-tabs md-dynamic-height
+                         md-center-tabs
+                         md-align-tabs="bottom"
+                         md-border-bottom
+                         md-selected="feedCtrl.currentPageIndex">
+                    <md-tab ng-repeat="i in feedCtrl.getArrayOfSize(feedCtrl.currentTotalNumberOfPages) track by $index"
+                            label="{{ $index }}"
+                            ng-click="feedCtrl.loadPage($index); $event.stopPropagation();">
+                        <div ng-if="feedCtrl.eventPage.pageIndex === $index">
+                            <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events"
+                                          sc-feed-event="event" >
+                            </sc-feed-item>
+                        </div>
+                    </md-tab>
+                </md-tabs>
             </div>
         </div>
 

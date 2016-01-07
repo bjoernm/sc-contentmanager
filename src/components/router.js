@@ -25,12 +25,14 @@
             .when('/feed', {
                 resolve: {
                     eventPage: ['scEventService', '$route', function(scEventService, $route) {
-                        return scEventService.getEvents($route.current.params.pageIndex,$route.current.params.pageSize);
+                        return scEventService
+                            .getEvents(null,$route.current.params.pageIndex,$route.current.params.pageSize);
                     }]
                 },
                 templateUrl: '/components/mainContent/templates/feed.tpl.html',
                 controller: 'scMainFeedController',
-                controllerAs: 'mainFeedCtrl'
+                controllerAs: 'mainFeedCtrl',
+                reloadOnSearch: false
             })
             .otherwise({
                 'redirectTo': '/workspaces/root'
