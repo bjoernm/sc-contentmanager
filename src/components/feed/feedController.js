@@ -150,7 +150,7 @@
         }
 
         function loadPage(index) {
-            fetchAndBindPage(index, true);
+            fetchAndBindPage(index);
         }
 
         function fetchAndBindPage(index) {
