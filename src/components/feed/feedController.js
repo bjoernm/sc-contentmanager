@@ -71,6 +71,7 @@
         function onLocationChangeStart() {
             if ($location.$$path !== feedPath) {
                 $location.hash(null).search('pageIndex', null);
+                $location.query('workspaceId', null);
             }
         }
 
@@ -78,6 +79,9 @@
             if ($route.current.params.pageIndex !== feedCtrl.eventPage.pageIndex) {
                 // Fetching new page because of browser navigation.
                 fetchAndBindPage($route.current.params.pageIndex);
+            }
+            if($route.current.params.workspaceId !== feedCtrl.filterForm.workspaceId){
+                getFilterFromQueryParameters();
             }
         }
 
@@ -113,6 +117,8 @@
 
             feedCtrl.currentFilterParameters.startDate = startTimestamp;
             feedCtrl.currentFilterParameters.endDate = endTimestamp;
+
+            setQueryParametersFromFilterSettings();
 
             fetchAndBindPage(0);
         }
@@ -157,7 +163,7 @@
             scEventService.getEvents(feedCtrl.currentFilterParameters, indexToLoad).then(bindPage);
         }
 
-        function bindPage(newPage, index) {
+        function bindPage(newPage) {
             if (newPage) {
                 feedCtrl.eventPage = newPage;
                 feedCtrl.currentPageIndex = newPage.pageIndex;
@@ -165,6 +171,65 @@
                 scrollToTop();
                 $location.search('pageIndex', newPage.pageIndex);
             }
+        }
+
+        function setQueryParametersFromFilterSettings(){
+            if (feedCtrl.filterForm.onlyWatchedEntities) {
+                $location.search('onlyWatchedEntities', feedCtrl.filterForm.onlyWatchedEntities);
+            }else{
+                $location.search('onlyWatchedEntities', null);
+            }
+            if (feedCtrl.filterForm.hideOwnActivites) {
+                $location.search('hideOwnActivites', feedCtrl.filterForm.hideOwnActivites);
+            }else{
+                $location.search('hideOwnActivites', null);
+            }
+            if (feedCtrl.filterForm.startDate) {
+                $location.search('startDate', feedCtrl.filterForm.startDate);
+            }else{
+                $location.search('startDate', null);
+            }
+            if (feedCtrl.filterForm.endDate) {
+                $location.search('endDate', feedCtrl.filterForm.endDate);
+            }else{
+                $location.search('endDate', null);
+            }
+            if (feedCtrl.filterForm.workspaceId) {
+                $location.search('workspaceId', feedCtrl.filterForm.workspaceId);
+            }else{
+                $location.search('workspaceId', null);
+            }
+            if (feedCtrl.filterForm.userId) {
+                $location.search('userId', feedCtrl.filterForm.userId);
+            }else{
+                $location.search('userId', null);
+            }
+            if (feedCtrl.filterForm.eventType) {
+                $location.search('eventType', feedCtrl.filterForm.eventType);
+            }else{
+                $location.search('eventType', null);
+            }
+            if (feedCtrl.filterForm.entityType) {
+                $location.search('entityType', feedCtrl.filterForm.entityType);
+            }else{
+                $location.search('entityType', null);
+            }
+        }
+
+        function getFilterFromQueryParameters(){
+            //var startTimestamp = formatDate($route.current.params.startDate, $route.current.params.startTime);
+            //var endTimestamp = formatDate($route.current.params.endDay, $route.current.params.endTime);
+
+            //feedCtrl.filterForm.onlyWatchedEntities = $route.current.params.onlyWatchedEntities;
+            //feedCtrl.filterForm.hideOwnActivites = $route.current.params.hideOwnActivites;
+            //feedCtrl.filterForm.startDate = startTimestamp;
+            //feedCtrl.filterForm.endDate = endTimestamp;
+            feedCtrl.filterForm.workspaceId = $route.current.params.workspaceId;
+            //feedCtrl.filterForm.userId = $route.current.params.userId;
+            //feedCtrl.filterForm.eventType = $route.current.params.eventType;
+            //feedCtrl.filterForm.entityType = $route.current.params.entityType;
+            fetchAndBindPage(0);
+            //onFilter();
         }
 
         function scrollToTop() {
