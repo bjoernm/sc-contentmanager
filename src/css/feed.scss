@@ -1,12 +1,16 @@
 @import "style.scss";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
+.feed-item-card{
+  border-style: solid;
+  border-color: #E3B6BB;
+}
 .attribute-changed-header {
-  background-color: #E3B6BB;
+  //background-color: #E3B6BB;
 }
 
 .add-event-header {
-  background-color: #E3B6BB;
+  //background-color: #E3B6BB;
 }
 
 .link-breadcrumb {
@@ -57,7 +61,7 @@
 }
 
 #breadcrumb-item{
-    background-color: #E3B6BB;
+    //background-color: #E3B6BB;
     padding-left: 16px;
     padding-bottom: 16px;
 }

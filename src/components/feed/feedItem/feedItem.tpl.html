@@ -1,4 +1,4 @@
-<md-card>
+<md-card class="feed-item-card">
 
     <md-card-header ng-if="feedItemCtrl.event.eventType == 'CHANGE'" class="attribute-changed-header">
         <md-card-avatar>
@@ -54,6 +54,8 @@
             {{feedItemCtrl.event.changeset.entity.name}}
         </a>
     </span>
+
+    <md-divider></md-divider>
 
     <md-card-content>
         <div ng-repeat="change in feedItemCtrl.event.changeset.changes">
