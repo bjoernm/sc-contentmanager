@@ -163,7 +163,7 @@
                 feedCtrl.currentPageIndex = newPage.pageIndex;
                 feedCtrl.currentTotalNumberOfPages = newPage.totalNumberOfPages;
                 scrollToTop();
-                $location.search('pageIndex', index);
+                $location.search('pageIndex', newPage.pageIndex);
             }
         }
 

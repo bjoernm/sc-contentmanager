@@ -121,8 +121,6 @@
             password: 'ottto'
         };
 
-        var basicAuthUser = '8sqf9bu46fyk';
-
         /**
          * Definition of resources for service.
          * @type {Resource}
@@ -152,8 +150,7 @@
         function getCleanFilterParameters(filterParameters, pageIndex, pageSize) {
             var parameters = {
                 pageIndex: SC_PAGE_INDEX,
-                pageSize: SC_PAGE_SIZE,
-                basicAuthUser: basicAuthUser
+                pageSize: SC_PAGE_SIZE
             };
 
             if (pageIndex) {
