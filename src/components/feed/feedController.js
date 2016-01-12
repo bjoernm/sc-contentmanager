@@ -144,7 +144,7 @@
         }
 
         function loadPage(index) {
-            fetchAndBindPage(index, true);
+            fetchAndBindPage(index);
         }
 
         function fetchAndBindPage(index) {
@@ -157,7 +157,7 @@
             scEventService.getEvents(feedCtrl.currentFilterParameters, indexToLoad).then(bindPage);
         }
 
-        function bindPage(newPage, index) {
+        function bindPage(newPage) {
             if (newPage) {
                 feedCtrl.eventPage = newPage;
                 feedCtrl.currentPageIndex = newPage.pageIndex;
