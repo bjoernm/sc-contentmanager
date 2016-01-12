@@ -48,6 +48,9 @@
                     <label>Workspace</label>
                     <md-select ng-model="feedCtrl.filterForm.workspaceId"
                                md-on-open="feedCtrl.loadWorkspaces()">
+                        <md-option value="{{null}}">
+                            -- All --
+                        </md-option>
                         <md-option ng-repeat="workspace in feedCtrl.workspaces" value="{{workspace.id}}">
                             {{workspace.name}}
                         </md-option>
@@ -59,6 +62,9 @@
                     <md-select ng-model="feedCtrl.filterForm.entityType"
                                ng-disabled="feedCtrl.filterForm.workspaceId === null"
                                md-on-open="feedCtrl.loadEntityTypes()">
+                        <md-option value="{{null}}">
+                            -- All --
+                        </md-option>
                         <md-option ng-repeat="entityType in feedCtrl.entityTypes"
                                    value="{{entityType.name}}">
                             {{entityType.name}}
@@ -68,7 +74,10 @@
 
                 <md-input-container class="md-block" flex-gt-sm="">
                     <label>Event Type</label>
-                    <md-select ng-model="feedCtrl.eventType">
+                    <md-select ng-model="feedCtrl.filterForm.eventType">
+                        <md-option value="{{null}}">
+                            -- All --
+                        </md-option>
                         <md-option ng-repeat="eventType in feedCtrl.eventTypes" value="{{eventType}}">
                             {{eventType}}
                         </md-option>
@@ -78,13 +87,14 @@
                 <md-input-container class="md-block" flex-gt-sm="">
                     <label>User</label>
                     <md-select ng-model="feedCtrl.filterForm.userId"  md-on-open="feedCtrl.loadUsers()">
+                        <md-option value="{{null}}">
+                            -- All --
+                        </md-option>
                         <md-option ng-repeat="user in feedCtrl.users" value="{{user.id}}">
                             {{user.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
-
-                <div>Selected EntityType: {{feedCtrl.entityType}}</div>
 
                 <div>
                     <md-checkbox ng-model="feedCtrl.filterForm.hideOwnActivities">
