@@ -157,7 +157,7 @@
             scEventService.getEvents(feedCtrl.currentFilterParameters, indexToLoad).then(bindPage);
         }
 
-        function bindPage(newPage) {
+        function bindPage(newPage, index) {
             if (newPage) {
                 feedCtrl.eventPage = newPage;
                 feedCtrl.currentPageIndex = newPage.pageIndex;
