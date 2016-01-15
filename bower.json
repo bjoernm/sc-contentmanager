@@ -14,8 +14,7 @@
     "angular-base64": "~2.0.5",
     "angular-route": "~1.4.7",
     "ngstorage": "~0.3.10",
-    "sc-angular": "https://github.com/sebischair/sc-angular.git#master",
-    "angular-bootstrap":"~0.13.4"
+    "sc-angular": "https://github.com/sebischair/sc-angular.git#master"
   },
   "resolutions": {
     "angular": "1.4.8",
