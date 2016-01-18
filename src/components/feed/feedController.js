@@ -21,11 +21,11 @@
         // Forms for the filter.
         feedCtrl.filterForm = {
             onlyWatchedEntities: false,
-            hideOwnActivities: false,
+            hideOwnActivities: null,
             workspaceId: null,
-            userId: null,
+            user: null,
             eventType: null,
-            entityType: null
+            entityType: null,
         };
 
         feedCtrl.dateForm = {
@@ -70,12 +70,13 @@
         }
 
         function onSuccessfulLocationChange() {
-            if ($route.current.params.pageIndex !== feedCtrl.eventPage.pageIndex) {
+            /*if ($route.current.params.pageIndex !== feedCtrl.eventPage.pageIndex) {
                 // Fetching new page because of browser navigation.
                 fetchAndBindPage($route.current.params.pageIndex);
-            }
-            if($route.current.params.workspaceId !== feedCtrl.filterForm.workspaceId){
+            }*/
+            if($route.current.params != feedCtrl.currentFilterParameters){
                 getFilterFromQueryParameters();
+                fetchAndBindPage($route.current.params.pageIndex);
             }
         }
 
@@ -112,9 +113,11 @@
             feedCtrl.currentFilterParameters.startDate = startTimestamp;
             feedCtrl.currentFilterParameters.endDate = endTimestamp;
 
+            feedCtrl.currentFilterParameters.pageIndex = 0;
+
             setQueryParametersFromFilterSettings();
 
-            fetchAndBindPage(0);
+            fetchAndBindPage();
         }
 
         function formatDate(date, time){
@@ -143,18 +146,24 @@
             return day + "." + month + "." + date.getFullYear() + " " + hours + ":" + minutes;
         }
 
-        function loadPage(index) {
-            fetchAndBindPage(index);
+        function stringToDate(dateString){
+            var day = dateString.substring(0,2);
+            var month = dateString.substring(3,5);
+            var year = dateString.substring(6,10);
+            var hours = dateString.substring(11,13);
+            var minutes = dateString.substring(14,16);
+            var seconds = 0;
+            var milliseconds = 0;
+            return new Date(year, month-1, day, hours, minutes, seconds, milliseconds);
         }
 
-        function fetchAndBindPage(index) {
-            var indexToLoad = 0;
+        function loadPage(index) {
+            feedCtrl.currentFilterParameters.pageIndex = index;
+            fetchAndBindPage();
+        }
 
-            if (index) {
-                indexToLoad = index;
-            }
-
-            scEventService.getEvents(feedCtrl.currentFilterParameters, indexToLoad).then(bindPage);
+        function fetchAndBindPage() {
+            scEventService.getEvents(feedCtrl.currentFilterParameters).then(bindPage);
         }
 
         function bindPage(newPage) {
@@ -162,68 +171,37 @@
                 feedCtrl.eventPage = newPage;
                 feedCtrl.currentPageIndex = newPage.pageIndex;
                 feedCtrl.currentTotalNumberOfPages = newPage.totalNumberOfPages;
+                feedCtrl.currentFilterParameters.pageIndex = newPage.pageIndex;
+                setQueryParametersFromFilterSettings();
                 scrollToTop();
-                $location.search('pageIndex', newPage.pageIndex);
             }
         }
 
         function setQueryParametersFromFilterSettings(){
-            if (feedCtrl.filterForm.onlyWatchedEntities) {
-                $location.search('onlyWatchedEntities', feedCtrl.filterForm.onlyWatchedEntities);
-            }else{
-                $location.search('onlyWatchedEntities', null);
-            }
-            if (feedCtrl.filterForm.hideOwnActivites) {
-                $location.search('hideOwnActivites', feedCtrl.filterForm.hideOwnActivites);
-            }else{
-                $location.search('hideOwnActivites', null);
-            }
-            if (feedCtrl.filterForm.startDate) {
-                $location.search('startDate', feedCtrl.filterForm.startDate);
-            }else{
-                $location.search('startDate', null);
-            }
-            if (feedCtrl.filterForm.endDate) {
-                $location.search('endDate', feedCtrl.filterForm.endDate);
-            }else{
-                $location.search('endDate', null);
-            }
-            if (feedCtrl.filterForm.workspaceId) {
-                $location.search('workspaceId', feedCtrl.filterForm.workspaceId);
-            }else{
-                $location.search('workspaceId', null);
-            }
-            if (feedCtrl.filterForm.userId) {
-                $location.search('userId', feedCtrl.filterForm.userId);
-            }else{
-                $location.search('userId', null);
-            }
-            if (feedCtrl.filterForm.eventType) {
-                $location.search('eventType', feedCtrl.filterForm.eventType);
-            }else{
-                $location.search('eventType', null);
-            }
-            if (feedCtrl.filterForm.entityType) {
-                $location.search('entityType', feedCtrl.filterForm.entityType);
-            }else{
-                $location.search('entityType', null);
-            }
+            $location.search(feedCtrl.currentFilterParameters);
         }
 
         function getFilterFromQueryParameters(){
-            //var startTimestamp = formatDate($route.current.params.startDate, $route.current.params.startTime);
-            //var endTimestamp = formatDate($route.current.params.endDay, $route.current.params.endTime);
+            feedCtrl.filterForm = $route.current.params;
+            feedCtrl.currentFilterParameters = $route.current.params;
 
-            //feedCtrl.filterForm.onlyWatchedEntities = $route.current.params.onlyWatchedEntities;
-            //feedCtrl.filterForm.hideOwnActivites = $route.current.params.hideOwnActivites;
-            //feedCtrl.filterForm.startDate = startTimestamp;
-            //feedCtrl.filterForm.endDate = endTimestamp;
-            feedCtrl.filterForm.workspaceId = $route.current.params.workspaceId;
-            //feedCtrl.filterForm.userId = $route.current.params.userId;
-            //feedCtrl.filterForm.eventType = $route.current.params.eventType;
-            //feedCtrl.filterForm.entityType = $route.current.params.entityType;
-            fetchAndBindPage(0);
-            //onFilter();
+            if($route.current.params.startDate) {
+                console.log("$route.current.params.startDate: "+$route.current.params.startDate);
+                var startTimestamp = stringToDate($route.current.params.startDate);
+
+                feedCtrl.dateForm.startDay = startTimestamp;
+                feedCtrl.dateForm.startTime = startTimestamp;
+                feedCtrl.currentFilterParameters.startDate = $route.current.params.startDate;
+            }
+
+            if($route.current.params.endDate) {
+                var endTimestamp = stringToDate($route.current.params.endDate);
+
+                feedCtrl.dateForm.endDay = endTimestamp;
+                feedCtrl.dateForm.endTime = endTimestamp;
+                feedCtrl.currentFilterParameters.endDate = $route.current.params.endDate;
+            }
+
         }
 
         function scrollToTop() {

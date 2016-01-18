@@ -147,18 +147,13 @@
             return EventResource.get(getCleanFilterParameters(filterParameters, pageIndex, pageSize)).$promise;
         }
 
-        function getCleanFilterParameters(filterParameters, pageIndex, pageSize) {
+        function getCleanFilterParameters(filterParameters) {
             var parameters = {
                 pageIndex: SC_PAGE_INDEX,
                 pageSize: SC_PAGE_SIZE
             };
 
-            if (pageIndex) {
-                parameters.pageIndex = pageIndex;
-            }
-            if (pageSize) {
-                parameters.pageSize = pageSize;
-            }
+
             if (filterParameters) {
                 if (filterParameters.onlyWatchedEntities) {
                     parameters.onlyWatchedEntities = filterParameters.onlyWatchedEntities;
@@ -175,8 +170,8 @@
                 if (filterParameters.workspaceId) {
                     parameters.workspaceId = filterParameters.workspaceId;
                 }
-                if (filterParameters.userId) {
-                    parameters.userId = filterParameters.userId;
+                if (filterParameters.user) {
+                    parameters.user = filterParameters.user;
                 }
                 if (filterParameters.eventType) {
                     parameters.eventType = filterParameters.eventType;
@@ -184,6 +179,10 @@
                 if (filterParameters.entityType) {
                     parameters.entityType = filterParameters.entityType;
                 }
+                if (filterParameters.pageIndex) {
+                    parameters.pageIndex = filterParameters.pageIndex;
+                }
+
             }
 
             return parameters;

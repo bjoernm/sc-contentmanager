@@ -86,7 +86,7 @@
 
                 <md-input-container class="md-block" flex-gt-sm="">
                     <label>User</label>
-                    <md-select ng-model="feedCtrl.filterForm.userId"  md-on-open="feedCtrl.loadUsers()">
+                    <md-select ng-model="feedCtrl.filterForm.user"  md-on-open="feedCtrl.loadUsers()">
                         <md-option value="{{null}}">
                             -- All --
                         </md-option>
@@ -98,7 +98,7 @@
 
                 <div>
                     <md-checkbox ng-model="feedCtrl.filterForm.hideOwnActivities">
-                        Show my own activities
+                        Hide my own activities
                     </md-checkbox>
                 </div>
 

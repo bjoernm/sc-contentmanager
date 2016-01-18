@@ -26,7 +26,7 @@
                 resolve: {
                     eventPage: ['scEventService', '$route', function(scEventService, $route) {
                         return scEventService
-                            .getEvents(null,$route.current.params.pageIndex,$route.current.params.pageSize);
+                            .getEvents($route.current.params);
                     }]
                 },
                 templateUrl: '/components/mainContent/templates/feed.tpl.html',
