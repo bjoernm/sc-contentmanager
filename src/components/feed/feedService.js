@@ -86,9 +86,9 @@
         .module('scFeed')
         .service('scEventService', ScEventService);
 
-    ScEventService.$inject = ['$resource', '$http', '$base64'];
+    ScEventService.$inject = ['$resource', '$http', '$base64', 'scData', 'scPrincipal', 'scAuth'];
 
-    function ScEventService($resource, $http, $base64) {
+    function ScEventService($resource, $http, $base64, scData, scPrincipal, scAuth) {
         var service = {
             getEvents: getEvents,
             getUsers: getUsers,
@@ -127,12 +127,6 @@
          */
         var EventResource =
             $resource(apiToInstanceUrl('api/v1/events/'));
-
-        var UserResource =
-            $resource(apiToInstanceUrl('api/v1/users/'));
-
-        var WorkspaceResource =
-            $resource(apiToInstanceUrl('api/v1/workspaces/'));
 
         initializeBasicAuthentication();
 
@@ -189,18 +183,16 @@
         }
 
         function getUsers() {
-            return UserResource.query().$promise;
+            return scPrincipal.User.query().$promise;
         }
 
         function getWorkspaces() {
-            return WorkspaceResource.query().$promise;
+            return scData.Workspace.query().$promise;
         }
 
         function getEntityTypes(workspaceId) {
-            var EntityTypeResource =
-                $resource(apiToInstanceUrl('api/v1/workspaces/' + workspaceId + '/entityTypes'));
-
-            return EntityTypeResource.query().$promise;
+            var searchObject = {'id': workspaceId};
+            return scData.Workspace.getEntityTypes(searchObject).$promise;
         }
 
         /**
@@ -222,9 +214,7 @@
          * @private
          */
         function initializeBasicAuthentication() {
-            $http.defaults.headers.common.Authorization =
-                'Basic ' +
-                $base64.encode(CREDENTIALS.user + ':' + CREDENTIALS.password);
+            scAuth.login(CREDENTIALS.user, CREDENTIALS.password);
         }
 
         return service;

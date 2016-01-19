@@ -65,7 +65,7 @@
         function onLocationChangeStart() {
             if ($location.$$path !== feedPath) {
                 $location.hash(null).search('pageIndex', null);
-                $location.query('workspaceId', null);
+                //$location.query('workspaceId', null);
             }
         }
 
