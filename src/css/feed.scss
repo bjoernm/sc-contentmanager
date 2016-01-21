@@ -2,11 +2,12 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 .feed-item-card{
-  border-style: solid;
-  border-color: #E3B6BB;
+  //border-style: solid;
+  //border-color: #E3B6BB;
 }
 .attribute-changed-header {
   //background-color: #E3B6BB;
+  //padding-bottom: 0%;
 }
 
 .add-event-header {
@@ -59,7 +60,9 @@
    background-color: #F0F7FC;
   color: #555555;
 }
-
+.breadcrumb{
+  text-align: center;
+}
 #breadcrumb-item{
     //background-color: #E3B6BB;
     padding-left: 16px;
@@ -77,4 +80,9 @@
     border-radius: 50%;
   }
 }
-
+.verticalLine {
+  //border-left: thick solid #C3DFA5;
+}
+.feedItemButton{
+  padding-top: 4%;
+}
