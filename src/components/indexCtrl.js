@@ -5,14 +5,21 @@
         .module('scGenericClient')
         .controller('IndexCtrl', indexCtrl);
 
-    indexCtrl.$inject = ['$scope', 'scMainNavService', 'sharedNavDataService', '$rootScope', '$location', '$log'];
-    function indexCtrl($scope, scMainNavService, sharedNavDataService, $rootScope, $location, $log) {
+    indexCtrl.$inject = ['$scope', 'scMainNavService', 'scUtil','sharedNavDataService', '$rootScope', '$location', '$log', '$mdSidenav'];
+    function indexCtrl($scope, scMainNavService, scUtil, sharedNavDataService, $rootScope, $location, $log, $mdSidenav) {
         var vm = this;
         vm.workspaces = [];
         vm.selectedTabIndex = -1;
         vm.navData = sharedNavDataService;
         vm.setPathTo = setPathTo;
         vm.getSearchHints = getSearchHints;
+        vm.searchTextChange = searchTextChange;
+        vm.selectedItemChange = selectedItemChange;
+
+        $scope.toggleSidenav = function (menuId) {
+            $mdSidenav(menuId).toggle();
+        };
+
 
         // INIT
         scMainNavService.loadAllWorkspaces()
@@ -44,10 +51,26 @@
         }
 
         function getSearchHints(searchText) {
-            $log.info(searchText);
+            $log.info('query:' + searchText);
             return scMainNavService
-                .getSearchHints(searchText)
-                .catch(logError);
+                .getSearchHints(searchText);
+        }
+
+        function searchTextChange(text) {
+            $log.info('Text changed to ' + text);
+        }
+
+        function selectedItemChange(item) {
+            $log.info('Item changed to ' + JSON.stringify(item));
+            if(item && item.href){
+                var path = scUtil.getRelativeUrl(item.href);
+                setPathTo(path.substr(1));
+            }
+            //TODO: Differentiate between types (files, entities, etc.)
+            /*else if(item){
+                var path = 'http://server.sociocortex.com/file/'+item.id;
+                setPathTo(path);
+            }*/
         }
 
         function logError() {

@@ -17,7 +17,11 @@
         };
 
         function getSearchHints(searchText) {
-            return searchHints.get({'q': searchText}).$promise;
+            return searchHints.get({'q': searchText}).$promise.then(function(data){
+                console.log(data.hints);
+                return data.hints;
+            });
+
         }
 
         function loadAllWorkspaces() {
