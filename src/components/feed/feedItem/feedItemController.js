@@ -14,9 +14,9 @@
         .module('scFeed')
         .controller('FeedItemController', FeedItemController);
 
-    FeedItemController.$inject = [];
+    FeedItemController.$inject = [ '$sce' ];
 
-    function FeedItemController() {
+    function FeedItemController($sce) {
         var feedItemCtrl = this;
         // Variables in directive scope attribute are bound to this object a.k.a. feedItemCtrl.
 
@@ -24,5 +24,10 @@
 
         /** @type {Error} */
         feedItemCtrl.error = null;
+        feedItemCtrl.trustHtml = trustHtml;
+
+        function trustHtml(htmlString) {
+            return $sce.trustAsHtml(htmlString);
+        }
     }
 })(angular);

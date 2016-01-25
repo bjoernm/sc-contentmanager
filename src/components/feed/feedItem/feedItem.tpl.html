@@ -99,6 +99,15 @@
                     <div ng-if="change.type === 'richString'">
                         Changed <a class="value-highlight">{{ change.property.name }}</a> of
                         <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
+                        <h1>Changes</h1>
+                        <div ng-repeat="html in change.abbreviatedDiffs" ng-bind-html="feedItemCtrl.trustHtml(html)">
+                        </div>
+                        <h1>Old Page</h1>
+                        <div ng-bind-html="feedItemCtrl.trustHtml(change.oldValue)">
+                        </div>
+                        <h1>New Page</h1>
+                        <div ng-bind-html="feedItemCtrl.trustHtml(change.newValue)">
+                        </div>
                     </div>
                     <div ng-if="change.type === 'simpleValue'">
                         <div ng-if="change.property.type === 'HYBRID_TYPE'">
