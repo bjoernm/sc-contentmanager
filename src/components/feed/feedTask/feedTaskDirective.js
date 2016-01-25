@@ -18,16 +18,6 @@
 
     function FeedTaskDirective() {
         var attributes = {
-            /**
-             * @ngdoc directive
-             * @name scFeedEvent
-             * @param {expression} scFeedEvent
-             * @element sc-feed-item
-             * @restrict A
-             * @description
-             *
-             * The attribute for passing the event parameter.
-             */
             event: "=scFeedEvent"
         };
 

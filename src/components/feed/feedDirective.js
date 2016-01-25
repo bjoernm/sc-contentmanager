@@ -17,11 +17,20 @@
     FeedDirective.$inject = [];
 
     function FeedDirective() {
+        var attributes = {
+            eventPage: "=scFeedPage"
+        };
+
+        var requiredAttributes = ['scFeedPage'];
+
         return {
             restrict: 'E',
             templateUrl: 'components/feed/feed.tpl.html',
             controllerAs: 'feedCtrl',
-            controller: 'FeedController'
+            controller: 'FeedController',
+            scope: attributes,
+            require: requiredAttributes,
+            bindToController: true
         };
     }
 })();

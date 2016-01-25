@@ -11,6 +11,7 @@
         vm.workspaces = [];
         vm.selectedTabIndex = -1;
         vm.navData = sharedNavDataService;
+        vm.showSearch = true;
         vm.setPathTo = setPathTo;
         vm.getSearchHints = getSearchHints;
         vm.searchTextChange = searchTextChange;

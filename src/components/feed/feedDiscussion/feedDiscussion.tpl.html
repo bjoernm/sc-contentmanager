@@ -2,30 +2,30 @@
 
     <md-card-header class="discussion-header">
         <md-card-avatar>
-            <img class="md-user-avatar" src="http://localhost:8083/intern/tricia/api/v1/users/{{feedDiscussionCtrl.event.user.id}}/picture">
+            <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
         </md-card-avatar>
         <md-card-header-text>
             <div class="md-title" layout="row" layout-align="space-between start">
-                <div>
-                    <a ng-href="http://localhost:8083/intern/tricia/api/v1/users/{{feedDiscussionCtrl.event.user.id}}">{{ feedDiscussionCtrl.event.user.name }}</a>                </div>
+                <div>{{ feedDiscussionCtrl.event.user.name }}</div>
                 <div>{{ feedDiscussionCtrl.event.changeset.when }}</div>
             </div>
             <div class="md-subhead" layout="row" layout-align="space-between start">
-                 <p>Added a Discussion</p>
-                <div><md-icon id="iconWhite" class="material-icons">message</md-icon></div>
+                <div>
+                    <md-icon class="material-icons">message</md-icon>
+                    Added a Discussion
+                </div>
             </div>
         </md-card-header-text>
     </md-card-header>
-    <md-card-title>
-        <md-card-title-text>
-             <span class="md-headline">
-                <div>
-                    Dear students! Thank you for ...
-                </div>
-            </span>
-        </md-card-title-text>
-    </md-card-title>
 
+    <md-card-content>
+        <span >
+            <div>
+                Dear students! Thank you for the submissions of the second exercise. All exercises have been submitted in time and completed. Within the next few days we will completed our tasks for the assessment of the exercises. After we are finished the progress for the first two exercises will be 100%.
+            </div>
+        </span>
+    </md-card-content>
+    <md-divider></md-divider>
     <md-card-actions layout="row" layout-align="start center">
         <md-button aria-label="Favorite">
             <md-icon class="material-icons">favorite</md-icon>
@@ -34,9 +34,28 @@
             <md-icon class="material-icons">comment</md-icon>
         </md-button>
     </md-card-actions>
-    <md-card-content>
-        <p>
-            Space for Comments
-        </p>
-    </md-card-content>
+
+    <md-card-footer>
+        <md-card>
+        <md-card-header>
+            <md-icon class="round-comment-icon">
+                <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
+            </md-icon>
+            <md-card-header-text class="md-subhead" layout="row" layout-align="space-between center">
+                <span>{{ feedDiscussionCtrl.event.user.name }}</span>
+                <span>{{ feedDiscussionCtrl.event.changeset.when }}</span>
+            </md-card-header-text>
+        </md-card-header>
+            <md-divider></md-divider>
+            <md-card-content>
+                <div class="md-subhead" layout="row" layout-align="space-between start">
+
+                        We already started the assessment of the first two exercises and you will get the results within the next few days. In case you have any questions regarding your performance, please contact your individual advisor.
+
+                </div>
+            </md-card-content>
+        </md-card>
+
+    </md-card-footer>
+
 </md-card>

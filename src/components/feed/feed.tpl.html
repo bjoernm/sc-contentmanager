@@ -1,27 +1,135 @@
-<div ng-cloak="" class="carddemoInCardActions">
-    <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
-        <div flex="70" layout="column">
-            <div layout="row">
-                <md-button ng-click="feedCtrl.postData()">Generate Workspace</md-button>
-                <md-button ng-click="feedCtrl.removeData()">Remove Workspace</md-button>
+<div layout="row" ng-cloak>
+    <section layout="row">
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+            <md-toolbar class="md-theme-indigo">
+                <h1 id="filter-heading" class="md-toolbar-tools">Filter</h1>
+            </md-toolbar>
+            <form class="md-padding" layout="column">
+
+                <div>
+                    <md-checkbox ng-model="feedCtrl.filterForm.onlyWatchedEntities">
+                        Only show watched changes
+                    </md-checkbox>
+                </div>
+
+                <div layout="row">
+                    <md-datepicker ng-model="feedCtrl.dateForm.startDay" md-placeholder="From date"></md-datepicker>
+
+                    <md-input-container>
+                        <label>From time</label>
+                        <input type="time" ng-model="feedCtrl.dateForm.startTime"/>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-datepicker ng-model="feedCtrl.dateForm.endDay" md-placeholder="Until date"></md-datepicker>
+
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Until time</label>
+                        <input type="time" ng-model="feedCtrl.dateForm.endTime"/>
+                    </md-input-container>
+                </div>
+
+                <div>
+                    <md-radio-group ng-model="data.group1">
+                        <md-radio-button value="Discussion">
+                            <span class="discussion-button">Discussion</span>
+                        </md-radio-button>
+                        <md-radio-button value="Task">
+                            <span class="task-button">Task</span>
+                        </md-radio-button>
+                        <md-radio-button value="Data">
+                            <span class="data-button">Data</span>
+                        </md-radio-button>
+                    </md-radio-group>
+                </div>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>Workspace</label>
+                    <md-select ng-model="feedCtrl.filterForm.workspaceId"
+                               md-on-open="feedCtrl.loadWorkspaces()">
+                        <md-option value="{{null}}">
+                            -- All --
+                        </md-option>
+                        <md-option ng-repeat="workspace in feedCtrl.workspaces" value="{{workspace.id}}">
+                            {{workspace.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>Entity Type</label>
+                    <md-select ng-model="feedCtrl.filterForm.entityType"
+                               ng-disabled="feedCtrl.filterForm.workspaceId === null"
+                               md-on-open="feedCtrl.loadEntityTypes()">
+                        <md-option value="{{null}}">
+                            -- All --
+                        </md-option>
+                        <md-option ng-repeat="entityType in feedCtrl.entityTypes"
+                                   value="{{entityType.name}}">
+                            {{entityType.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>Event Type</label>
+                    <md-select ng-model="feedCtrl.filterForm.eventType">
+                        <md-option value="{{null}}">
+                            -- All --
+                        </md-option>
+                        <md-option ng-repeat="eventType in feedCtrl.eventTypes" value="{{eventType}}">
+                            {{eventType}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm="">
+                    <label>User</label>
+                    <md-select ng-model="feedCtrl.filterForm.user"  md-on-open="feedCtrl.loadUsers()">
+                        <md-option value="{{null}}">
+                            -- All --
+                        </md-option>
+                        <md-option ng-repeat="user in feedCtrl.users" value="{{user.id}}">
+                            {{user.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <div>
+                    <md-checkbox ng-model="feedCtrl.filterForm.hideOwnActivities">
+                        Hide my own activities
+                    </md-checkbox>
+                </div>
+
+                <md-button class="md-raised" type="submit" ng-click="feedCtrl.onFilter()">Filter</md-button>
+            </form>
+
+        </md-sidenav>
+    </section>
+    <section flex>
+        <div class="md-padding" layout="row" layout-align="center start">
+            <div flex="70" flex-sm="90" layout="column">
+                <md-tabs md-dynamic-height
+                         md-center-tabs
+                         md-align-tabs="bottom"
+                         md-border-bottom
+                         md-selected="feedCtrl.currentPageIndex">
+                    <md-tab ng-repeat="i in feedCtrl.getArrayOfSize(feedCtrl.currentTotalNumberOfPages) track by $index"
+                            label="{{ $index }}"
+                            ng-click="feedCtrl.loadPage($index); $event.stopPropagation();">
+                        <div ng-if="feedCtrl.eventPage.pageIndex === $index">
+                            <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events"
+                                          sc-feed-event="event" >
+                            </sc-feed-item>
+                        </div>
+                    </md-tab>
+                </md-tabs>
             </div>
-            <sc-feed-task sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-task>
-            <sc-feed-discussion sc-feed-event="feedCtrl.eventPage.events[0]"></sc-feed-discussion>
-            <sc-feed-item ng-repeat="event in feedCtrl.eventPage.events" sc-feed-event="event" ></sc-feed-item>
         </div>
-    </md-content>
 
-    <ul class="pagination" layout="column"  ng-show="feedCtrl.eventPage.events.length > 0 && !feedCtrl.loading">
-        <li ng-class="feedCtrl.prevPageDisabled()">
-            <a href ng-click="feedCtrl.prevPage()">&laquo; Prev</a>
-        </li>
-        <li ng-repeat="n in feedCtrl.range()" ng-class="{active: n == feedCtrl.currentPage}" ng-click="feedCtrl.setPage(n)">
-            <a>{{n+1}}</a>
-        </li>
-        <li ng-class="feedCtrl.nextPageDisabled()">
-            <a href ng-click="feedCtrl.nextPage()">&raquo; Next</a>
-        </li>
-    </ul>
 
+    </section>
 </div>
+
 

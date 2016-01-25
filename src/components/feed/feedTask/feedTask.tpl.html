@@ -2,7 +2,7 @@
 
     <md-card-header class="task-header">
         <md-card-avatar>
-            <img class="md-user-avatar" src="http://localhost:8083/intern/tricia/api/v1/users/{{feedTaskCtrl.event.user.id}}/picture">
+            <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
         </md-card-avatar>
         <md-card-header-text>
             <div class="md-title" layout="row" layout-align="space-between start">
@@ -10,28 +10,30 @@
                 <div>{{ feedTaskCtrl.event.changeset.when}}</div>
             </div>
             <div class="md-subhead" layout="row" layout-align="space-between start">
-                <div >
+                <div>
+                    <md-icon class="material-icons">timelapse</md-icon>
                     Changed a Task
                 </div>
-                <div><md-icon id="iconWhite" class="material-icons">timelapse</md-icon></div>
             </div>
         </md-card-header-text>
     </md-card-header>
 
-    <md-card-title>
-        <md-card-title-text>
-            <span class="md-subhead">
-                {{feedTaskCtrl.event.space.name}}
-                <md-icon class="material-icons">chevron_right</md-icon>
-                {{feedTaskCtrl.event.entity.name}}
-            </span>
-             <span class="md-headline">
-                <div>
-                    Finished task Create for ...
-                </div>
-            </span>
-        </md-card-title-text>
-    </md-card-title>
+    <span id="breadcrumb-task" class="md-body-1">
+        <a class="link-breadcrumb" ng-href="http://localhost:8000/#/workspaces/{{feedTaskCtrl.event.space.id}}">
+            {{feedTaskCtrl.event.space.name}}
+        </a>
+        <md-icon class="material-icons">chevron_right</md-icon>
+        <a class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedTaskCtrl.event.changeset.entity.id}}">
+            {{feedTaskCtrl.event.changeset.entity.name}}
+        </a>
+    </span>
+
+    <md-card-content>
+        <div>
+            Updated task <span class="value-highlight">'Assess results'</span> to <span class="value-highlight">90%</span>.
+        </div>
+    </md-card-content>
+    <md-divider></md-divider>
     <md-card-actions layout="row" layout-align="start center">
         <md-button aria-label="Favorite">
             <md-icon class="material-icons">favorite</md-icon>
@@ -40,9 +42,4 @@
             <md-icon class="material-icons">comment</md-icon>
         </md-button>
     </md-card-actions>
-    <md-card-content>
-        <p>
-            Space for Comments
-        </p>
-    </md-card-content>
 </md-card>

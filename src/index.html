@@ -16,27 +16,21 @@
     <!-- bower installed css files will go here... -->
     <!-- endinject -->
 </head>
-
-<body ng-controller="IndexCtrl as ctrl" ng-cloak layout-fill layout="column">
-
-<md-toolbar class="md-hue-1" style="background-color:none;">
-    <div class="md-toolbar-tools" layout="row" layout-wrap style="background-color: rgb(25,91,139);" >
-
-        <div flex ng-show="!showSearch">
-            <md-button flex class="md-icon-button" ng-click="toggleSidenav('left')" hide-gt-sm aria-label="Menu">
-                <md-icon md-font-set="material-icons"> menu</md-icon>
-            </md-button>
-            <h3 class="png-icon">
-               <img height="24" width="60" src="images/logo.png" alt="sebis Logo"/>
-            </h3>
-        </div>
-        <div ng-show="showSearch" flex="auto">
-            <md-content class="md-toolbar-tools" style="background-color:transparent;">
-                <md-button class="md-icon-button" ng-click="showSearch = !showSearch" aria-label="Back">
-                    <md-icon md-font-set="material-icons"> arrow_back</md-icon>
+<body ng-controller="IndexCtrl as indexCtrl" ng-cloak layout-fill layout="column" flex>
+    <md-toolbar class="md-hue-1" style="background-color:none;">
+        <div class="md-toolbar-tools" layout="row" style="background-color: rgb(25,91,139);" >
+            <div layout="row" flex layout-align="start">
+                <div class="png-icon">
+                    <img height="24" width="60" src="images/logo.png" alt="sebis Logo"/>
+                </div>
+                <md-button class="md-icon-button"
+                           ng-click="toggleSidenav('left')"
+                           hide-gt-sm
+                           aria-label="Menu">
+                    <md-icon md-font-set="material-icons">menu</md-icon>
                 </md-button>
-
-                <md-autocomplete flex="auto"
+                <md-autocomplete flex
+                                 ng-show="indexCtrl.showSearch"
                                  md-selected-item="ctrl.selectedItem"
                                  md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
                                  md-search-text="ctrl.searchText"
@@ -59,115 +53,83 @@
                         No matches found. {{searchText}}
                     </md-not-found>
                 </md-autocomplete>
-            </md-content>
+                <md-button class="md-icon-button" ng-click="indexCtrl.showSearch = !indexCtrl.showSearch" aria-label="Back">
+                    <md-icon md-font-set="material-icons"> arrow_back</md-icon>
+                </md-button>
+            </div>
+
+            <div layout="row" layout-align="end">
+                <md-button href="#/feed" class="md-icon-button" aria-label="More">
+                    <md-icon class="material-icons">timelapse</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="More">
+                    <md-icon class="material-icons">notifications_none</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="More">
+                    <md-icon class="material-icons">person</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Open Settings" href="#/feed">
+                    <md-icon md-font-set="material-icons"> more_vert</md-icon>
+                </md-button>
+            </div>
         </div>
+    </md-toolbar>
 
-        <md-content class="md-toolbar-tools" style="background-color:transparent;" show-gt-lg hide-xs hide-sm flex>
-            <md-autocomplete flex="auto"
-                             md-selected-item="ctrl.selectedItem"
-                             md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                             md-search-text="ctrl.searchText"
-                             md-selected-item-change="ctrl.selectedItemChange(item)"
-                             md-items="item in ctrl.getSearchHints(ctrl.searchText)"
-                             md-item-text="item.name"
-                             md-min-length="1"
-                             placeholder="Search for ..."
-                             class="searchBar">
-                <!--<md-item-template>
-                    <span md-highlight-text="searchedExpertises">{{item.name}}</span>
-                </md-item-template>-->
-                <md-item-template>
-                    <a class="item-title">
-                        <img height="12" width="12" src="images/logo.png"/>
-                        <span> {{item.name}} </span>
-                    </a>
-                </md-item-template>
-                <md-not-found>
-                    No matches found. {{searchText}}
-                </md-not-found>
-            </md-autocomplete>
-        </md-content>
-
-        <div layout-gt-sm="column" flex-gt-sm layout-align="center end">
-            <md-button hide-gt-sm class="md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch"  href="">
-                <md-icon md-font-set="material-icons"> search</md-icon>
-            </md-button>
-
-            <md-button class="md-icon-button" aria-label="Open Settings" href="#/feed">
-                <md-icon md-font-set="material-icons"> more_vert</md-icon>
-            </md-button>
-        </div>
-    </div>
-
-    <!--<div flex="20"><a href="#/feed">Feed</a> alarm profile options</div>-->
     <md-tabs md-dynamic-height
              md-selected="ctrl.selectedTabIndex"
              class="md-primary"
-             ng-if="ctrl.workspaces">
-        <md-tab ng-repeat="workspace in ctrl.workspaces track by workspace.id"
-                ng-click="::ctrl.setPathTo('workspaces/' + workspace.id)"
+             ng-if="indexCtrl.workspaces">
+        <md-tab ng-repeat="workspace in indexCtrl.workspaces track by workspace.id"
+                ng-click="::indexCtrl.setPathTo('workspaces/' + workspace.id)"
                 label="{{::workspace.name}}">
         </md-tab>
     </md-tabs>
-</md-toolbar>
 
-<div layout="row" flex>
-    <md-content layout="row" class="content" flex="auto">
-        <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-                    md-is-locked-open="$mdMedia('gt-sm')">
-            <sc-side-nav entities="ctrl.navData.entities" current-entity-id="ctrl.navData.currentEntityId"
-                         ng-if="ctrl.navData.entities"></sc-side-nav>
-        </md-sidenav>
-        <div layout="column" flex id="content">
-            <md-content layout="column" flex class="md-padding">
-                <md-card ng-view flex>
-                </md-card>
-            </md-content>
-        </div>
-</div>
-<!-- lib:js -->
-<!-- bower installed scripts will go here... -->
-<!-- endinject -->
+    <ng-view></ng-view>
 
-<script src="components/app.js"></script>
-<script src="components/router.js"></script>
-<script src="components/indexCtrl.js"></script>
+    <!-- lib:js -->
+    <!-- bower installed scripts will go here... -->
+    <!-- endinject -->
 
-<script src="components/mainNav/mainNav.js"></script>
-<script src="components/mainNav/sharedNavDataService.js"></script>
-<script src="components/mainNav/mainNavService.js"></script>
-<script src="components/mainNav/mainNavDirective.js"></script>
+    <script src="components/app.js"></script>
+    <script src="components/router.js"></script>
+    <script src="components/indexCtrl.js"></script>
 
-<script src="components/attributes/attributes.js"></script>
-<script src="components/attributes/attributesDirective.js"></script>
-<script src="components/attributes/attributesService.js"></script>
-<script src="components/attributes/attributesList/attributesListDirective.js"></script>
-<script src="components/attributes/attributesTaskList/attributesTaskListDirective.js"></script>
-<script src="components/attributes/attributeValue/attributeValueDirective.js"></script>
-<script src="components/attributes/attributeValueEdit/attributeValueEditDirective.js"></script>
+    <script src="components/mainNav/mainNav.js"></script>
+    <script src="components/mainNav/sharedNavDataService.js"></script>
+    <script src="components/mainNav/mainNavService.js"></script>
+    <script src="components/mainNav/mainNavDirective.js"></script>
 
-<script src="components/mainContent/mainContent.js"></script>
-<script src="components/mainContent/mainContentService.js"></script>
-<script src="components/mainContent/mainContentController.js"></script>
+    <script src="components/attributes/attributes.js"></script>
+    <script src="components/attributes/attributesDirective.js"></script>
+    <script src="components/attributes/attributesService.js"></script>
+    <script src="components/attributes/attributesList/attributesListDirective.js"></script>
+    <script src="components/attributes/attributesTaskList/attributesTaskListDirective.js"></script>
+    <script src="components/attributes/attributeValue/attributeValueDirective.js"></script>
+    <script src="components/attributes/attributeValueEdit/attributeValueEditDirective.js"></script>
 
-<script src="components/feed/feedModule.js"></script>
-<script src="components/feed/feedDirective.js"></script>
-<script src="components/feed/feedService.js"></script>
-<script src="components/feed/generateDataService.js"></script>
-<script src="components/feed/feedController.js"></script>
-<script src="components/feed/feedItem/feedItemController.js"></script>
-<script src="components/feed/feedItem/feedItemDirective.js"></script>
-<script src="components/feed/feedDiscussion/feedDiscussionController.js"></script>
-<script src="components/feed/feedDiscussion/feedDiscussionDirective.js"></script>
-<script src="components/feed/feedTask/feedTaskController.js"></script>
-<script src="components/feed/feedTask/feedTaskDirective.js"></script>
+    <script src="components/mainContent/mainContent.js"></script>
+    <script src="components/mainContent/mainContentService.js"></script>
+    <script src="components/mainContent/mainContentController.js"></script>
+
+    <script src="components/feed/feedModule.js"></script>
+    <script src="components/feed/feedDirective.js"></script>
+    <script src="components/feed/feedService.js"></script>
+    <script src="components/feed/generateDataService.js"></script>
+    <script src="components/feed/mainFeedController.js"></script>
+    <script src="components/feed/feedController.js"></script>
+    <script src="components/feed/feedItem/feedItemController.js"></script>
+    <script src="components/feed/feedItem/feedItemDirective.js"></script>
+    <script src="components/feed/feedDiscussion/feedDiscussionController.js"></script>
+    <script src="components/feed/feedDiscussion/feedDiscussionDirective.js"></script>
+    <script src="components/feed/feedTask/feedTaskController.js"></script>
+    <script src="components/feed/feedTask/feedTaskDirective.js"></script>
 
 
-<script src="components/charts/scCharts.js"></script>
-<script src="components/charts/scPieChartDirective.js"></script>
-<script src="components/charts/scGanttChartDirective.js"></script>
+    <script src="components/charts/scCharts.js"></script>
+    <script src="components/charts/scPieChartDirective.js"></script>
+    <script src="components/charts/scGanttChartDirective.js"></script>
 
-<script src="components/common/scTypeGuessing.js"></script>
-
+    <script src="components/common/scTypeGuessing.js"></script>
 </body>
 </html>

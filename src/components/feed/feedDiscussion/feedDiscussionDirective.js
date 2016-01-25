@@ -18,16 +18,6 @@ FeedDiscussionDirective.$inject = [];
 
 function FeedDiscussionDirective() {
     var attributes = {
-        /**
-         * @ngdoc directive
-         * @name scFeedEvent
-         * @param {expression} scFeedEvent
-         * @element sc-feed-discussion
-         * @restrict A
-         * @description
-         *
-         * The attribute for passing the event parameter.
-         */
         event: "=scFeedEvent"
     };
 

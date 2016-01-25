@@ -251,12 +251,21 @@ a {
     max-height: 60px;
     opacity: .87;
   }
+
+  #header-actionbar {
+    md-autocomplete {
+      background: $colors_backgroundColor3;
+    }
+    md-icon {
+      color: $colors_backgroundColor3
+    }
+  }
 }
 
 md-content.content {
   background: $colors_backgroundColor1;
 
-  body > & > md-card {
+  body > & > div > md-card {
     $border-radius: 3px;
     margin: 25px;
     border-radius: $border-radius;

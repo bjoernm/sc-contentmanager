@@ -86,11 +86,14 @@
         .module('scFeed')
         .service('scEventService', ScEventService);
 
-    ScEventService.$inject = ['$resource', '$http', '$base64'];
+    ScEventService.$inject = ['$resource', '$http', '$base64', 'scData', 'scPrincipal', 'scAuth'];
 
-    function ScEventService($resource, $http, $base64) {
+    function ScEventService($resource, $http, $base64, scData, scPrincipal, scAuth) {
         var service = {
-            getEvents: getEvents
+            getEvents: getEvents,
+            getUsers: getUsers,
+            getWorkspaces: getWorkspaces,
+            getEntityTypes: getEntityTypes
         };
 
         /**
@@ -101,6 +104,10 @@
          * @static
          */
         var SC_INSTANCE_URL = 'http://localhost:8083/intern/tricia/';
+
+        var SC_PAGE_INDEX = 0;
+
+        var SC_PAGE_SIZE = 50;
 
         /**
          * Credentials for Basic Authentication.
@@ -119,10 +126,9 @@
          * @type {Resource}
          */
         var EventResource =
-            $resource(apiToInstanceUrl('api/v1/events'));
+            $resource(apiToInstanceUrl('api/v1/events/'));
 
         initializeBasicAuthentication();
-
 
         /**
          * Retrieves an event page from the server.
@@ -131,8 +137,62 @@
          * @reject {Error} An error if one occurred.
          * @public
          **/
-        function getEvents() {
-            return EventResource.get().$promise;
+        function getEvents(filterParameters, pageIndex, pageSize) {
+            return EventResource.get(getCleanFilterParameters(filterParameters, pageIndex, pageSize)).$promise;
+        }
+
+        function getCleanFilterParameters(filterParameters) {
+            var parameters = {
+                pageIndex: SC_PAGE_INDEX,
+                pageSize: SC_PAGE_SIZE
+            };
+
+
+            if (filterParameters) {
+                if (filterParameters.onlyWatchedEntities) {
+                    parameters.onlyWatchedEntities = filterParameters.onlyWatchedEntities;
+                }
+                if (filterParameters.hideOwnActivites) {
+                    parameters.hideOwnActivites= filterParameters.hideOwnActivites;
+                }
+                if (filterParameters.startDate) {
+                    parameters.startDate = filterParameters.startDate;
+                }
+                if (filterParameters.endDate) {
+                    parameters.endDate = filterParameters.endDate;
+                }
+                if (filterParameters.workspaceId) {
+                    parameters.workspaceId = filterParameters.workspaceId;
+                }
+                if (filterParameters.user) {
+                    parameters.user = filterParameters.user;
+                }
+                if (filterParameters.eventType) {
+                    parameters.eventType = filterParameters.eventType;
+                }
+                if (filterParameters.entityType) {
+                    parameters.entityType = filterParameters.entityType;
+                }
+                if (filterParameters.pageIndex) {
+                    parameters.pageIndex = filterParameters.pageIndex;
+                }
+
+            }
+
+            return parameters;
+        }
+
+        function getUsers() {
+            return scPrincipal.User.query().$promise;
+        }
+
+        function getWorkspaces() {
+            return scData.Workspace.query().$promise;
+        }
+
+        function getEntityTypes(workspaceId) {
+            var searchObject = {'id': workspaceId};
+            return scData.Workspace.getEntityTypes(searchObject).$promise;
         }
 
         /**
@@ -154,9 +214,7 @@
          * @private
          */
         function initializeBasicAuthentication() {
-            $http.defaults.headers.common.Authorization =
-                'Basic ' +
-                $base64.encode(CREDENTIALS.user + ':' + CREDENTIALS.password);
+            scAuth.login(CREDENTIALS.user, CREDENTIALS.password);
         }
 
         return service;
