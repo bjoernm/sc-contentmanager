@@ -1,0 +1,22 @@
+<md-card-title layout="row" layout-align="space-between centre">
+    <h2>
+        Changed the {{richStringChangesCtrl.entity.type}}
+        <a class="link-change" ng-href="http://localhost:8000/#/entities/{{richStringChangesCtrl.entity.id}}">{{richStringChangesCtrl.entity.name}}</a>
+    </h2>
+    <span flex></span>
+    <md-button class="md-icon-button" aria-label="toggle" ng-click="richStringChangesCtrl.showDetails = !richStringChangesCtrl.showDetails">
+        <md-icon ng-show="!richStringChangesCtrl.showDetails" class="material-icons">expand_less</md-icon>
+        <md-icon ng-show="richStringChangesCtrl.showDetails" class="material-icons">expand_more</md-icon>
+    </md-button>
+</md-card-title>
+<md-card-content ng-show="richStringChangesCtrl.showDetails" ng-repeat="change in richStringChangesCtrl.changes">
+    <h1>Changes</h1>
+    <div ng-repeat="html in change.abbreviatedDiffs" ng-bind-html="richStringChangesCtrl.trustHtml(html)">
+    </div>
+    <h1>Old Page</h1>
+    <div ng-bind-html="richStringChangesCtrl.trustHtml(change.oldValue)">
+    </div>
+    <h1>New Page</h1>
+    <div ng-bind-html="richStringChangesCtrl.trustHtml(change.newValue)">
+    </div>
+</md-card-content>

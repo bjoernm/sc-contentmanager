@@ -25,9 +25,31 @@
         /** @type {Error} */
         feedItemCtrl.error = null;
         feedItemCtrl.trustHtml = trustHtml;
+        feedItemCtrl.separateChanges = separateChanges;
 
         function trustHtml(htmlString) {
             return $sce.trustAsHtml(htmlString);
         }
+
+        function separateChanges(changes){
+            feedItemCtrl.simpleValueChanges = [];
+            feedItemCtrl.richStringChanges = [];
+            feedItemCtrl.roleChanges = [];
+            feedItemCtrl.deletedEntityChanges = [];
+
+            for(var i = 0; i<changes.length;i++){
+                var change = changes[i];
+                if(change.type == 'simpleValue'){
+                    feedItemCtrl.simpleValueChanges.push(change);
+                }else if(change.type == 'richString'){
+                    feedItemCtrl.richStringChanges.push(change);
+                }else if(change.type == 'roleChange'){
+                    feedItemCtrl.roleChanges.push(change);
+                }else if(change.type == null){
+                    feedItemCtrl.deletedEntityChanges.push(change);
+                }
+            }
+        }
+
     }
 })(angular);

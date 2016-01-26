@@ -1,6 +1,6 @@
-<md-card class="feed-item-card verticalLine">
+<md-card ng-if="feedItemCtrl.event.space!=null || feedItemCtrl.event.eventType == 'REMOVE'" ng-init="feedItemCtrl.separateChanges(feedItemCtrl.event.changeset.changes)" class="feed-item-card verticalLine">
 
-    <md-card-header ng-if="feedItemCtrl.event.eventType == 'CHANGE'" class="attribute-changed-header">
+    <md-card-header class="attribute-changed-header">
         <md-card-avatar>
             <img class="md-user-avatar" src="http://www.fillmurray.com/g/200/200">
         </md-card-avatar>
@@ -9,154 +9,71 @@
                 <div>{{ feedItemCtrl.event.user.name }}</div>
                 <div>{{ feedItemCtrl.event.changeset.when }}</div>
             </div>
-            <div class="md-subhead" layout="row" layout-align="space-between start">
-                <div ng-if="feedItemCtrl.event.changeset.entity.type != null ">
-                    <md-icon class="material-icons">loop</md-icon>
-                    Changed a {{feedItemCtrl.event.changeset.entity.type}}
-                </div>
-                <div ng-if="feedItemCtrl.event.changeset.entity.type == null && feedItemCtrl.event.changeset.changes.property != null">
-                    <md-icon class="material-icons">loop</md-icon>
-                    Changed a Workspace
-                </div>
-                <div ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.changeset.entity == null && feedItemCtrl.event.changeset.changes.property == null">
-                    <md-icon class="material-icons">loop</md-icon>
-                    Changed an entity
-                </div>
+            <div class="md-subhead" layout="row">
+                    <div class="link-breadcrumb" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">
+                        {{feedItemCtrl.event.space.name}}
+                    </div>
+                    <div class="link-breadcrumb" ng-if="feedItemCtrl.event.space==null">
+                        [Workspace deleted]
+                    </div>
+                    <div>
+                        <md-icon ng-if="feedItemCtrl.event.changeset.entity != null || feedItemCtrl.event.changeset.changes.property == null && feedItemCtrl.event.eventType == 'CHANGE'" class="material-icons">chevron_right</md-icon>
+                    </div>
+                    <div ng-if="feedItemCtrl.event.changeset.path != null" ng-repeat="path in feedItemCtrl.event.changeset.path">
+                        <a class="link-breadcrumb">
+                            {{path.name}}
+                        </a>
+                        <a>
+                            <md-icon ng-if="path != null" class="material-icons">chevron_right</md-icon>
+                        </a>
+                    </div>
+                    <div class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
+                        {{feedItemCtrl.event.changeset.entity.name}}
+                        <a ng-if="feedItemCtrl.event.changeset.entity.type!=null">:</a>
+                        {{feedItemCtrl.event.changeset.entity.type}}
+                    </div>
+                    <div class="link-breadcrumb" ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.changeset.entity == null && feedItemCtrl.event.changeset.changes.property == null">
+                        [Entity deleted]
+                    </div>
             </div>
         </md-card-header-text>
     </md-card-header>
-
-    <md-card-header ng-if="feedItemCtrl.event.eventType == 'ADD'" class="add-event-header">
-        <md-card-avatar>
-            <img class="md-user-avatar"  src="http://www.fillmurray.com/g/200/200">
-        </md-card-avatar>
-        <md-card-header-text>
-            <div class="md-title" layout="row" layout-align="space-between start">
-                <div>{{ feedItemCtrl.event.user.name }}</div>
-                <div>{{ feedItemCtrl.event.changeset.when }}</div>
-            </div>
-            <div class="md-subhead" layout="row" layout-align="space-between start">
-                <div ng-if="feedItemCtrl.event.changeset.entity.type != null ">
-                    <md-icon class="material-icons">add_circle</md-icon>
-                    Added a {{feedItemCtrl.event.changeset.entity.type}}
-                </div>
-                <div ng-if="feedItemCtrl.event.changeset.entity.type == null ">
-                    <md-icon class="material-icons">add_circle</md-icon>
-                    Added a Workspace
-                </div>
-            </div>
-
-        </md-card-header-text>
-    </md-card-header>
-
-    <md-card-header ng-if="feedItemCtrl.event.eventType == 'REMOVE'" class="add-event-header">
-        <md-card-avatar>
-            <img class="md-user-avatar"  src="http://www.fillmurray.com/g/200/200">
-        </md-card-avatar>
-        <md-card-header-text>
-            <div class="md-title" layout="row" layout-align="space-between start">
-                <div>{{ feedItemCtrl.event.user.name }}</div>
-                <div>{{ feedItemCtrl.event.changeset.when }}</div>
-            </div>
-            <div class="md-subhead" layout="row" layout-align="space-between start">
-                <div ng-if="feedItemCtrl.event.space == null ">
-                    <md-icon class="material-icons">delete</md-icon>
-                    Removed a Workspace
-                </div>
-                <div ng-if="feedItemCtrl.event.space !== null ">
-                    <md-icon class="material-icons">delete</md-icon>
-                    Removed an entity
-                </div>
-            </div>
-
-        </md-card-header-text>
-    </md-card-header>
-
-    <div id="breadcrumb-item" class="md-body-1" layout="row" layout-align="space-between center">
-        <div class="breadcrumb">
-            <a class="link-breadcrumb" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">
-                {{feedItemCtrl.event.space.name}}
-            </a>
-            <a class="link-breadcrumb" ng-if="feedItemCtrl.event.space==null">
-                [Workspace deleted]
-            </a>
-            <md-icon ng-if="feedItemCtrl.event.changeset.entity != null || feedItemCtrl.event.changeset.changes.property == null && feedItemCtrl.event.eventType == 'CHANGE'" class="material-icons">chevron_right</md-icon>
-            <a class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
-                {{feedItemCtrl.event.changeset.entity.name}}
-            </a>
-            <a class="link-breadcrumb" ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.changeset.entity == null && feedItemCtrl.event.changeset.changes.property == null">
-                [Entity deleted]
-            </a>
-        </div>
-    </div>
 
     <md-divider></md-divider>
 
-    <md-card-content>
-        <div layout="row">
-            <div ng-if="feedItemCtrl.event.eventType == 'CHANGE'">
-                <div ng-repeat="change in feedItemCtrl.event.changeset.changes">
-                    <div ng-if="change.type === 'richString'">
-                        Changed <a class="value-highlight">{{ change.property.name }}</a> of
-                        <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
-                        <h1>Changes</h1>
-                        <div ng-repeat="html in change.abbreviatedDiffs" ng-bind-html="feedItemCtrl.trustHtml(html)">
-                        </div>
-                        <h1>Old Page</h1>
-                        <div ng-bind-html="feedItemCtrl.trustHtml(change.oldValue)">
-                        </div>
-                        <h1>New Page</h1>
-                        <div ng-bind-html="feedItemCtrl.trustHtml(change.newValue)">
-                        </div>
-                    </div>
-                    <div ng-if="change.type === 'simpleValue'">
-                        <div ng-if="change.property.type === 'HYBRID_TYPE'">
-                            Changed value of
-                            <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
-                                {{ change.property.name }}
-                            </a>
+    <sc-simple-value-changes ng-if="feedItemCtrl.simpleValueChanges.length" sc-changes="feedItemCtrl.simpleValueChanges" sc-entity="feedItemCtrl.event.changeset.entity"></sc-simple-value-changes>
 
-                            <a ng-if="change.oldValue != null">from</a>
-                            <a ng-if="change.oldValue.type === 'dateValue'" class="value-highlight">{{change.oldValue.value | date: 'dd.MM.yyyy'}}</a>
-                            <a ng-if="change.oldValue.type !== 'dateValue'" class="value-highlight">{{change.oldValue.value}}</a>
-                            to
-                            <a  ng-if="change.newValue.type === 'dateValue'" class="value-highlight">{{change.newValue.value | date: 'dd.MM.yyyy'}}</a>
-                            <a  ng-if="change.newValue.type !== 'dateValue'" class="value-highlight">{{change.newValue.value}}</a>
-                        </div>
-                        <div ng-if="change.property.type !== 'HYBRID_TYPE'">
-                            Changed value of <a class="value-highlight">{{ change.property.name }}</a>
-                            <a ng-if="change.oldValue != null">from</a>
-                            <a class="value-highlight">{{change.oldValue}}</a> to <a class="value-highlight">{{change.newValue}}</a>
-                        </div>
-                    </div>
-                    <div ng-if="change.type == null && feedItemCtrl.event.space != null">
-                        <i>Entity has been deleted.</i>
-                    </div>
-                </div>
-            </div>
-            <div ng-if="feedItemCtrl.event.eventType == 'ADD'">
-                <div ng-if="feedItemCtrl.event.changeset.entity.type != null ">
-                    Added the {{feedItemCtrl.event.changeset.entity.type}}:
-                    <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
-                </div>
-                <div ng-if="feedItemCtrl.event.changeset.entity.type == null && feedItemCtrl.event.space!=null">
-                    Added the Workspace:
-                    <a class="link-change" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">{{feedItemCtrl.event.space.name}}</a>
-                </div>
-            </div>
-            <div ng-if="feedItemCtrl.event.eventType == 'REMOVE'">
-                <div ng-if="feedItemCtrl.event.space !== null">
-                    An entity has been removed from
-                    <a class="link-change" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">{{feedItemCtrl.event.space.name}}</a>
-                </div>
-            </div>
-            <div ng-if="feedItemCtrl.event.space==null">
-                <i>Workspace has been deleted.</i>
-            </div>
-            
-        </div>
-    </md-card-content>
+    <sc-rich-string-changes ng-if="feedItemCtrl.richStringChanges.length" sc-changes="feedItemCtrl.richStringChanges" sc-entity="feedItemCtrl.event.changeset.entity"></sc-rich-string-changes>
+
+    <md-card-title ng-if="feedItemCtrl.event.eventType == 'CHANGE' && !feedItemCtrl.event.changeset.changes.length" layout="row" layout-align="space-between centre">
+        <h2>
+            <i>Entity has been deleted.</i>
+        </h2>
+    </md-card-title>
+
+    <md-card-title ng-if="feedItemCtrl.event.eventType == 'ADD'">
+        <h2 ng-if="feedItemCtrl.event.changeset.entity.type != null ">
+            Added the {{feedItemCtrl.event.changeset.entity.type}}:
+            <a class="link-change" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">{{feedItemCtrl.event.changeset.entity.name}}</a>
+        </h2>
+        <h2 ng-if="feedItemCtrl.event.changeset.entity.type == null">
+            Added the workspace:
+            <a class="link-change" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">{{feedItemCtrl.event.space.name}}</a>
+        </h2>
+    </md-card-title>
+
+    <md-card-title ng-if="feedItemCtrl.event.eventType == 'REMOVE'">
+        <h2 ng-if="feedItemCtrl.event.space!=null">
+            An entity has been removed from
+            <a class="link-change" ng-href="http://localhost:8000/#/workspaces/{{feedItemCtrl.event.space.id}}">{{feedItemCtrl.event.space.name}}</a>.
+        </h2>
+        <h2 ng-if="feedItemCtrl.event.space==null">
+            A workspace has been removed.
+        </h2>
+    </md-card-title>
+
     <md-divider></md-divider>
+
     <md-card-actions layout="row" layout-align="start center">
         <md-button aria-label="Favorite">
             <md-icon class="material-icons">favorite</md-icon>

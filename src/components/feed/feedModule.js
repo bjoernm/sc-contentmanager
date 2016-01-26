@@ -2,7 +2,8 @@
 
     angular.module('scFeed', [
         'ngResource',
-        'base64'
+        'base64',
+        'md.data.table'
     ]);
 
 })();
