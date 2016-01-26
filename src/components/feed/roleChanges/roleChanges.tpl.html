@@ -1,0 +1,33 @@
+<md-card-title layout="row" layout-align="space-between centre">
+    <h2>
+        Changed role of
+        <a class="link-change" ng-href="http://localhost:8000/#/entities/{{richStringChangesCtrl.entity.id}}">{{roleChangesCtrl.entity.name}}</a>.
+    </h2>
+    <span flex></span>
+    <md-button class="md-icon-button" aria-label="toggle" ng-click="roleChangesCtrl.showDetails = !roleChangesCtrl.showDetails">
+        <md-icon ng-show="!roleChangesCtrl.showDetails" class="material-icons">expand_less</md-icon>
+        <md-icon ng-show="roleChangesCtrl.showDetails" class="material-icons">expand_more</md-icon>
+    </md-button>
+</md-card-title>
+<md-card-content ng-show="roleChangesCtrl.showDetails">
+    <table md-table>
+        <thead md-head>
+        <tr md-row>
+            <th md-column><span>Property</span></th>
+            <th md-column><span>Old Value</span></th>
+            <th md-column><span>New Value</span></th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr ng-repeat="change in roleChangesCtrl.changes" md-row>
+            <td md-cell>{{ change.property.name }}</td>
+            <td md-cell>
+                {{change.oldValue[0].name}}
+            </td>
+            <td md-cell>
+                {{change.newValue[0].name}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</md-card-content>

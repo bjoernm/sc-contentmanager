@@ -45,6 +45,8 @@
 
     <sc-rich-string-changes ng-if="feedItemCtrl.richStringChanges.length" sc-changes="feedItemCtrl.richStringChanges" sc-entity="feedItemCtrl.event.changeset.entity"></sc-rich-string-changes>
 
+    <sc-role-changes ng-if="feedItemCtrl.roleChanges.length" sc-changes="feedItemCtrl.roleChanges" sc-entity="feedItemCtrl.event.changeset.entity"></sc-role-changes>
+
     <md-card-title ng-if="feedItemCtrl.event.eventType == 'CHANGE' && !feedItemCtrl.event.changeset.changes.length" layout="row" layout-align="space-between centre">
         <h2>
             <i>Entity has been deleted.</i>

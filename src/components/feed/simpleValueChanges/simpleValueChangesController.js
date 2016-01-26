@@ -24,12 +24,7 @@
 
         /** @type {Error} */
         simpleValueChangesCtrl.error = null;
-        simpleValueChangesCtrl.trustHtml = trustHtml;
         simpleValueChangesCtrl.showDetails = false;
-
-        function trustHtml(htmlString) {
-            return $sce.trustAsHtml(htmlString);
-        }
 
     }
 })(angular);

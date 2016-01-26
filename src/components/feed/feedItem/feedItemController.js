@@ -43,7 +43,7 @@
                     feedItemCtrl.simpleValueChanges.push(change);
                 }else if(change.type == 'richString'){
                     feedItemCtrl.richStringChanges.push(change);
-                }else if(change.type == 'roleChange'){
+                }else if(change.type == 'role'){
                     feedItemCtrl.roleChanges.push(change);
                 }else if(change.type == null){
                     feedItemCtrl.deletedEntityChanges.push(change);
