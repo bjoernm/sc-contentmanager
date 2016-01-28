@@ -21,6 +21,7 @@
         // Variables in directive scope attribute are bound to this object a.k.a. feedItemCtrl.
 
         feedItemCtrl.hasError = false;
+        feedItemCtrl.showDetails = false;
 
         /** @type {Error} */
         feedItemCtrl.error = null;

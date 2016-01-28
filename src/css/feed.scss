@@ -1,18 +1,8 @@
 @import "style.scss";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-
-.feed-item-card{
-  //border-style: solid;
-  //border-color: #E3B6BB;
-}
-.attribute-changed-header {
-  //background-color: #E3B6BB;
-  //padding-bottom: 0%;
-}
-
-.add-event-header {
-  //background-color: #E3B6BB;
-}
+  .feedBody {
+    background-color: transparent;
+  }
 
 .link-breadcrumb {
   color: #646464;
@@ -28,15 +18,6 @@
     text-decoration: underline;
   }
 }
-.value-highlight {
-   color: #195B8B;
-}
-.discussion-header {
-  background-color: #F9E8A8;
-}
-.task-header {
-  background-color: #C3DFA5;
-}
 .active
 {
   font-weight: bold;
@@ -45,17 +26,6 @@
 .feed-container{
     width: 100%;
 }
-
-.discussion-button {
-  background-color: #F9E8A8;
-}
-.data-button {
-  background-color: #E3B6BB;
-}
-.task-button {
-  background-color: #C3DFA5;
-}
-
 #filter-heading{
    background-color: #F0F7FC;
   color: #555555;
@@ -80,6 +50,15 @@
     border-radius: 50%;
   }
 }
-.verticalLine {
-  border-left: thick solid #C3DFA5;
+.verticalLineData {
+  border-left: solid #FFC107;
+}
+.verticalLineTask {
+  border-left: solid #4CAF50;
+}
+md-checkbox.dataCheck .md-icon {
+  background-color: #FFC107;
+}
+md-checkbox.taskCheck .md-icon {
+  background-color: #4CAF50;
 }

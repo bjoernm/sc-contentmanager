@@ -26,6 +26,8 @@
             user: null,
             eventType: null,
             entityType: null,
+            onlyData: true,
+            onlyTask: true
         };
 
         feedCtrl.dateForm = {

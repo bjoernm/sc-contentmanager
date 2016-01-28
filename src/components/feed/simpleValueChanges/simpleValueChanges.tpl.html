@@ -1,12 +1,7 @@
 <md-card-title layout="row" layout-align="space-between centre">
-    <h2>
-        Changed value of {{simpleValueChangesCtrl.entity.type}} {{simpleValueChangesCtrl.entity.name}}.
-    </h2>
-    <span flex></span>
-        <md-button class="md-icon-button" aria-label="toggle" ng-click="simpleValueChangesCtrl.showDetails = !simpleValueChangesCtrl.showDetails">
-            <md-icon ng-show="!simpleValueChangesCtrl.showDetails" class="material-icons">expand_less</md-icon>
-            <md-icon ng-show="simpleValueChangesCtrl.showDetails" class="material-icons">expand_more</md-icon>
-        </md-button>
+    <md-card-title-text>
+        <span class="md-headline" >Changed attribute of {{simpleValueChangesCtrl.entity.type}} {{simpleValueChangesCtrl.entity.name}}.</span>
+    </md-card-title-text>
 </md-card-title>
 <md-card-content ng-show="simpleValueChangesCtrl.showDetails">
     <table md-table>
@@ -25,14 +20,14 @@
                 <a ng-if="change.oldValue[0].type !== 'dateValue'">{{change.oldValue[0].value}}</a>
             </td>
             <td ng-if="change.property.type !== 'HYBRID_TYPE'" md-cell>
-                <a class="value-highlight">{{change.oldValue}}</a>
+                <a>{{change.oldValue}}</a>
             </td>
             <td ng-if="change.property.type === 'HYBRID_TYPE'" md-cell>
                 <a  ng-if="change.newValue[0].type === 'dateValue'">{{change.newValue[0].value | date: 'dd.MM.yyyy'}}</a>
                 <a  ng-if="change.newValue[0].type !== 'dateValue'">{{change.newValue[0].value}}</a>
             </td>
             <td ng-if="change.property.type !== 'HYBRID_TYPE'" md-cell>
-                <a class="value-highlight">{{change.newValue}}</a>
+                <a>{{change.newValue}}</a>
             </td>
         </tr>
         </tbody>

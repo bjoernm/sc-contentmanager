@@ -24,7 +24,7 @@
         /** @type {Error} */
         richStringChangesCtrl.error = null;
         richStringChangesCtrl.trustHtml = trustHtml;
-        richStringChangesCtrl.showDetails = false;
+        richStringChangesCtrl.showDetails = !!richStringChangesCtrl.showDetails;
 
         function trustHtml(htmlString) {
             return $sce.trustAsHtml(htmlString);

@@ -21,10 +21,10 @@
         // Variables in directive scope attribute are bound to this object a.k.a. simpleValueChangeCtrl.
 
         simpleValueChangesCtrl.hasError = false;
+        simpleValueChangesCtrl.showDetails = !!simpleValueChangesCtrl.showDetails;
 
         /** @type {Error} */
         simpleValueChangesCtrl.error = null;
-        simpleValueChangesCtrl.showDetails = false;
 
     }
 })(angular);

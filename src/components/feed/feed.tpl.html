@@ -1,4 +1,4 @@
-<div layout="row" ng-cloak>
+<div layout="row" ng-cloak class="feedBody">
     <section layout="row">
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
             <md-toolbar class="md-theme-indigo">
@@ -12,7 +12,7 @@
                     </md-checkbox>
                 </div>
 
-                <div layout="row">
+                <div layout="column">
                     <md-datepicker ng-model="feedCtrl.dateForm.startDay" md-placeholder="From date"></md-datepicker>
 
                     <md-input-container>
@@ -30,18 +30,13 @@
                     </md-input-container>
                 </div>
 
-                <div>
-                    <md-radio-group ng-model="data.group1">
-                        <md-radio-button value="Discussion">
-                            <span class="discussion-button">Discussion</span>
-                        </md-radio-button>
-                        <md-radio-button value="Task">
-                            <span class="task-button">Task</span>
-                        </md-radio-button>
-                        <md-radio-button value="Data">
-                            <span class="data-button">Data</span>
-                        </md-radio-button>
-                    </md-radio-group>
+                <div layout="column" >
+                    <md-checkbox class="dataCheck" ng-model="feedCtrl.filterForm.onlyData">
+                        Data
+                    </md-checkbox>
+                    <md-checkbox class="taskCheck" ng-model="feedCtrl.filterForm.onlyTask">
+                        Task
+                    </md-checkbox>
                 </div>
 
                 <md-input-container class="md-block" flex-gt-sm="">

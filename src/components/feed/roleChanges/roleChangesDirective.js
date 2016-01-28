@@ -23,7 +23,8 @@
     function RoleChangesDirective() {
         var attributes = {
             changes: "=scChanges",
-            entity: "=scEntity"
+            entity: "=scEntity",
+            showDetails: "=?scShowDetails"
         };
 
         var requiredAttributes = ['scChanges', 'scEntity'];

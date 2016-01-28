@@ -23,7 +23,7 @@
 
         /** @type {Error} */
         roleChangesCtrl.error = null;
-        roleChangesCtrl.showDetails = false;
+        roleChangesCtrl.showDetails = !!roleChangesCtrl.showDetails;
 
     }
 })(angular);
