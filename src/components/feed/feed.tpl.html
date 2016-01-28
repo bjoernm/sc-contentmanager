@@ -1,4 +1,4 @@
-<div layout="row" ng-cloak class="feedBody">
+<div layout="row" ng-cloak>
     <section layout="row">
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
             <md-toolbar class="md-theme-indigo">
@@ -10,27 +10,40 @@
                     <md-checkbox ng-model="feedCtrl.filterForm.onlyWatchedEntities">
                         Only show watched changes
                     </md-checkbox>
+                    <md-checkbox ng-model="feedCtrl.filterForm.hideOwnActivities">
+                        Hide my own activities
+                    </md-checkbox>
                 </div>
 
-                <div layout="column">
-                    <md-datepicker ng-model="feedCtrl.dateForm.startDay" md-placeholder="From date"></md-datepicker>
+                <div layout="row">
+                    <md-input-container flex-gt-sm>
+                        <md-icon ng-click="feedCtrl.showStartDatePicker($event)" class="material-icons">today</md-icon>
+                        <label>From Date</label>
+                        <input type="date" mdp-date-picker ng-model="feedCtrl.dateForm.startDay" />
+                    </md-input-container>
 
-                    <md-input-container>
-                        <label>From time</label>
-                        <input type="time" ng-model="feedCtrl.dateForm.startTime"/>
+                    <md-input-container flex-gt-sm>
+                        <md-icon ng-click="feedCtrl.showStartTimePicker($event)" class="material-icons">access_time</md-icon>
+                        <label>From Time</label>
+                        <input ng-click="feedCtrl.showStartTimePicker($event)" type="time" ng-model="feedCtrl.dateForm.startTime"/>
                     </md-input-container>
                 </div>
 
                 <div layout="row">
-                    <md-datepicker ng-model="feedCtrl.dateForm.endDay" md-placeholder="Until date"></md-datepicker>
+                    <md-input-container flex-gt-xs>
+                        <md-icon ng-click="feedCtrl.showEndDatePicker($event)" class="material-icons">today</md-icon>
+                        <label>Until Date</label>
+                        <input type="date" mdp-date-picker ng-model="feedCtrl.dateForm.endDay" />
+                    </md-input-container>
 
                     <md-input-container class="md-block" flex-gt-xs>
-                        <label>Until time</label>
-                        <input type="time" ng-model="feedCtrl.dateForm.endTime"/>
+                        <md-icon ng-click="feedCtrl.showEndTimePicker($event)" class="material-icons">access_time</md-icon>
+                        <label>Until Time</label>
+                        <input ng-click="feedCtrl.showEndTimePicker($event)" type="time" mdp-time-picker ng-click="feedCtrl.showTimePicker($event)" ng-model="feedCtrl.dateForm.endTime"/>
                     </md-input-container>
                 </div>
 
-                <div layout="column" >
+                <div layout="row" >
                     <md-checkbox class="dataCheck" ng-model="feedCtrl.filterForm.onlyData">
                         Data
                     </md-checkbox>
@@ -91,19 +104,13 @@
                     </md-select>
                 </md-input-container>
 
-                <div>
-                    <md-checkbox ng-model="feedCtrl.filterForm.hideOwnActivities">
-                        Hide my own activities
-                    </md-checkbox>
-                </div>
-
                 <md-button class="md-raised" type="submit" ng-click="feedCtrl.onFilter()">Filter</md-button>
             </form>
 
         </md-sidenav>
     </section>
     <section flex>
-        <div class="md-padding" layout="row" layout-align="center start">
+        <div class="md-padding feed" layout="row" layout-align="center start">
             <div flex="70" flex-sm="90" layout="column">
                 <md-tabs md-dynamic-height
                          md-center-tabs

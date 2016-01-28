@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('scGenericClient', ['ngMaterial', 'scMainNav', 'scMainContent', 'scFeed', 'ngRoute', 'sociocortex', 'angularMoment'])
+        .module('scGenericClient', ['ngMaterial', 'scMainNav', 'scMainContent', 'scFeed', 'ngRoute', 'sociocortex', 'angularMoment', 'mdPickers'])
         .filter('percentage', percentageFilter)
         .config(configTheme)
         .value('scConnection', {

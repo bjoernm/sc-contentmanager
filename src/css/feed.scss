@@ -1,9 +1,8 @@
 @import "style.scss";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-  .feedBody {
-    background-color: transparent;
-  }
-
+.feed{
+  background-color: $colors_backgroundColor1;
+}
 .link-breadcrumb {
   color: #646464;
   text-decoration: none;

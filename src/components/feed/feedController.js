@@ -13,9 +13,9 @@
         .module('scFeed')
         .controller('FeedController', FeedController);
 
-    FeedController.$inject = ['scEventService', '$anchorScroll', '$location', '$scope', '$route' ];
+    FeedController.$inject = ['scEventService', '$anchorScroll', '$location', '$scope', '$route','$mdpDatePicker', '$mdpTimePicker' ];
 
-    function FeedController(scEventService, $anchorScroll, $location, $scope, $route) {
+    function FeedController(scEventService, $anchorScroll, $location, $scope, $route, $mdpDatePicker, $mdpTimePicker) {
         var feedCtrl = this;
 
         // Forms for the filter.
@@ -56,6 +56,10 @@
         feedCtrl.loadWorkspaces = loadWorkspaces;
         feedCtrl.loadEntityTypes = loadEntityTypes;
         feedCtrl.onFilter = onFilter;
+        feedCtrl.showStartDatePicker = showStartDatePicker;
+        feedCtrl.showStartTimePicker = showStartTimePicker;
+        feedCtrl.showEndDatePicker = showEndDatePicker;
+        feedCtrl.showEndTimePicker = showEndTimePicker;
 
         var feedPath = $route.current.$$route.originalPath;
 
@@ -63,6 +67,34 @@
         $scope.$on('$locationChangeStart', onLocationChangeStart);
         $scope.$on('$locationChangeSuccess', onSuccessfulLocationChange);
 
+
+        function showStartTimePicker(ev) {
+            $mdpTimePicker(ev, feedCtrl.dateForm.startTime).then(function(selectedDate) {
+                selectedDate.setSeconds(0);
+                selectedDate.setMilliseconds(0)
+                feedCtrl.dateForm.startTime = selectedDate;
+            });
+        }
+
+        function showStartDatePicker(ev) {
+            $mdpDatePicker(ev, feedCtrl.dateForm.startDay).then(function(selectedDate) {
+                feedCtrl.dateForm.startDay = selectedDate;
+            });
+        }
+
+        function showEndTimePicker(ev) {
+            $mdpTimePicker(ev, feedCtrl.dateForm.endTime).then(function(selectedDate) {
+                selectedDate.setSeconds(0);
+                selectedDate.setMilliseconds(0)
+                feedCtrl.dateForm.endTime = selectedDate;
+            });
+        }
+
+        function showEndDatePicker(ev) {
+            $mdpDatePicker(ev, feedCtrl.dateForm.endtDay).then(function(selectedDate) {
+                feedCtrl.dateForm.endDay = selectedDate;
+            });
+        }
 
         function onLocationChangeStart() {
             if ($location.$$path !== feedPath) {
