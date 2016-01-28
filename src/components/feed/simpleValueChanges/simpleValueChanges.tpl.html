@@ -16,15 +16,13 @@
         <tr ng-repeat="change in simpleValueChangesCtrl.changes" md-row>
             <td md-cell>{{ change.property.name }}</td>
             <td ng-if="change.property.type === 'HYBRID_TYPE'" md-cell>
-                <a ng-if="change.oldValue[0].type === 'dateValue'">{{change.oldValue[0].value | date: 'dd.MM.yyyy'}}</a>
-                <a ng-if="change.oldValue[0].type !== 'dateValue'">{{change.oldValue[0].value}}</a>
+                <a>{{change.oldValue[0].value | date: 'dd.MM.yyyy'}}</a>
             </td>
             <td ng-if="change.property.type !== 'HYBRID_TYPE'" md-cell>
                 <a>{{change.oldValue}}</a>
             </td>
             <td ng-if="change.property.type === 'HYBRID_TYPE'" md-cell>
-                <a  ng-if="change.newValue[0].type === 'dateValue'">{{change.newValue[0].value | date: 'dd.MM.yyyy'}}</a>
-                <a  ng-if="change.newValue[0].type !== 'dateValue'">{{change.newValue[0].value}}</a>
+                <a>{{change.newValue[0].value | date: 'dd.MM.yyyy'}}</a>
             </td>
             <td ng-if="change.property.type !== 'HYBRID_TYPE'" md-cell>
                 <a>{{change.newValue}}</a>
