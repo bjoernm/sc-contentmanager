@@ -3,6 +3,10 @@
 .feed{
   background-color: $colors_backgroundColor1;
 }
+
+.feed-content {
+  max-width: 1000px !important;
+}
 .link-breadcrumb {
   color: #646464;
   text-decoration: none;
@@ -61,3 +65,29 @@ md-checkbox.dataCheck .md-icon {
 md-checkbox.taskCheck .md-icon {
   background-color: #4CAF50;
 }
+
+.sc-html-diff {
+  ins {
+    background-color: greenyellow;
+    text-decoration: none;
+  }
+  del {
+    background-color: palevioletred;
+    text-decoration: none;
+  }
+}
+
+.sc-feed-icon-input {
+  margin: 10px 0px 0px 0px;
+  > md-icon {
+    outline: none;
+    cursor: pointer;
+  }
+}
+
+.remove-picker-controls::-webkit-inner-spin-button,
+.remove-picker-controls::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+

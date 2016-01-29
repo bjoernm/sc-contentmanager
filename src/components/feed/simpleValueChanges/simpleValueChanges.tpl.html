@@ -14,19 +14,31 @@
         </thead>
         <tbody md-body>
         <tr ng-repeat="change in simpleValueChangesCtrl.changes" md-row>
-            <td md-cell>{{ change.property.name }}</td>
-            <td ng-if="change.property.type === 'HYBRID_TYPE'" md-cell>
-                <a>{{change.oldValue[0].value | date: 'dd.MM.yyyy'}}</a>
-            </td>
-            <td ng-if="change.property.type !== 'HYBRID_TYPE'" md-cell>
-                <a>{{change.oldValue}}</a>
-            </td>
-            <td ng-if="change.property.type === 'HYBRID_TYPE'" md-cell>
-                <a>{{change.newValue[0].value | date: 'dd.MM.yyyy'}}</a>
-            </td>
-            <td ng-if="change.property.type !== 'HYBRID_TYPE'" md-cell>
-                <a>{{change.newValue}}</a>
-            </td>
+            <td md-cell>{{ change.attribute.name }}</td>
+            <div ng-if="change.type === 'hybridProperty'"><
+                <td md-cell ng-repeat="hybridValue in change.oldValue">
+                    <span ng-if="hybridValue.id">{{ hybridValue.name }}</span>
+                    <span ng-if="!hybridValue.id">{{ hybridValue }}</span>
+                </td>
+                <!-- A cell for empty/uninitialized old values. -->
+                <td md-cell ng-if="change.oldValue.length === 0">
+                </td>
+                <td md-cell ng-repeat="hybridValue in change.newValue" ng-if="change.type === 'hybridProperty'">
+                    <span ng-if="hybridValue.id">{{ hybridValue.name }}</span>
+                    <span ng-if="!hybridValue.id">{{ hybridValue }}</span>
+                </td>
+                <!-- A cell for empty/uninitialized new values. -->
+                <td md-cell ng-if="change.newValue.length === 0">
+                </td>
+            </div>
+            <div ng-if="change.type === 'hybridProperty'">
+                <td md-cell ng-if="change.type !== 'hybridProperty'">
+                    <span>{{change.oldValue}}</span>
+                </td>
+                <td md-cell ng-if="change.type !== 'hybridProperty'">
+                    <span>{{change.newValue}}</span>
+                </td>
+            </div>
         </tr>
         </tbody>
     </table>

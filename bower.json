@@ -14,10 +14,14 @@
     "angular-base64": "~2.0.5",
     "angular-route": "~1.4.7",
     "ngstorage": "~0.3.10",
-    "sc-angular": "https://github.com/sebischair/sc-angular.git#master"
+    "sc-angular": "https://github.com/sebischair/sc-angular.git#master",
+    "md-data-table": "https://github.com/daniel-nagy/md-data-table.git#master",
+    "moment": "~2.11.1",
+    "angular-moment": "~v1.0.0-beta.1",
+    "mdPickers": "~0.5.0"
   },
   "resolutions": {
     "angular": "1.4.8",
-    "sc-angular": "master"
+    "angular-material": "master"
   }
 }

@@ -1,27 +1,47 @@
-<md-card-title layout="row" layout-align="space-between centre">
-    <md-card-title-text>
-        <span class="md-headline" >Changed role of {{roleChangesCtrl.entity.name}}.</span>
-    </md-card-title-text>
-</md-card-title>
-<md-card-content ng-show="roleChangesCtrl.showDetails">
-    <table md-table>
-        <thead md-head>
-        <tr md-row>
-            <th md-column><span>Property</span></th>
-            <th md-column><span>Old Value</span></th>
-            <th md-column><span>New Value</span></th>
-        </tr>
-        </thead>
-        <tbody md-body>
-        <tr ng-repeat="change in roleChangesCtrl.changes" md-row>
-            <td md-cell>{{ change.property.name }}</td>
-            <td md-cell>
-                {{change.oldValue[0].name}}
-            </td>
-            <td md-cell>
-                {{change.newValue[0].name}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</md-card-content>
+<div ng-repeat="change in roleChangesCtrl.changes">
+    <md-card-title layout="row" layout-align="space-between centre">
+        <md-card-title-text>
+            <span class="md-headline" >Changed attribute {{ change.attribute.name }} of {{ roleChangesCtrl.entity.name }}.</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content ng-show="roleChangesCtrl.showDetails">
+        <table md-table>
+            <thead md-head>
+            <tr md-row>
+                <th md-column><span>Old Values</span></th>
+                <th md-column><span>Link</span></th>
+            </tr>
+            </thead>
+            <tbody md-body>
+            <tr ng-repeat="value in change.oldValue" md-row>
+                <td md-cell>{{ change.property.name }}</td>
+                <td md-cell>
+                    <!--TODO: Fix ng-href link-->
+                    <md-button ng-href="{{value.href}}" target="_blank" class="md-primary">
+                        Go To Entity
+                    </md-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table md-table>
+            <thead md-head>
+            <tr md-row>
+                <th md-column><span>New Values</span></th>
+            </tr>
+            </thead>
+            <tbody md-body>
+            <tr ng-repeat="link in change.newValue" md-row>
+                <td md-cell>{{ link.name }}</td>
+
+                <td md-cell layout="row" layout-align="center">
+                    <!--TODO: Fix ng-href link-->
+                    <md-button ng-href="{{value.href}}" target="_blank" class="md-primary">
+                        Go To Entity
+                    </md-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </md-card-content>
+</div>

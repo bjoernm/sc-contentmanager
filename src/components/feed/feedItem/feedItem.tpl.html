@@ -1,4 +1,4 @@
-<md-card ng-if="feedItemCtrl.event.space!=null || feedItemCtrl.event.eventType == 'REMOVE'" ng-init="feedItemCtrl.separateChanges(feedItemCtrl.event.changeset.changes)" class="feed-item-card verticalLineData">
+<md-card ng-if="feedItemCtrl.event.space!=null || feedItemCtrl.event.eventType == 'REMOVE'" ng-init="feedItemCtrl.separateChanges(feedItemCtrl.event.changeset.changes)" class="feed-item-card" ng-class="">
 
     <md-card-header class="attribute-changed-header">
         <md-card-avatar>
@@ -29,7 +29,7 @@
                             <md-icon ng-if="path != null" class="material-icons">chevron_right</md-icon>
                         </a>
                     </span>
-                    <a ng-if="feedItemCtrl.event.changeset.entity.type!=null" class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
+                    <a ng-if="feedItemCtrl.event.changeset.entity!=null" class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
                         {{feedItemCtrl.event.changeset.entity.name}} : {{feedItemCtrl.event.changeset.entity.type}}
                     </a>
                     <a class="link-breadcrumb" ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.changeset.entity == null && feedItemCtrl.event.changeset.changes.property == null">
@@ -41,11 +41,15 @@
 
     <md-divider></md-divider>
 
-    <sc-simple-value-changes ng-if="feedItemCtrl.simpleValueChanges.length" sc-changes="feedItemCtrl.simpleValueChanges" sc-entity="feedItemCtrl.event.changeset.entity" sc-show-details="feedItemCtrl.showDetails"></sc-simple-value-changes>
+    <sc-simple-value-changes ng-if="feedItemCtrl.valueChanges.length > 0" sc-changes="feedItemCtrl.valueChanges" sc-entity="feedItemCtrl.event.changeset.entity" sc-show-details="feedItemCtrl.showDetails"></sc-simple-value-changes>
 
-    <sc-rich-string-changes ng-if="feedItemCtrl.richStringChanges.length" sc-changes="feedItemCtrl.richStringChanges" sc-entity="feedItemCtrl.event.changeset.entity" sc-show-details="feedItemCtrl.showDetails"></sc-rich-string-changes>
+    <!--<md-divider ng-if="feedItemCtrl.richStringChanges.length > 0 && feedItemCtrl.simpleValueChanges.length > 0"></md-divider>-->
 
-    <sc-role-changes ng-if="feedItemCtrl.roleChanges.length" sc-changes="feedItemCtrl.roleChanges" sc-entity="feedItemCtrl.event.changeset.entity" sc-show-details="feedItemCtrl.showDetails"></sc-role-changes>
+    <sc-rich-string-changes ng-if="feedItemCtrl.richStringChanges.length > 0" sc-changes="feedItemCtrl.richStringChanges" sc-entity="feedItemCtrl.event.changeset.entity" sc-show-details="feedItemCtrl.showDetails"></sc-rich-string-changes>
+
+    <!--<md-divider ng-if="feedItemCtrl.roleChanges.length > 0 && feedItemCtrl.richStringChanges.length > 0"></md-divider>-->
+
+    <sc-role-changes ng-if="feedItemCtrl.roleChanges.length > 0" sc-changes="feedItemCtrl.roleChanges" sc-entity="feedItemCtrl.event.changeset.entity" sc-show-details="feedItemCtrl.showDetails"></sc-role-changes>
 
     <md-card-title ng-if="feedItemCtrl.event.eventType == 'CHANGE' && !feedItemCtrl.event.changeset.changes.length" layout="row" layout-align="space-between centre">
         <h2>

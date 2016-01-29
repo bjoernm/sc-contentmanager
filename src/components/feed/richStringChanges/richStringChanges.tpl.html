@@ -1,18 +1,13 @@
-<md-card-title layout="row" layout-align="space-between centre">
-    <md-card-title-text>
-        <span class="md-headline" >
-            Changed the {{richStringChangesCtrl.entity.type}} {{richStringChangesCtrl.entity.name}}.
-        </span>
-    </md-card-title-text>
-</md-card-title>
-<md-card-content ng-show="richStringChangesCtrl.showDetails" ng-repeat="change in richStringChangesCtrl.changes">
-    <h1>Changes</h1>
-    <div ng-repeat="html in change.abbreviatedDiffs" ng-bind-html="richStringChangesCtrl.trustHtml(html)">
-    </div>
-    <h1>Old Page</h1>
-    <div ng-bind-html="richStringChangesCtrl.trustHtml(change.oldValue)">
-    </div>
-    <h1>New Page</h1>
-    <div ng-bind-html="richStringChangesCtrl.trustHtml(change.newValue)">
-    </div>
-</md-card-content>
+<div ng-repeat="change in richStringChangesCtrl.changes">
+    <md-card-title layout="row" layout-align="space-between centre">
+        <md-card-title-text>
+            <span class="md-headline" >
+                Changed the {{change.attribute.name}} of {{richStringChangesCtrl.entity.type}} {{richStringChangesCtrl.entity.name}}.
+            </span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <md-card-content ng-show="richStringChangesCtrl.showDetails">
+        <div class="sc-html-diff" ng-bind-html="richStringChangesCtrl.getTrustedDiffHtml(change.oldValue, change.newValue)"></div>
+    </md-card-content>
+</div>
