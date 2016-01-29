@@ -1,4 +1,7 @@
-<md-card ng-if="feedItemCtrl.event.space!=null || feedItemCtrl.event.eventType == 'REMOVE'" ng-init="feedItemCtrl.separateChanges(feedItemCtrl.event.changeset.changes)" class="feed-item-card" ng-class="">
+<md-card ng-if="feedItemCtrl.event.space!=null || feedItemCtrl.event.eventType == 'REMOVE'"
+         ng-init="feedItemCtrl.separateChanges(feedItemCtrl.event.changeset.changes)"
+         class="feed-item-card"
+         ng-class="feedItemCtrl.event.changeset.entity.type === 'Task' ? 'verticalLineTask' : 'verticalLineData'">
 
     <md-card-header class="attribute-changed-header">
         <md-card-avatar>
