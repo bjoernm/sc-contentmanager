@@ -71,7 +71,7 @@
         function showStartTimePicker(ev) {
             $mdpTimePicker(ev, feedCtrl.dateForm.startTime).then(function(selectedDate) {
                 selectedDate.setSeconds(0);
-                selectedDate.setMilliseconds(0)
+                selectedDate.setMilliseconds(0);
                 feedCtrl.dateForm.startTime = selectedDate;
             });
         }
@@ -85,7 +85,7 @@
         function showEndTimePicker(ev) {
             $mdpTimePicker(ev, feedCtrl.dateForm.endTime).then(function(selectedDate) {
                 selectedDate.setSeconds(0);
-                selectedDate.setMilliseconds(0)
+                selectedDate.setMilliseconds(0);
                 feedCtrl.dateForm.endTime = selectedDate;
             });
         }
