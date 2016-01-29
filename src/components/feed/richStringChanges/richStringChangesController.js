@@ -14,9 +14,9 @@
         .module('scFeed')
         .controller('RichStringChangesController', RichStringChangesController);
 
-    RichStringChangesController.$inject = [ '$sce' ];
+    RichStringChangesController.$inject = [ '$sce', 'HtmlDiffService' ];
 
-    function RichStringChangesController($sce) {
+    function RichStringChangesController($sce, HtmlDiffService) {
         var richStringChangesCtrl = this;
         // Variables in directive scope attribute are bound to this object a.k.a. richStringChangesCtrl.
         richStringChangesCtrl.hasError = false;
@@ -24,7 +24,12 @@
         /** @type {Error} */
         richStringChangesCtrl.error = null;
         richStringChangesCtrl.trustHtml = trustHtml;
+        richStringChangesCtrl.getTrustedDiffHtml = getTrustedDiffHtml;
         richStringChangesCtrl.showDetails = !!richStringChangesCtrl.showDetails;
+
+        function getTrustedDiffHtml(oldHtml, newHtml) {
+            return $sce.trustAsHtml(HtmlDiffService.generateRendredDiffBetween(oldHtml,newHtml));
+        }
 
         function trustHtml(htmlString) {
             return $sce.trustAsHtml(htmlString);

@@ -9,7 +9,6 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
 	sass = require('gulp-sass');
 
-
 gulp.task('clean', function (callback) {
     del(['tmp/**/*.*'], callback);
 });
@@ -82,6 +81,7 @@ gulp.task('inject', ['bower', 'sass'], function() {
 		'./tmp/css/*.css'
     ], {read: false})
         .pipe(order([
+            "moment.js",
             "jquery.js",
             "angular.js"
         ]));

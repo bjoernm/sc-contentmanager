@@ -33,15 +33,16 @@
         }
 
         function separateChanges(changes){
-            feedItemCtrl.simpleValueChanges = [];
+            feedItemCtrl.valueChanges = [];
             feedItemCtrl.richStringChanges = [];
             feedItemCtrl.roleChanges = [];
             feedItemCtrl.deletedEntityChanges = [];
 
+            // Loop properly here. This is inefficient.
             for(var i = 0; i<changes.length;i++){
                 var change = changes[i];
-                if(change.type == 'simpleValue'){
-                    feedItemCtrl.simpleValueChanges.push(change);
+                if(change.type == 'simpleValue' || change.type == 'hybridProperty'){
+                    feedItemCtrl.valueChanges.push(change);
                 }else if(change.type == 'richString'){
                     feedItemCtrl.richStringChanges.push(change);
                 }else if(change.type == 'role'){

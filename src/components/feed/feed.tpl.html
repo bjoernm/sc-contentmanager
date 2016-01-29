@@ -1,8 +1,10 @@
 <div layout="row" ng-cloak>
     <section layout="row">
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-            <md-toolbar class="md-theme-indigo">
-                <h1 id="filter-heading" class="md-toolbar-tools">Filter</h1>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h1 class="md-toolbar-tools">Filter</h1>
+                </div>
             </md-toolbar>
             <form class="md-padding" layout="column">
 
@@ -16,30 +18,30 @@
                 </div>
 
                 <div layout="row">
-                    <md-input-container flex-gt-sm>
-                        <md-icon ng-click="feedCtrl.showStartDatePicker($event)" class="material-icons">today</md-icon>
+                    <md-input-container flex="55" class="sc-feed-icon-input md-icon-float">
                         <label>From Date</label>
-                        <input type="date" mdp-date-picker ng-model="feedCtrl.dateForm.startDay" />
+                        <md-icon class="material-icons" ng-click="feedCtrl.showStartDatePicker($event)">today</md-icon>
+                        <input class="remove-picker-controls" type="date" ng-model="feedCtrl.dateForm.startDay" />
                     </md-input-container>
 
-                    <md-input-container flex-gt-sm>
-                        <md-icon ng-click="feedCtrl.showStartTimePicker($event)" class="material-icons">access_time</md-icon>
+                    <md-input-container flex="45" class="sc-feed-icon-input" flex-gt-sm class="md-icon-float">
                         <label>From Time</label>
-                        <input ng-click="feedCtrl.showStartTimePicker($event)" type="time" ng-model="feedCtrl.dateForm.startTime"/>
+                        <md-icon class="material-icons" ng-click="feedCtrl.showStartTimePicker($event)">access_time</md-icon>
+                        <input class="remove-picker-controls" type="time" ng-model="feedCtrl.dateForm.startTime"/>
                     </md-input-container>
                 </div>
 
                 <div layout="row">
-                    <md-input-container flex-gt-xs>
-                        <md-icon ng-click="feedCtrl.showEndDatePicker($event)" class="material-icons">today</md-icon>
+                    <md-input-container flex="55" class="sc-feed-icon-input md-icon-float">
                         <label>Until Date</label>
-                        <input type="date" mdp-date-picker ng-model="feedCtrl.dateForm.endDay" />
+                        <md-icon class="material-icons" ng-click="feedCtrl.showEndDatePicker($event)">today</md-icon>
+                        <input class="remove-picker-controls" type="date" ng-model="feedCtrl.dateForm.endDay" />
                     </md-input-container>
 
-                    <md-input-container class="md-block" flex-gt-xs>
-                        <md-icon ng-click="feedCtrl.showEndTimePicker($event)" class="material-icons">access_time</md-icon>
+                    <md-input-container flex="45" class="sc-feed-icon-input md-icon-float">
                         <label>Until Time</label>
-                        <input ng-click="feedCtrl.showEndTimePicker($event)" type="time" mdp-time-picker ng-click="feedCtrl.showTimePicker($event)" ng-model="feedCtrl.dateForm.endTime"/>
+                        <md-icon class="material-icons" ng-click="feedCtrl.showEndTimePicker($event)">access_time</md-icon>
+                        <input class="remove-picker-controls" type="time" ng-model="feedCtrl.dateForm.endTime"/>
                     </md-input-container>
                 </div>
 
@@ -104,14 +106,14 @@
                     </md-select>
                 </md-input-container>
 
-                <md-button class="md-raised" type="submit" ng-click="feedCtrl.onFilter()">Filter</md-button>
+                <md-button class="md-raised md-primary" ng-click="feedCtrl.onFilter()">Filter</md-button>
             </form>
 
         </md-sidenav>
     </section>
     <section flex>
         <div class="md-padding feed" layout="row" layout-align="center start">
-            <div flex="70" flex-sm="90" layout="column">
+            <div flex="70" flex-gt-lg="50" flex-sm="95" flex-xs="100" layout="column">
                 <md-tabs md-dynamic-height
                          md-center-tabs
                          md-align-tabs="bottom"
