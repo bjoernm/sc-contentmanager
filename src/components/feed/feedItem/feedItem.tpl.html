@@ -22,14 +22,21 @@
                         [Workspace deleted]
                     </a>
                     <a>
-                        <md-icon ng-if="feedItemCtrl.event.changeset.entity != null || feedItemCtrl.event.changeset.changes.property == null && feedItemCtrl.event.eventType == 'CHANGE'" class="material-icons">chevron_right</md-icon>
+                        <md-icon class="material-icons md-18"
+                                 ng-if="feedItemCtrl.event.changeset.entity != null || feedItemCtrl.event.changeset.changes.property == null && feedItemCtrl.event.eventType == 'CHANGE'">
+                            chevron_right
+                        </md-icon>
                     </a>
-                    <span ng-if="feedItemCtrl.event.changeset.path != null" ng-repeat="path in feedItemCtrl.event.changeset.path">
+                    <span ng-if="feedItemCtrl.event.changeset.path != null"
+                          ng-repeat="path in feedItemCtrl.event.changeset.path">
                         <a class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{path.id}}">
                             {{path.name}}
                         </a>
                         <a>
-                            <md-icon ng-if="path != null" class="material-icons">chevron_right</md-icon>
+                            <md-icon class="material-icons md-18"
+                                    ng-if="path != null">
+                                chevron_right
+                            </md-icon>
                         </a>
                     </span>
                     <a ng-if="feedItemCtrl.event.changeset.entity!=null" class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
