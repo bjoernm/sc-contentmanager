@@ -105,7 +105,7 @@
             <md-button aria-label="Favorite">
                 <md-icon class="material-icons">favorite</md-icon>
             </md-button>
-            <md-button aria-label="Comment">
+            <md-button aria-label="Comment" ng-click="feedItemCtrl.toggleComments()">
                 <md-icon class="material-icons">comment</md-icon>
             </md-button>
         </div>
@@ -127,4 +127,10 @@
         </div>
     </md-card-actions>
 
+    <md-divider ng-if="feedItemCtrl.showComments"></md-divider>
+
+    <sc-feed-item-comments ng-if="feedItemCtrl.showComments"
+                           sc-comments="feedItemCtrl.comments"
+                           sc-changeset="feedItemCtrl.event.changeset">
+    </sc-feed-item-comments>
 </md-card>
