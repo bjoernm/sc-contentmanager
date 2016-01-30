@@ -14,44 +14,61 @@
         .module('scFeed')
         .controller('FeedItemController', FeedItemController);
 
-    FeedItemController.$inject = [ '$sce' ];
+    FeedItemController.$inject = [ '$sce', 'scEventService' ];
 
-    function FeedItemController($sce) {
+    function FeedItemController($sce, scEventService) {
         var feedItemCtrl = this;
         // Variables in directive scope attribute are bound to this object a.k.a. feedItemCtrl.
 
-        feedItemCtrl.hasError = false;
         feedItemCtrl.showDetails = false;
+        feedItemCtrl.showComments = false;
 
-        /** @type {Error} */
-        feedItemCtrl.error = null;
         feedItemCtrl.trustHtml = trustHtml;
         feedItemCtrl.separateChanges = separateChanges;
+        feedItemCtrl.toggleComments = toggleComments;
 
         function trustHtml(htmlString) {
             return $sce.trustAsHtml(htmlString);
         }
 
-        function separateChanges(changes){
+        function separateChanges(changes) {
             feedItemCtrl.valueChanges = [];
             feedItemCtrl.richStringChanges = [];
             feedItemCtrl.roleChanges = [];
             feedItemCtrl.deletedEntityChanges = [];
 
             // Loop properly here. This is inefficient.
-            for(var i = 0; i<changes.length;i++){
+            for (var i = 0; i < changes.length; i++) {
                 var change = changes[i];
-                if(change.type == 'simpleValue' || change.type == 'hybridProperty'){
+                if (change.type == 'simpleValue' || change.type == 'hybridProperty') {
                     feedItemCtrl.valueChanges.push(change);
-                }else if(change.type == 'richString'){
+                } else if (change.type == 'richString') {
                     feedItemCtrl.richStringChanges.push(change);
-                }else if(change.type == 'role'){
+                } else if (change.type == 'role') {
                     feedItemCtrl.roleChanges.push(change);
-                }else if(change.type == null){
+                } else if (change.type == null) {
                     feedItemCtrl.deletedEntityChanges.push(change);
                 }
             }
         }
 
+        function loadComments(changeset) {
+            scEventService.ChangeSet.getComments( { id: changeset.id} ).$promise.then(showComments)
+        }
+
+        function showComments(comments) {
+            feedItemCtrl.comments = comments;
+            feedItemCtrl.showComments = true;
+        }
+
+        function toggleComments() {
+            if (feedItemCtrl.showComments) {
+                feedItemCtrl.comments = [];
+                feedItemCtrl.showComments = false;
+            } else {
+                loadComments(feedItemCtrl.event.changeset);
+            }
+        }
     }
+
 })(angular);
