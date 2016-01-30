@@ -47,6 +47,18 @@
     padding-left: 16px;
     padding-bottom: 16px;
 }
+.breadcrumb-tag{
+  border-radius: 5px;
+  background-color: #EFEFEF;
+  color: #646464;
+  border: 1px solid #DDD;
+  padding: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.tag-not-underlined{
+  text-decoration: none;
+}
 .round-comment-icon{
   padding-right: 16px;
   >img{
