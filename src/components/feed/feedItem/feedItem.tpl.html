@@ -39,10 +39,15 @@
                         </a>
                     </span>
                     <a ng-if="feedItemCtrl.event.changeset.entity!=null" class="link-breadcrumb" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
-                        {{feedItemCtrl.event.changeset.entity.name}} : {{feedItemCtrl.event.changeset.entity.type}}
+                        {{feedItemCtrl.event.changeset.entity.name}}
                     </a>
                     <a class="link-breadcrumb" ng-if="feedItemCtrl.event.eventType == 'CHANGE' && feedItemCtrl.event.changeset.entity == null && feedItemCtrl.event.changeset.changes.property == null">
                         [Entity deleted]
+                    </a>
+                    <a class="tag-not-underlined" ng-if="feedItemCtrl.event.changeset.entity!=null" ng-href="http://localhost:8000/#/entities/{{feedItemCtrl.event.changeset.entity.id}}">
+                        <label class="breadcrumb-tag">
+                            {{feedItemCtrl.event.changeset.entity.type}}
+                        </label>
                     </a>
             </div>
         </md-card-header-text>
