@@ -86,63 +86,48 @@
         .module('scFeed')
         .service('scEventService', ScEventService);
 
-    ScEventService.$inject = ['$resource', '$http', '$base64', 'scData', 'scPrincipal', 'scAuth'];
+    ScEventService.$inject = ['$resource', 'scData', 'scPrincipal', 'scAuth' ,'scUtil'];
 
-    function ScEventService($resource, $http, $base64, scData, scPrincipal, scAuth) {
+    function ScEventService($resource, scData, scPrincipal, scAuth, scUtil) {
 
-        /**
-         * Url for the instance of SocioCortex.
-         *
-         * @type {string}
-         * @const
-         * @static
-         */
-        var SC_INSTANCE_URL = 'http://localhost:8083/intern/tricia/';
+        scAuth.setAuthorizationHeader();
 
         var SC_PAGE_INDEX = 0;
-
         var SC_PAGE_SIZE = 50;
-
-        /**
-         * Credentials for Basic Authentication.
-         *
-         * @type {{ user: string, password, string }}
-         * @const
-         * @static
-         */
-        var CREDENTIALS = {
-            user: 'mustermann@test.sc',
-            password: 'ottto'
-        };
-
-        initializeBasicAuthentication();
 
         /**
          * Definition of resources for service.
          * @type {Resource}
          */
-        var EventResource =
-            $resource(apiToInstanceUrl('api/v1/events/'));
+        var Event =
+            $resource(scUtil.getFullUrl('events'));
 
         /**
          * Definition of resources for service.
          * @type {Resource}
          */
         var ChangeSet =
-            $resource(
-                apiToInstanceUrl('api/v1/changesets/:id'),
+            $resource(scUtil.getFullUrl('changesets/:id'),
                 {
-                    id: "@id"
+                    id: '@id'
                 },
                 {
                     postComment: {
-                        method: "POST",
-                        url: apiToInstanceUrl('api/v1/changesets/:id/comments')
+                        method: 'POST',
+                        url: scUtil.getFullUrl('changesets/:id/comments')
                     },
                     getComments: {
-                        method: "GET",
-                        url: apiToInstanceUrl('api/v1/changesets/:id/comments'),
+                        method: 'GET',
+                        url: scUtil.getFullUrl('changesets/:id/comments'),
                         isArray: true
+                    },
+                    like: {
+                        method: 'POST',
+                        url: scUtil.getFullUrl('changesets/:id/like')
+                    },
+                    unlike: {
+                        method: 'DELETE',
+                        url: scUtil.getFullUrl('changesets/:id/like')
                     }
                 }
             );
@@ -151,7 +136,7 @@
          * Definition of resources for service.
          * @type {Resource}
          */
-        var Comment = $resource(apiToInstanceUrl('api/v1/comment/:id'),
+        var Comment = $resource(scUtil.getFullUrl('comment/:id'),
             {
                 id: "@id"
             },
@@ -182,7 +167,7 @@
          * @public
          **/
         function getEvents(filterParameters, pageIndex, pageSize) {
-            return EventResource.get(getCleanFilterParameters(filterParameters, pageIndex, pageSize)).$promise;
+            return Event.get(getCleanFilterParameters(filterParameters, pageIndex, pageSize)).$promise;
         }
 
         function getCleanFilterParameters(filterParameters) {
@@ -237,28 +222,6 @@
         function getEntityTypes(workspaceId) {
             var searchObject = {'id': workspaceId};
             return scData.Workspace.getEntityTypes(searchObject).$promise;
-        }
-
-        /**
-         * Converts an API URL to an URL for the SocioCortex instance.
-         *
-         * @param {string} apiUrl
-         * @return {string}
-         * @static
-         * @private
-         */
-        function apiToInstanceUrl(apiUrl) {
-            return SC_INSTANCE_URL + apiUrl;
-        }
-
-        /**
-         * Sets the default cretendtials in the header used by $http
-         *
-         * @static
-         * @private
-         */
-        function initializeBasicAuthentication() {
-            scAuth.login(CREDENTIALS.user, CREDENTIALS.password);
         }
 
         return service;

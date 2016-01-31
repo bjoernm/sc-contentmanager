@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('scGenericClient', ['ngMaterial', 'scMainNav', 'scMainContent', 'scFeed', 'ngRoute', 'sociocortex', 'angularMoment', 'mdPickers'])
+        .module('scGenericClient', ['ngMaterial', 'scMainNav', 'scMainContent', 'scFeed', 'ngRoute', 'sociocortex'])
         .filter('percentage', percentageFilter)
         .config(configTheme)
         .value('scConnection', {
@@ -27,7 +27,6 @@
     scAngular.$inject = ['scAuth'];
     function scAngular(scAuth) {
         scAuth.login('mustermann@test.sc', 'ottto');
-
     }
 
     percentageFilter.$inject = ['$filter'];

@@ -1,5 +1,4 @@
 <md-card ng-if="feedItemCtrl.event.space!=null || feedItemCtrl.event.eventType == 'REMOVE'"
-         ng-init="feedItemCtrl.separateChanges(feedItemCtrl.event.changeset.changes)"
          class="feed-item-card"
          ng-class="feedItemCtrl.event.changeset.entity.type === 'Task' ? 'verticalLineTask' : 'verticalLineData'">
 
@@ -97,8 +96,11 @@
 
     <md-card-actions layout="row" layout-align="space-between center">
         <div>
-            <md-button aria-label="Favorite">
+            <md-button aria-label="Favorite"
+                       ng-class="feedItemCtrl.likedByCurrentUser ? 'md-accent' : 'md-primary'"
+                       ng-click="feedItemCtrl.toggleLike()">
                 <md-icon class="material-icons">favorite</md-icon>
+                <span>({{ feedItemCtrl.event.changeset.likers.length }})</span>
             </md-button>
             <md-button aria-label="Comment" ng-click="feedItemCtrl.toggleComments()">
                 <md-icon class="material-icons">comment</md-icon>

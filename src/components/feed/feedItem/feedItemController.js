@@ -4,28 +4,49 @@
 (function (angular) {
 
     /**
-     * Controller for the feed directive.
-     *
+     * @ngdoc controller
      * @name feedItemCtrl
      * @property {ScEvent} event The event property from the directive scope.
      * @type FeedItemController
+     *
+     * Controller for the feed item directive.
      */
     angular
         .module('scFeed')
         .controller('FeedItemController', FeedItemController);
 
-    FeedItemController.$inject = [ '$sce', 'scEventService' ];
+    FeedItemController.$inject = [ '$sce', '$filter', 'scEventService', 'scAuth' ];
 
-    function FeedItemController($sce, scEventService) {
+    function FeedItemController($sce, $filter, scEventService, scAuth) {
         var feedItemCtrl = this;
-        // Variables in directive scope attribute are bound to this object a.k.a. feedItemCtrl.
 
+        // Variables
         feedItemCtrl.showDetails = false;
         feedItemCtrl.showComments = false;
+        feedItemCtrl.likedByCurrentUser = false;
 
+        // Functions
         feedItemCtrl.trustHtml = trustHtml;
         feedItemCtrl.separateChanges = separateChanges;
         feedItemCtrl.toggleComments = toggleComments;
+        feedItemCtrl.toggleLike = toggleLike;
+
+        // Controller Initialization
+        separateChanges(feedItemCtrl.event.changeset.changes);
+        determineIfUserLikesChangeset();
+
+        // Function definitions
+        function determineIfUserLikesChangeset() {
+            feedItemCtrl.likedByCurrentUser = false;
+
+            angular.forEach(feedItemCtrl.event.changeset.likers, function (user) {
+                var currentUser = scAuth.getUser();
+
+                if (user.id === currentUser.id) {
+                    feedItemCtrl.likedByCurrentUser = true;
+                }
+            });
+        }
 
         function trustHtml(htmlString) {
             return $sce.trustAsHtml(htmlString);
@@ -52,6 +73,15 @@
             }
         }
 
+        function toggleComments() {
+            if (feedItemCtrl.showComments) {
+                feedItemCtrl.comments = [];
+                feedItemCtrl.showComments = false;
+            } else {
+                loadComments(feedItemCtrl.event.changeset);
+            }
+        }
+
         function loadComments(changeset) {
             scEventService.ChangeSet.getComments( { id: changeset.id} ).$promise.then(showComments)
         }
@@ -61,13 +91,35 @@
             feedItemCtrl.showComments = true;
         }
 
-        function toggleComments() {
-            if (feedItemCtrl.showComments) {
-                feedItemCtrl.comments = [];
-                feedItemCtrl.showComments = false;
+        function toggleLike() {
+            if (feedItemCtrl.likedByCurrentUser) {
+                unlikeChangeset();
             } else {
-                loadComments(feedItemCtrl.event.changeset);
+                likeChangeset();
             }
+        }
+
+        function likeChangeset() {
+            scEventService.ChangeSet
+                .like( { id: feedItemCtrl.event.changeset.id } )
+                .$promise.then(function () {
+                feedItemCtrl.likedByCurrentUser = true;
+                feedItemCtrl.event.changeset.likers.push(scAuth.getUser());
+            });
+        }
+
+        function unlikeChangeset() {
+            scEventService.ChangeSet
+                .unlike( { id: feedItemCtrl.event.changeset.id } )
+                .$promise.then(function () {
+                    removeCurrentUserFromChangeSetLikers();
+                    feedItemCtrl.likedByCurrentUser = false;
+            });
+        }
+
+        function removeCurrentUserFromChangeSetLikers() {
+            feedItemCtrl.event.changeset.likers =
+                $filter('filter')(feedItemCtrl.event.changeset.likers, { id: '!' + scAuth.getUser().id } )
         }
     }
 

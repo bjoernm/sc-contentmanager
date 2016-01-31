@@ -4,7 +4,10 @@
         'ngResource',
         'base64',
         'md.data.table',
-        'angularMoment'
+        'angularMoment',
+        'sociocortex',
+        'angularMoment',
+        'mdPickers'
     ]);
 
 })();
