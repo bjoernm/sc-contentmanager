@@ -1,0 +1,70 @@
+<div class="md-padding">
+    <h2 class="md-title">Filter</h2>
+    <div layout="column">
+        <div layout="row" layout-align="left center" flex>
+            <h3 class="md-subhead" flex="50">Sort by: </h3>
+            <md-input-container flex-offset="15">
+                <md-select ng-model="ctrl.sortBy">
+                    <md-option ng-value="">Relevance</md-option>
+                    <md-option ng-value="'name'">Name</md-option>
+                    <md-option ng-value="'lastModified'">Last modified</md-option>
+                    <md-option ng-value="'resourceType'">Type</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="left center" flex>
+            <h3 class="md-subhead" flex="50">Content type: </h3>
+            <md-input-container flex-offset="15">
+                <md-select ng-model="ctrl.filterBy">
+                    <md-option ng-value="">All</md-option>
+                    <md-option ng-repeat="res in ctrl.searchResults | unique:'resourceType'">{{res.resourceType}}</md-option>
+                   <!-- <md-option ng-value="'files'">Files</md-option>
+                    <md-option ng-value="'entities'">Pages</md-option>
+                    <md-option ng-value="'entityTypes'">Types</md-option>
+                    <md-option ng-value="'users'">Users</md-option>
+                    <md-option>Tasks</md-option>
+                    <md-option ng-value="'workspaces'">Workspaces</md-option>-->
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="left center" flex>
+            <h3 class="md-subhead" flex="50">Workspace: </h3>
+            <md-input-container flex-offset="15">
+                <md-select ng-model="ctrl.filterByWorkspace">
+                    <md-option>none</md-option>
+                    <md-option ng-repeat="res in ctrl.searchResults | unique:'workspace'">{{res.workspace}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="left center" flex>
+            <h3 class="md-subhead" flex="50">Type: </h3>
+            <md-input-container flex-offset="15">
+                <md-select ng-model="ctrl.filterByType">
+                    <md-option>none</md-option>
+                    <md-option ng-repeat="res in ctrl.searchResults | unique:'type'">{{res.type}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="left center" flex>
+            <h3 class="md-subhead" flex="50">System attribute: </h3>
+            <md-input-container flex-offset="15">
+                <md-select ng-model="ctrl.filterBySystemAttribute">
+                    <md-option>none</md-option>
+                    <md-option ng-repeat="res in ctrl.searchResults | unique:'sysAttr'">{{res.sysAttr}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="left center" flex>
+            <h3 class="md-subhead" flex="50">Special: </h3>
+            <md-input-container flex-offset="15">
+                <md-select ng-model="ctrl.filterBySpecial">
+                    <md-option>none</md-option>
+                    <md-option ng-repeat="res in ctrl.searchResults | unique:'special'">{{res.special}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+</div>
+
+
+<!--#EEEEEE außen, #FAFAFA-->

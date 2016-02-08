@@ -34,8 +34,15 @@
                 controllerAs: 'mainFeedCtrl',
                 reloadOnSearch: false
             })
+            .when('/search/:searchParams', {
+                'templateUrl': '/components/search/search.tpl.html',
+                'controller': 'scSearchController as ctrl',
+                'resolve':{
+                    'data': resolveSearchData
+                }
+            })
             .otherwise({
-                'redirectTo': '/workspaces/root'
+                'redirectTo': '/workspaces/root' //TODO: change to something existing
             });
     }
 
@@ -127,5 +134,12 @@
             });
 
         }
+    }
+
+    resolveSearchData.$inject = ['$route', '$log'];
+    function resolveSearchData($route, $log) {
+
+        console.log($route.current.params);
+        return $route.current.params.searchParams;
     }
 })(angular);

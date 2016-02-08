@@ -1,0 +1,45 @@
+<div layout="row" flex>
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2 searchSideNav" md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')">
+        <sc-side-search></sc-side-search>
+    </md-sidenav>
+
+    <md-content flex class="content">
+        <md-card flex>
+            <md-card-header class="searchHeader">
+                <md-card-header-text>
+                    <span class="md-title">Search</span>
+                    <span class="md-subhead">Results {{1*(results.length > 0 && 1)}}-{{results.length}} of {{results.length}} for: {{ctrl.user.name}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-list>
+                <md-list-item ng-repeat="item in results = (ctrl.searchResults | orderBy:ctrl.sortBy | filter:ctrl.filterBy | filter:ctrl.filterByWorkspace)"> <!--orderBy:sortType:sortReverse | filter:searchFish-->
+                    <md-card flex>
+                        <md-card-header>
+                            <md-card-avatar>
+                                <md-icon ng-if="item.resourceType=='entities'" md-font-set="material-icons">text_format</md-icon>
+                                <md-icon ng-if="item.resourceType=='files'" md-font-set="material-icons">insert_drive_file</md-icon>
+                                <md-icon ng-if="item.resourceType=='entityTypes'" md-font-set="material-icons">class</md-icon>
+                                <md-icon ng-if="item.resourceType=='derivedAttributeDefinitions'" md-font-set="material-icons">add_circle</md-icon>
+                                <md-icon ng-if="item.resourceType=='workspaces'" md-font-set="material-icons">view_carousel</md-icon>
+                                <md-icon ng-if="item.resourceType=='users'" md-font-set="material-icons">person_pin</md-icon>
+                            </md-card-avatar>
+                            <md-card-header-text ng-click="indexCtrl.selectedItemChange(item)">
+                                <span class="md-title">{{item.name}}</span>
+                                <span class="md-subhead">Subtitle of {{item.name}}</span>
+                            </md-card-header-text>
+                        </md-card-header>
+                        <md-card-actions layout="row" layout-align="start center">
+                            <md-icon md-font-set="material-icons"> tag</md-icon>
+                        </md-card-actions>
+                        <md-card-content>
+                            <p>
+                                This is an item of type <b>{{item.resourceType}}</b>... and I'm supposed to be content.
+                            </p>
+                        </md-card-content>
+                    </md-card>
+                </md-list-item>
+            </md-list>
+        </md-card>
+    </md-content>
+</div>

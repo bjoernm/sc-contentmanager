@@ -296,3 +296,12 @@ md-content.content {
     padding-bottom: 5px;
   }
 }
+
+.searchHeader {
+  background-color: $colors_secondaryColor;
+}
+
+.searchSideNav {
+  background-color: $colors_backgroundColor3;
+  border: 5px solid $colors_backgroundColor2;
+}

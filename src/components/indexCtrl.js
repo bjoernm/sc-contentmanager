@@ -16,6 +16,7 @@
         vm.getSearchHints = getSearchHints;
         vm.searchTextChange = searchTextChange;
         vm.selectedItemChange = selectedItemChange;
+        vm.showSearchResults = showSearchResults;
 
         $scope.toggleSidenav = function (menuId) {
             $mdSidenav(menuId).toggle();
@@ -51,8 +52,16 @@
             }
         }
 
+        function showSearchResults(keyEvent, searchText){
+            if(keyEvent != undefined && keyEvent.which === 13){
+                setPathTo('search/' + searchText);
+            }
+        }
+
         function getSearchHints(searchText) {
             $log.info('query:' + searchText);
+            $log.info(scMainNavService
+                .getSearchHints(searchText));
             return scMainNavService
                 .getSearchHints(searchText);
         }

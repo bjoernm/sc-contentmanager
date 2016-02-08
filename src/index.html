@@ -30,21 +30,24 @@
                 </md-button>
                 <md-autocomplete flex
                                  ng-show="indexCtrl.showSearch"
-                                 md-selected-item="ctrl.selectedItem"
-                                 md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                                 md-search-text="ctrl.searchText"
-                                 md-selected-item-change="ctrl.selectedItemChange(item)"
-                                 md-items="item in ctrl.getSearchHints(ctrl.searchText)"
+                                 md-selected-item="indexCtrl.selectedItem"
+                                 md-search-text-change="indexCtrl.searchTextChange(ctrl.searchText)"
+                                 md-search-text="indexCtrl.searchText"
+                                 md-selected-item-change="indexCtrl.selectedItemChange(item)"
+                                 md-items="item in indexCtrl.getSearchHints(indexCtrl.searchText)"
                                  md-item-text="item.name"
                                  md-min-length="1"
                                  placeholder="Search for ..."
-                                 class="searchBar">
-                    <!--<md-item-template>
-                        <span md-highlight-text="searchedExpertises">{{item.name}}</span>
-                    </md-item-template>-->
+                                 class="searchBar"
+                                 ng-keypress="indexCtrl.showSearchResults($event, indexCtrl.searchText)">
                     <md-item-template>
                         <a class="item-title">
-                            <img height="12" width="12" src="images/logo.png"/>
+                            <md-icon ng-if="item.resourceType=='entities'" md-font-set="material-icons">text_format</md-icon>
+                            <md-icon ng-if="item.resourceType=='files'" md-font-set="material-icons">insert_drive_file</md-icon>
+                            <md-icon ng-if="item.resourceType=='entityTypes'" md-font-set="material-icons">class</md-icon>
+                            <md-icon ng-if="item.resourceType=='derivedAttributeDefinitions'" md-font-set="material-icons">add_circle</md-icon>
+                            <md-icon ng-if="item.resourceType=='workspaces'" md-font-set="material-icons">view_carousel</md-icon>
+                            <md-icon ng-if="item.resourceType=='users'" md-font-set="material-icons">person_pin</md-icon>
                             <span> {{item.name}} </span>
                         </a>
                     </md-item-template>
@@ -84,7 +87,7 @@
         </md-tab>
     </md-tabs>
 
-    <ng-view></ng-view>
+    <ng-view flex layout="row"></ng-view>
 
     <!-- lib:js -->
     <!-- bower installed scripts will go here... -->
@@ -110,6 +113,11 @@
     <script src="components/mainContent/mainContent.js"></script>
     <script src="components/mainContent/mainContentService.js"></script>
     <script src="components/mainContent/mainContentController.js"></script>
+
+    <script src="components/search/search.js"></script>
+    <script src="components/search/searchController.js"></script>
+    <script src="components/search/searchService.js"></script>
+    <script src="components/search/sideSearchDirective.js"></script>
 
     <script src="components/feed/feedModule.js"></script>
     <script src="components/feed/feedDirective.js"></script>
