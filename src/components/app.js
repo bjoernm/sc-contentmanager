@@ -5,10 +5,10 @@
         .module('scGenericClient', ['ngMaterial', 'scMainNav', 'scMainContent', 'scFeed', 'scSearch', 'ngRoute', 'sociocortex', 'angular.filter'])
         .filter('percentage', percentageFilter)
         .config(configTheme)
-        .value('scConnection', {
+        /*.value('scConnection', {
             baseUri: 'http://localhost:8083/intern/tricia',
             apiVersion: 'v1'
-        })
+        })*/
         .run(scAngular);
 
     // primary color:        #195B8B
@@ -26,7 +26,7 @@
 
     scAngular.$inject = ['scAuth'];
     function scAngular(scAuth) {
-        scAuth.login('mustermann@test.sc', 'ottto');
+        scAuth.login('daniel.elsner@tum.de', 'qf30sqqihny3');
     }
 
     percentageFilter.$inject = ['$filter'];

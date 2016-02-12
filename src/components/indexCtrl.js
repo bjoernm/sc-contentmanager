@@ -5,7 +5,7 @@
         .module('scGenericClient')
         .controller('IndexCtrl', indexCtrl);
 
-    indexCtrl.$inject = ['$scope', 'scMainNavService', 'scUtil','sharedNavDataService', '$rootScope', '$location', '$log', '$mdSidenav'];
+    indexCtrl.$inject = ['$scope', 'scMainNavService', 'scUtil', 'sharedNavDataService', '$rootScope', '$location', '$log', '$mdSidenav'];
     function indexCtrl($scope, scMainNavService, scUtil, sharedNavDataService, $rootScope, $location, $log, $mdSidenav) {
         var vm = this;
         vm.workspaces = [];
@@ -43,8 +43,8 @@
         });
 
         function setPathTo(path) {
+            $location.search({}); //reset searchParams
             $log.warn("setPathTo was called:", path);
-
             if (angular.isString(path)) {
                 $location.path(path);
             } else {
@@ -52,9 +52,27 @@
             }
         }
 
-        function showSearchResults(keyEvent, searchText){
-            if(keyEvent != undefined && keyEvent.which === 13){
-                setPathTo('search/' + searchText);
+        function showSearchResults(keyEvent, searchText) {
+            if (keyEvent != undefined && keyEvent.which === 13) {
+                var filterBy = {
+                    workspace: '',
+                    resourceType: '',
+                    type: '',
+                    systemAttribute: '',
+                    special: ''
+                };
+
+                var filterMap = Object.keys(filterBy).map(function (key) {
+                    return encodeURIComponent(key) + '=' + encodeURIComponent(filterBy[key]);
+                }).join('&');
+
+                var searchParams = {
+                    searchText: searchText,
+                    sortBy: '',
+                    filterMap: filterMap
+                };
+
+                $location.path('search').search(searchParams);
             }
         }
 
@@ -72,15 +90,10 @@
 
         function selectedItemChange(item) {
             $log.info('Item changed to ' + JSON.stringify(item));
-            if(item && item.href){
+            if (item && item.href) {
                 var path = scUtil.getRelativeUrl(item.href);
                 setPathTo(path.substr(1));
             }
-            //TODO: Differentiate between types (files, entities, etc.)
-            /*else if(item){
-                var path = 'http://server.sociocortex.com/file/'+item.id;
-                setPathTo(path);
-            }*/
         }
 
         function logError() {

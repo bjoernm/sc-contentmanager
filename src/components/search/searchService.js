@@ -13,18 +13,13 @@
             getSearchResults: getSearchResults
         };
 
-        function getSearchResults(searchText){
+        function getSearchResults(searchParams){
 
-            console.log("searching for:"+searchText);
-
-            return searchHints.get({'q': searchText}).$promise.then(function (data) {
-                console.log("datahints");
-                console.log(data);
-                console.log(data.hints);
+            console.log("searching for:");
+            //TODO: general search API call
+            return searchHints.get({'q': searchParams.searchText}).$promise.then(function (data) {
                 return data.hints;
             });
-
-            //return [{name:"id1", description:"desc1"}, {name:"id2", description:"desc2"}];
         }
     }
 

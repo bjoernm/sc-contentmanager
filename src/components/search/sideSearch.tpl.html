@@ -1,10 +1,19 @@
 <div class="md-padding">
     <h2 class="md-title">Filter</h2>
     <div layout="column">
-        <div layout="row" layout-align="left center" flex>
+        <div layout="row" layout-align="left center" flex ng-repeat="x in ctrl.filters">
+            <h3 class="md-subhead" flex="50">{{x.name}}</h3>
+            <md-input-container flex-offset="15">
+                <md-select ng-model="x.model" ng-change="ctrl.filterResults()">
+                    <md-option ng-repeat="y in x.options" ng-value="y.val">{{y.name}}</md-option>
+                    <md-option ng-if="x.filterAttr" ng-repeat="res in ctrl.searchResults | unique:x.filterAttr">{{res[x.filterAttr]}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <!--<div layout="row" layout-align="left center" flex>
             <h3 class="md-subhead" flex="50">Sort by: </h3>
             <md-input-container flex-offset="15">
-                <md-select ng-model="ctrl.sortBy">
+                <md-select ng-model="ctrl.sortBy" ng-change="ctrl.filterResults()">
                     <md-option ng-value="">Relevance</md-option>
                     <md-option ng-value="'name'">Name</md-option>
                     <md-option ng-value="'lastModified'">Last modified</md-option>
@@ -15,15 +24,9 @@
         <div layout="row" layout-align="left center" flex>
             <h3 class="md-subhead" flex="50">Content type: </h3>
             <md-input-container flex-offset="15">
-                <md-select ng-model="ctrl.filterBy">
+                <md-select ng-model="ctrl.filterBy" ng-change="ctrl.filterResults()">
                     <md-option ng-value="">All</md-option>
                     <md-option ng-repeat="res in ctrl.searchResults | unique:'resourceType'">{{res.resourceType}}</md-option>
-                   <!-- <md-option ng-value="'files'">Files</md-option>
-                    <md-option ng-value="'entities'">Pages</md-option>
-                    <md-option ng-value="'entityTypes'">Types</md-option>
-                    <md-option ng-value="'users'">Users</md-option>
-                    <md-option>Tasks</md-option>
-                    <md-option ng-value="'workspaces'">Workspaces</md-option>-->
                 </md-select>
             </md-input-container>
         </div>
@@ -62,9 +65,6 @@
                     <md-option ng-repeat="res in ctrl.searchResults | unique:'special'">{{res.special}}</md-option>
                 </md-select>
             </md-input-container>
-        </div>
+        </div>-->
     </div>
 </div>
-
-
-<!--#EEEEEE außen, #FAFAFA-->

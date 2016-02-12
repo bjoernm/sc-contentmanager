@@ -34,7 +34,7 @@
                 controllerAs: 'mainFeedCtrl',
                 reloadOnSearch: false
             })
-            .when('/search/:searchParams', {
+            .when('/search', {
                 'templateUrl': '/components/search/search.tpl.html',
                 'controller': 'scSearchController as ctrl',
                 'resolve':{
@@ -138,8 +138,17 @@
 
     resolveSearchData.$inject = ['$route', '$log'];
     function resolveSearchData($route, $log) {
-
+        console.log("here");
         console.log($route.current.params);
-        return $route.current.params.searchParams;
+
+        var filter = JSON.parse('{"' + decodeURI($route.current.params.filterMap).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+        var data = {
+            searchText:$route.current.params.searchText,
+            sortBy:$route.current.params.sortBy,
+            sortDirection:$route.current.params.sortDirection,
+            filter:filter
+        };
+        console.log(data);
+        return data;
     }
 })(angular);
