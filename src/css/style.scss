@@ -262,9 +262,11 @@ a {
   }
 }
 
-md-content.content {
+.content {
   background: $colors_backgroundColor1;
+}
 
+md-content.content {
   body > & > div > md-card {
     $border-radius: 3px;
     margin: 25px;

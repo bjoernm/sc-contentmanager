@@ -1,13 +1,13 @@
-<div layout="row" flex>
-    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+<div layout="row" class="content" layout-fill>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" layout-fill
                 md-is-locked-open="$mdMedia('gt-sm')">
         <sc-side-nav entities="indexCtrl.navData.entities" current-entity-id="indexCtrl.navData.currentEntityId"
-                     ng-if="indexCtrl.navData.entities"></sc-side-nav>
+                     ng-if="indexCtrl.navData.entities" layout-fill></sc-side-nav>
     </md-sidenav>
 
-    <md-content flex class="content" layout="row">
-        <md-card flex>
-            <div ng-if="!!ctrl.entity">
+    <div flex="grow" layout-fill>
+        <md-content flex class="content" layout="row" layout-fill>
+            <md-card flex>
                 <md-toolbar>
                     <div class="md-toolbar-tools" layout="row">
                         <div layout-align="end center" layout="row" ng-if="ctrl.entity.tasks.length > 0">
@@ -37,28 +37,30 @@
                     </div>
                 </md-toolbar>
                 <md-progress-linear md-mode="{{ctrl.progressBarMode}}"></md-progress-linear>
-                <div ng-if="ctrl.entity.tasks.length > 0">
-                    <!--
-                    margin is half the diameter of the pie chart
-                    -->
-                    <sc-gantt-chart style="margin: 0 1em"
-                                    class="slide"
-                                    flex
-                                    tasks="ctrl.entity.tasks"
-                                    ng-show="ctrl.showGantChart"></sc-gantt-chart>
-                </div>
-                <div flex layout-gt-sm="row" layout="column" layout-fill layout-margin layout-padding class="childsHaveNoPadding">
-                    <div flex="55" flex-lg="66" ng-bind-html="ctrl.entity.content">
+                <md-card-content ng-if="!!ctrl.entity">
+                    <div ng-if="ctrl.entity.tasks.length > 0">
+                        <!--
+                        margin is half the diameter of the pie chart
+                        -->
+                        <sc-gantt-chart style="margin: 0 1em"
+                                        class="slide"
+                                        flex
+                                        tasks="ctrl.entity.tasks"
+                                        ng-show="ctrl.showGantChart"></sc-gantt-chart>
                     </div>
-                    <div flex="45" flex-lg="33" ng-if="ctrl.entity">
-                        <sc-attributes entity="ctrl.entity" on-change="ctrl.refreshEntity()"></sc-attributes>
+                    <div flex layout-gt-sm="row" layout="column" layout-fill layout-margin layout-padding
+                         class="childsHaveNoPadding">
+                        <div flex="55" flex-lg="66" ng-bind-html="ctrl.entity.content"></div>
+                        <div flex="45" flex-lg="33" ng-if="ctrl.entity">
+                            <sc-attributes entity="ctrl.entity" on-change="ctrl.refreshEntity()"></sc-attributes>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </md-card-content>
 
-            <div ng-if="!ctrl.entity">
-                <p>The content could not be loaded yet.</p>
-            </div>
-        </md-card>
-    </md-content>
+                <div ng-if="!ctrl.entity">
+                    <p>The content could not be loaded yet.</p>
+                </div>
+            </md-card>
+        </md-content>
+    </div>
 </div>

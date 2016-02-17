@@ -29,6 +29,7 @@
             <sc-pie-chart diameter="2em"
                           percentage="{{task.progress ? task.progress / 100 : 0}}"
                           style="margin: 0 0.5em 0 0;"
+                          ng-class="{overdue: task.isOverdue, inconsistent: task.isInconsistent}"
                           show-percentage="false"></sc-pie-chart>
             <strong flex="grow">{{task.name}}</strong>
 

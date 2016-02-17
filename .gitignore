@@ -9,3 +9,4 @@ tmp
 build
 sc-client-generic.iml
 */**/Thumbs.db
+*.iml
