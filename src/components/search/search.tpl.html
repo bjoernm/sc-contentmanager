@@ -13,7 +13,7 @@
                 </md-card-header-text>
             </md-card-header>
             <md-list>
-                <md-list-item ng-repeat="item in results = (ctrl.searchResults | orderBy:ctrl.sortBy | filter:ctrl.filterBy | filter:ctrl.filterByWorkspace)"> <!--orderBy:sortType:sortReverse | filter:searchFish-->
+                <md-list-item ng-repeat="item in results = (ctrl.searchResults | orderBy:ctrl.filters[0].model | filter:ctrl.filters[1].model | filter:ctrl.filters[2].model)"> <!--orderBy:sortType:sortReverse | filter:searchFish-->
                     <md-card flex>
                         <md-card-header>
                             <md-card-avatar>

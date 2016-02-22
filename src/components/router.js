@@ -141,12 +141,16 @@
         console.log("here");
         console.log($route.current.params);
 
-        var filter = JSON.parse('{"' + decodeURI($route.current.params.filterMap).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+        //var filter = JSON.parse('{"' + decodeURI($route.current.params.filterMap).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
         var data = {
             searchText:$route.current.params.searchText,
             sortBy:$route.current.params.sortBy,
             sortDirection:$route.current.params.sortDirection,
-            filter:filter
+            resourceType:$route.current.params.resourceType,
+            workspace: $route.current.params.workspace,
+            type: $route.current.params.type,
+            systemAttribute: $route.current.params.systemAttribute,
+            special: $route.current.params.special
         };
         console.log(data);
         return data;

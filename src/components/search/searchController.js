@@ -9,8 +9,6 @@
     function scSearchController($scope, scSearchService, data, scAuth, $location) {
         var vm = this;
         vm.sortBy = data.sortBy;
-        vm.filterBy = data.filter.resourceType;
-        vm.filterByWorkspace = data.filter.workspace;
         vm.user = scAuth.getUser();
         vm.filterResults = filterResults;
 
@@ -18,7 +16,7 @@
         //add filters here TODO: filterAttributes
         vm.filters = [
             {
-                name: "Sort by:",
+                name: "Sort by",
                 options: [
                     {
                         name: 'Relevance',
@@ -39,14 +37,14 @@
                 model: data.sortBy
             },
             {
-                name: "Content type:",
+                name: "Content type",
                 options: [
                     {
                         name: 'All',
                         val: ''
                     }],
                 filterAttr: 'resourceType',
-                model: data.filter.resourceType
+                model: data.resourceType
             },
             {
                 name: "Workspace",
@@ -57,7 +55,7 @@
                     }
                 ],
                 //filterAttr: 'workspace',
-                model: data.filter.workspace
+                model: data.workspace
             },
             {
                 name: "Type",
@@ -68,7 +66,7 @@
                     }
                 ],
                 //filterAttr: 'type',
-                model: data.filter.type
+                model: data.type
             },
             {
                 name: "System attribute",
@@ -79,7 +77,7 @@
                     }
                 ],
                 //filterAttr: 'systemAttribute',
-                model: data.filter.systemAttribute
+                model: data.systemAttribute
             },
             {
                 name: "Special",
@@ -90,7 +88,7 @@
                     }
                 ],
                 //filterAttr: 'special',
-                model: data.filter.special
+                model: data.special
             }
         ];
 
@@ -103,7 +101,7 @@
             });
 
         function filterResults() {
-            var filterBy = {
+            /*var filterBy = {
                 resourceType: vm.filters[1].model,
                 workspace: vm.filters[2].model,
                 type: vm.filters[3].model,
@@ -113,12 +111,17 @@
 
             var filterMap = Object.keys(filterBy).map(function (key) {
                 return encodeURIComponent(key) + '=' + encodeURIComponent(filterBy[key]);
-            }).join('&');
+            }).join('&');*/
 
             var searchParams = {
                 searchText: data.searchText,
                 sortBy: vm.filters[0].model,
-                filterMap: filterMap
+                resourceType: vm.filters[1].model,
+                workspace: vm.filters[2].model,
+                type: vm.filters[3].model,
+                systemAttribute: vm.filters[4].model,
+                special: vm.filters[5].model
+                //filterMap: filterMap
             };
 
             $location.path('search').search(searchParams);

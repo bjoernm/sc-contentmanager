@@ -54,7 +54,7 @@
 
         function showSearchResults(keyEvent, searchText) {
             if (keyEvent != undefined && keyEvent.which === 13) {
-                var filterBy = {
+                /*var filterBy = {
                     workspace: '',
                     resourceType: '',
                     type: '',
@@ -64,12 +64,17 @@
 
                 var filterMap = Object.keys(filterBy).map(function (key) {
                     return encodeURIComponent(key) + '=' + encodeURIComponent(filterBy[key]);
-                }).join('&');
+                }).join('&');*/
 
                 var searchParams = {
                     searchText: searchText,
                     sortBy: '',
-                    filterMap: filterMap
+                    workspace: '',
+                    resourceType: '',
+                    type: '',
+                    systemAttribute: '',
+                    special: ''
+                    //filterMap:filterMap
                 };
 
                 $location.path('search').search(searchParams);
