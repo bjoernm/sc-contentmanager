@@ -26,7 +26,7 @@
 
     scAngular.$inject = ['scAuth'];
     function scAngular(scAuth) {
-        scAuth.login('daniel.elsner@tum.de', 'qf30sqqihny3');
+        scAuth.login('mustermann@test.sc', 'ottto');
     }
 
     percentageFilter.$inject = ['$filter'];
