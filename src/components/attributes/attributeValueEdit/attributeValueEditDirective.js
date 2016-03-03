@@ -112,13 +112,18 @@
                     }
                 }
 
+                var holder = {};
                 function getMatches(partName) {
-                    return scAttributesService.findEntitiesOfWorkspace(sharedNavDataService.currentWorkspaceId)
-                        .then(function (entities) {
-                            return entities.filter(byLowerCasePartialName(partName))
-                        }).catch(function () {
-                            $log.error.apply($log, arguments);
-                        });
+                    if(!holder.entities) {
+                        holder.entities = [];
+                        scAttributesService.findEntitiesOfWorkspace(sharedNavDataService.currentWorkspaceId)
+                            .then(function (entities) {
+                                holder.entities = entities;
+                            }).catch(function () {
+                                $log.error.apply($log, arguments);
+                            });
+                    }
+                    return (holder.entities || []).filter(byLowerCasePartialName(partName));
                 }
 
                 function byLowerCasePartialName(partName) {
