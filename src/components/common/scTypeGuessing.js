@@ -17,7 +17,7 @@
 
         function guessType(value) {
             if (!value) {
-                return;
+                return 'string';
             }
 
             try {
@@ -25,6 +25,8 @@
                     return 'link';
                 } else if (couldBeDate()) {
                     return 'date';
+                } else if (couldBeNumber()) {
+                    return 'number';
                 }
             } catch (err) {
                 $log.error('could not guess type because of error');
@@ -41,6 +43,10 @@
             function couldBeDate() {
                 // if value equals to null, this will be true
                 return !isNaN(new Date(value));
+            }
+
+            function couldBeNumber() {
+                return isFinite(value);
             }
         }
     }

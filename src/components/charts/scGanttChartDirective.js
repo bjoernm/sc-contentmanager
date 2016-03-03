@@ -42,6 +42,7 @@
                     throw new TypeError("tasks must be of type array. Perhaps a ngIf='tasks' will help in the parent element. was " + (typeof scope.tasks));
                 }
 
+                scope.filterSkipped = filterSkipped;
                 scope.now = new Date();
                 scope.graphOffset = 40;
                 scope.processTitle = processTitle;
@@ -217,6 +218,10 @@
                     var textPosition = getDatesPosition(getProgressTextDate(task));
                     return textPosition - getOffset(scope) < 20
                         || textPosition - getDatesPosition(task.begin) < 10;
+                }
+
+                function filterSkipped(value, index, array) {
+                    return !value.skipped;
                 }
             }
         };
@@ -439,4 +444,5 @@
             }
         }
     }
+
 })(angular);

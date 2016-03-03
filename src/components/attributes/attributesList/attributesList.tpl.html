@@ -1,4 +1,4 @@
-<dl>
+<div><dl ng-if="attributes && attributes.length > 0">
     <dt ng-repeat-start="attribute in attributes | orderBy: 'name' track by attribute.name"
         layout="row"
         layout-align="space-between end">
@@ -51,4 +51,4 @@
             </li>
         </ul>
     </dd>
-</dl>
+</dl></div>

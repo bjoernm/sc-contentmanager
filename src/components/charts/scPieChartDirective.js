@@ -21,7 +21,7 @@
             },
             link: function (scope, element, attrs) {
                 if (!angular.isDefined(scope.percentage) || !isFinite(parseInt(scope.percentage))) {
-                    $log.error("percentage must be a finite number: percentage = ", scope.percentage);
+                    $log.error("percentage must be a finite number: percentage = ", scope.percentage, "; element = ", element);
                     scope.percentage = 0;
                 }
 

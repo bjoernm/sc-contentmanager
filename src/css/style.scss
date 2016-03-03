@@ -54,7 +54,7 @@ html {
   }
 
   .newTaskAttributeForm md-input-container {
-    margin: 0;
+    // margin: 0;
   }
 
   .attributeValueForm > *, .metadataForm dd > * {
@@ -104,6 +104,10 @@ html {
 
   dd {
     margin-left: 20px;
+  }
+
+  dl:first-child {
+    margin-top: 0;
   }
 
   .attributeValueList li:not(:first-child) {
@@ -186,12 +190,18 @@ a {
     display: block;
     a {
       $padding: 10px;
-      display: block;
-      padding: $padding $padding $padding 40px;
+      display: flex;
+      padding: $padding $padding $padding 0 /*40px*/;
       background: $colors_backgroundColor3;
       text-decoration: none;
       font-weight: bold;
       color: $colors_primaryColor;
+
+      span {
+        display: flex;
+        width: 2.1em;
+        justify-content: center;
+      }
     }
   }
 
@@ -306,4 +316,8 @@ md-content.content {
 .searchSideNav {
   background-color: $colors_backgroundColor3;
   border: 5px solid $colors_backgroundColor2;
+}
+
+md-icon.overdue {
+  color: $colors_accentColor;
 }
