@@ -7,13 +7,19 @@
     <md-tabs md-dynamic-height md-stretch-tabs="always">
         <md-tab label="Attributes">
             <div class="attributesTable" on-change="onChange()" layout-fill>
-                <sc-attributes-list attributes="entity.attributes" on-change="onChange()"></sc-attributes-list>
-                <div>
-                    <md-input-container class="withoutPadding withoutMargin">
+                <sc-attributes-list attributes="entity.attributes" on-change="onChange()" on-attribute-delete="onAttributeDelete(attribute)"></sc-attributes-list>
+                <div layout="row">
+                    <md-input-container class="withoutPadding"
+                                        flex="grow">
                         <label>New Attribute</label>
                         <input ng-keyup="addNewEntityAttribute($event, vm.newAttributeName)"
                                ng-model="vm.newAttributeName"/>
                     </md-input-container>
+                    <md-icon ng-click="addNewEntityAttribute({keyCode: 13}, vm.newAttributeName)"
+                             ng-if="!!vm.newAttributeName && vm.newAttributeName !== ''"
+                             style="margin-bottom: 2.3em">
+                        done
+                    </md-icon>
                 </div>
             </div>
         </md-tab>
@@ -23,9 +29,9 @@
                                          layout-fill></sc-attributes-task-list>
 
                 <div class="attributesTable">
-                    <div layout="row" layout-align="center center">
+                    <div layout="row" layout-align="start center">
                         <sc-pie-chart class="deactivated"
-                                      style="margin: 0 .5em; font-size: 90%;"
+                                      style="margin: 0 .5em 2.5em; font-size: 90%;"
                                       percentage="{{0.6}}"
                                       diameter="2em"
                                       show-percentage="false"></sc-pie-chart>
@@ -35,7 +41,7 @@
                                    ng-model="newTaskName"
                                    ng-keyup="$event.keyCode == 13 ? addNewTask() : angular.noop()"/>
                         </md-input-container>
-                        <md-icon ng-if="!!newTaskName && newTaskName !== ''" ng-click="addNewTask(newTaskName)">done
+                        <md-icon ng-if="!!newTaskName && newTaskName !== ''" ng-click="addNewTask(newTaskName)" style="margin-bottom: 2.5em">done
                         </md-icon>
                     </div>
                 </div>
