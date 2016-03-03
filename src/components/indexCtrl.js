@@ -3,10 +3,11 @@
 (function (angular) {
     angular
         .module('scGenericClient')
-        .controller('IndexCtrl', indexCtrl);
+        .controller('IndexCtrl', indexCtrl)
+        .factory('overdueTasks', overdueTasks);
 
-    indexCtrl.$inject = ['$scope', 'scMainNavService', 'scUtil', 'sharedNavDataService', '$rootScope', '$location', '$log', '$mdSidenav'];
-    function indexCtrl($scope, scMainNavService, scUtil, sharedNavDataService, $rootScope, $location, $log, $mdSidenav) {
+    indexCtrl.$inject = ['$scope', 'scMainNavService', 'scUtil', 'sharedNavDataService', '$rootScope', '$location', '$log', '$mdSidenav', 'overdueTasks'];
+    function indexCtrl($scope, scMainNavService, scUtil, sharedNavDataService, $rootScope, $location, $log, $mdSidenav, overdueTasks) {
         var vm = this;
         vm.workspaces = [];
         vm.selectedTabIndex = -1;
@@ -17,6 +18,7 @@
         vm.searchTextChange = searchTextChange;
         vm.selectedItemChange = selectedItemChange;
         vm.showSearchResults = showSearchResults;
+        vm.overdueTasks = overdueTasks;
 
         $scope.toggleSidenav = function (menuId) {
             $mdSidenav(menuId).toggle();
@@ -39,7 +41,8 @@
 
             vm.selectedTabIndex = vm.workspaces.findIndex(function (workspace) {
                 return workspace.id === newVal;
-            })
+            });
+
         });
 
         function setPathTo(path) {
@@ -50,6 +53,7 @@
             } else {
                 $log.error('path must be of type string. path =', path);
             }
+
         }
 
         function showSearchResults(keyEvent, searchText) {
@@ -103,6 +107,26 @@
 
         function logError() {
             $log.error.apply($log, arguments);
+        }
+    }
+
+    overdueTasks.$inject = ['scData', '$log'];
+    function overdueTasks(scData, $log) {
+        var obj = {
+            tasks: [],
+            refresh: refreshOverdueTasks
+        };
+        return obj;
+
+        function refreshOverdueTasks() {
+            $log.info("refreshOverdueTasks");
+
+            return scData.Task
+                .query({'filter': 'isoverdue', 'attributes': 'entity', 'meta': 'progress'}).$promise
+                .then(function (tasks) {
+                    $log.info("overdue tasks: ", tasks);
+                    obj.tasks = tasks;
+                })
         }
     }
 })(angular);

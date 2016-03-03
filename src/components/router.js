@@ -46,13 +46,27 @@
             });
     }
 
-    resolveEntityData.$inject = ['$route', 'scMainNavService', 'scMainContentService', 'sharedNavDataService', '$log'];
-    function resolveEntityData($route, scMainNavService, scMainContentService, sharedNavDataService, $log) {
+    resolveEntityData.$inject = ['$route', 'scMainNavService', 'scMainContentService', 'sharedNavDataService', '$log', 'overdueTasks'];
+    function resolveEntityData($route, scMainNavService, scMainContentService, sharedNavDataService, $log, overdueTasks) {
         var entityId = $route.current.params.entityId;
 
         $log.info("start:", $route.current.params);
         var start = new Date().getTime();
         return scMainContentService.getPage(entityId)
+            .then(function setCurrentProgressData(entity) {
+
+                overdueTasks.refresh();
+
+                var navEntity = sharedNavDataService.entities.index[entity.id];
+                if(!!navEntity) {
+                    $log.info("setting new progress");
+                    ['progress', 'isOverdue', 'isInconsistent'].forEach(function (param) {
+                        navEntity[param] = entity[param];
+                    });
+                }
+
+                return entity;
+            })
             .then(extendSharedNavData(sharedNavDataService, scMainNavService))
             .then(function () {
                 var end = (new Date().getTime()) - start;
@@ -85,12 +99,15 @@
                 return;
             }
 
+
             if (shared.currentWorkspaceId !== entity.workspace.id) {
+                shared.currentWorkspaceId = entity.workspace.id;
                 return scMainNavService.loadTextPages(entity.workspace.id)
                     .then(fill)
             } else {
                 return fill(shared.entities);
             }
+
 
             function fill(entities) {
                 if (entities) {
