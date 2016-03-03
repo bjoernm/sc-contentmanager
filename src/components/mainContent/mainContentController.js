@@ -5,8 +5,8 @@
         .module('scMainContent')
         .controller('scMainContentCtrl', mainContentController);
 
-    mainContentController.$inject = ['$scope', 'scMainContentService', '$rootScope', '$location', '$log', 'data'];
-    function mainContentController($scope, scMainContentService, $rootScope, $location, $log, data) {
+    mainContentController.$inject = ['$scope', 'scMainContentService', '$rootScope', '$location', '$log', 'data', 'sharedNavDataService'];
+    function mainContentController($scope, scMainContentService, $rootScope, $location, $log, data, sharedNavDataService) {
         var vm = this;
 
         if (!data) {
@@ -18,13 +18,29 @@
         vm.entity = data.currentEntity;
         vm.sum = sum;
         vm.refreshEntity = refreshEntity;
+        vm.pageProgress = pageProgress;
 
+        function pageProgress() {
+            var progresses = vm.entity.tasks
+                .filter(function(t) {
+                    return !t.skipped;
+                }).map(function(t) {
+                    return t.progress;
+                });
+
+            return progresses.reduce(function(sum,b){return sum + b},0) / progresses.length;
+        }
 
         function refreshEntity() {
             scMainContentService
                 .getPage(vm.entity.id)
                 .then(function (newEntity) {
                     vm.entity = newEntity;
+
+                    var navEntity = sharedNavDataService.entities.index[newEntity.id];
+                    ['progress', 'isOverdue', 'isInconsistent'].forEach(function(param){
+                        navEntity[param] = newEntity[param];
+                    });
                 });
         }
 

@@ -23,7 +23,8 @@
                     'values',
                     'entityType',
                     'workspace',
-                    'options'
+                    'options',
+                    'progress'
                 ].join(',')
             };
 
