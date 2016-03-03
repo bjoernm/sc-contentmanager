@@ -6,13 +6,14 @@
     </md-sidenav>
 
     <div flex="grow" layout-fill>
-        <md-content flex class="content" layout="row" layout-fill>
+        <md-content class="content" layout layout-fill>
             <md-card flex>
                 <md-toolbar>
                     <div class="md-toolbar-tools" layout="row">
                         <div layout-align="end center" layout="row" ng-if="ctrl.entity.tasks.length > 0">
                             <sc-pie-chart diameter="2em"
-                                          percentage="{{ctrl.sum(ctrl.entity.tasks, 'progress') / ctrl.entity.tasks.length / 100}}"
+                                          percentage="{{ctrl.pageProgress() / 100}}"
+                                          ng-class="{overdue: ctrl.entity.isOverdue, inconsistent: ctrl.entity.isInconsistent}"
                                           show-percentage="false"></sc-pie-chart>
                             <!--
                             scColorService is no longer available. if you want to use it, add it as dependency again.
