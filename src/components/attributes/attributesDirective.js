@@ -5,8 +5,8 @@
         .module('scAttributes')
         .directive('scAttributes', attributesDirective);
 
-    attributesDirective.$inject = ['$log', 'scAttributesService'];
-    function attributesDirective($log, scAttributesService) {
+    attributesDirective.$inject = ['$log', 'scAttributesService', '$mdDialog'];
+    function attributesDirective($log, scAttributesService, $mdDialog) {
         return {
             restrict: 'E',
             templateUrl: 'components/attributes/attributes.tpl.html',
@@ -24,25 +24,43 @@
                 scope.addNewEntityAttribute = addNewEntityAttribute;
                 scope.addNewTask = addNewTask;
                 scope.newTaskName = '';
+                scope.onAttributeDelete = onAttributeDelete;
                 scope.vm = {};
+
+                function onAttributeDelete(attribute) {
+                    var confirmDialog = $mdDialog.confirm()
+                        .title('Please Confirm')
+                        .textContent('Do you really want to delete the attribute \'' + attribute.name + '\'?')
+                        .ok('Ok')
+                        .cancel('No');
+
+                    $mdDialog.show(confirmDialog)
+                        .then(function () {
+                            scAttributesService
+                                .deleteAttribute(attribute)
+                                .then(scope.onChange);
+                        })
+                }
 
                 function addNewEntityAttribute($event, name) {
                     if ($event.keyCode !== 13 || !name || name === '') {
                         return;
                     }
 
-                    $event.srcElement.disabled = true;
+
+                    ($event.srcElement || {}).disabled = true;
 
                     var newAttr = {
                         'name': name,
-                        'values': [],
-                        'type': ''
-                    }
+                        'entity': {
+                            'id': scope.entity.id
+                        }
+                    };
 
-                    scope.entity.attributes.push(newAttr);
+                    // scope.entity.attributes.push(newAttr);
 
                     scAttributesService
-                        .persistEntity(scope.entity)
+                        .createAttribute(newAttr)
                         .then(manageUI)
                         .then(scope.onChange)
                         .catch(logError)
@@ -52,12 +70,15 @@
                         $event.srcElement.disabled = false;
                     }
 
+                    // clear and blur input field
                     function manageUI() {
                         if (scope.vm && scope.vm.newAttributeName)
                             scope.vm.newAttributeName = '';
 
-
-                        $event.srcElement.blur();
+                        // if srcElement exists and has a function blur, call it
+                        if(!!$event.srcElement && !!$event.srcElement.blur) {
+                            $event.srcElement.blur();
+                        }
                     }
                 }
 

@@ -38,6 +38,10 @@
                 scope.enterPressed = enterPressed;
                 scope.getExpertisesBySearch = getExpertisesBySearch;
                 scope.deleteTask = deleteTask;
+                scope.deleteAttributeInTask = deleteAttributeInTask;
+                scope.skipTask = skipTask;
+                scope.completeTask = completeTask;
+                scope.filterSkipped = filterSkipped;
 
                 // view variables
 
@@ -45,6 +49,88 @@
                 scope.newTaskAttribute = {};
                 scope.searchTexts = {};
                 scope.vm = {};
+
+                function filterSkipped(value, index, array) {
+                    return !value.skipped;
+                }
+
+                function completeTask(task) {
+                    var confirmDialog = $mdDialog.confirm()
+                        .title('Please Confirm')
+                        .textContent([
+                            'Do you really want to COMPLETE the task \'',
+                            task.name,
+                            '\'?'
+                        ].join(''))
+                        .ok('Ok')
+                        .cancel('No');
+
+                    $mdDialog.show(confirmDialog)
+                        .then(doComplete);
+
+                    function doComplete() {
+                        var newTask = angular.copy(task);
+                        newTask.progress = 100;
+
+                        scAttributesService.updateTask(newTask)
+                            .then(scope.onChange);
+                    }
+                }
+
+                function skipTask(task) {
+                    var confirmDialog = $mdDialog.confirm()
+                        .title('Please Confirm')
+                        .textContent([
+                            'Do you really want to SKIP the task \'',
+                            task.name,
+                            '\'?'
+                        ].join(''))
+                        .ok('Ok')
+                        .cancel('No');
+
+                    $mdDialog.show(confirmDialog)
+                        .then(doSkip);
+
+                    function doSkip() {
+                        var newTask = angular.copy(task);
+                        newTask.skipped = true;
+
+                        scAttributesService.updateTask(newTask)
+                            .then(scope.onChange);
+                    }
+                }
+
+                // attribute comes from the attributeListDirective. task is from the repeat scope.
+                function deleteAttributeInTask(attribute, task) {
+                    var confirmDialog = $mdDialog.confirm()
+                        .title('Please Confirm')
+                        .textContent([
+                            'Do you really want to remove the attribute \'',
+                            attribute.name,
+                            '\' from the task \'',
+                            task.name,
+                            '\'?'
+                        ].join(''))
+                        .ok('Ok')
+                        .cancel('No');
+
+                    $mdDialog.show(confirmDialog)
+                        .then(doDelete);
+
+                    function doDelete() {
+                        var attrId = attribute.id;
+                        var newTask = angular.copy(task);
+
+                        newTask.attributes = newTask.attributes.filter(attr);
+
+                        scAttributesService.updateTask(newTask)
+                            .then(scope.onChange);
+
+                        function attr(ele) {
+                            return attrId != ele.id;
+                        }
+                    }
+                }
 
                 function metadataOnKeyUp($event, expertises) {
                     if (pressedEnter($event)) {
@@ -158,7 +244,7 @@
                         .catch(logError);
                 }
 
-                function addNewTaskAttribute(task) {
+                function addNewTaskAttribute(task, $event) {
                     var newAttr = scope.newTaskAttribute[task.id];
 
                     if (!newAttr) {
@@ -166,7 +252,7 @@
                         return;
                     } else if (!newAttr.id || !scope.pageAttributes.find(attributeById(newAttr.id))) {
                         //FIXME show mdDialog beware that newAttr can be a string or an object from side effects?
-                        $log.error("do you want to create a new page attribute called", newAttr, '; pageAttributes =', scope.pageAttributes, '; findbyId =', scope.pageAttributes.find(attributeById(newAttr.id)));
+                        $log.error("'do you want to create a new page attribute' called: ", newAttr, '; pageAttributes =', scope.pageAttributes, '; findbyId =', scope.pageAttributes.find(attributeById(newAttr.id)));
                     } else if (!!task.attributes.find(attributeById(newAttr.id))) {
                         //FIXME show mdDialog
                         $log.error("attribute is already in task");
@@ -178,6 +264,12 @@
                                 scope.newTaskAttribute[task.id] = null;
                                 scope.searchTexts[task.id] = null;
                                 scope.onChange();
+
+                                // calls the last element if the others exist
+                                $event
+                                && $event.srcElement
+                                && $event.srcElement.blur
+                                && $event.srcElement.blur();
                             })
                             .catch(logError);
                     }
@@ -218,7 +310,7 @@
                         scAttributesService
                             .deleteTask(task)
                             .then(removeTaskFromList)
-                            .then(scope.onChange())
+                            .then(scope.onChange)
                             .catch(logError);
                     }
 

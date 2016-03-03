@@ -15,7 +15,7 @@
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                    <md-button ng-click="deleteAttribute(attribute)">
+                    <md-button ng-click="deleteAttributeInTask(attribute)">
                         <md-icon md-font-icon>delete</md-icon>
                         Delete
                     </md-button>
@@ -24,7 +24,7 @@
         </md-menu>
     </script>
 
-    <div class="attributesTable" ng-repeat="task in tasks | orderBy: 'name' track by $index">
+    <div class="attributesTable" ng-repeat="task in tasks | filter: filterSkipped | orderBy: 'name' track by $index">
         <div layout="row" layout-align="space-between center">
             <sc-pie-chart diameter="2em"
                           percentage="{{task.progress ? task.progress / 100 : 0}}"
@@ -53,6 +53,18 @@
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
+                        <md-button ng-click="completeTask(task)">
+                            <md-icon md-font-icon>done</md-icon>
+                            Complete
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="skipTask(task)">
+                            <md-icon md-font-icon>redo</md-icon>
+                            Skip
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
                         <md-button ng-click="deleteTask(task)">
                             <md-icon md-font-icon>delete</md-icon>
                             Delete
@@ -75,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <sc-attributes-list attributes="task.attributes" on-change="onChange()"></sc-attributes-list>
+        <sc-attributes-list attributes="task.attributes" on-change="onChange()" on-attribute-delete="deleteAttributeInTask(attribute, task)"></sc-attributes-list>
         <div ng-form="newTaskAttributeForm" class="newTaskAttributeForm" layout="row" layout-align="start end">
             <md-autocomplete md-selected-item="newTaskAttribute[task.id]"
                              md-search-text="searchTexts[task.id]"
@@ -83,7 +95,7 @@
                              md-item-text="item.name"
                              md-input-name="autocomplete"
                              md-floating-label="Add Task Attribute"
-                             ng-keyup="$event.keyCode == 13 ? addNewTaskAttribute(task) : angular.noop()"
+                             ng-keyup="$event.keyCode == 13 ? addNewTaskAttribute(task, $event) : angular.noop()"
                              flex="grow">
                 <md-item-template>
                     <span md-highlight-text="searchText">{{item.name}}</span>
@@ -92,7 +104,9 @@
                     No matches found!
                 </md-not-found>
             </md-autocomplete>
-            <md-icon ng-click="addNewTaskAttribute(task)" ng-if="!!searchTexts[task.id] && searchTexts[task.id] !== ''">
+            <md-icon ng-click="addNewTaskAttribute(task, $event)"
+                     ng-if="!!searchTexts[task.id] && searchTexts[task.id] !== ''"
+                     style="margin-bottom: 2.8em">
                 done
             </md-icon>
         </div>
