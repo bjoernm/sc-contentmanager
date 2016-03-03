@@ -22,7 +22,6 @@
     "angular-filter": "master"
   },
   "resolutions": {
-    "angular": "1.4.8",
-    "angular-material": "master"
+    "angular": "1.4.8"
   }
 }
