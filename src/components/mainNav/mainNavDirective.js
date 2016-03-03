@@ -21,6 +21,7 @@
             },
             link: function link(scope, element, attrs) {
                 scope.$watch('currentEntityId', openTree);
+                scope.isFinite = isFinite;
                 scope.getHierarchyLevel = getHierarchyLevel;
                 scope.isShowing = isShowing;
                 scope.isAnotherLevel = isAnotherLevel(scope);

@@ -13,6 +13,7 @@
             createTaskWithName: createTaskWithName,
             findAllUsers: findAllUsers,
             persistEntity: persistEntity,
+            createAttribute: createAttribute,
             createNewTask: createNewTask,
             updateTask: updateTask,
             deleteTask: deleteTask,
@@ -59,6 +60,10 @@
             return scData.Attribute.delete({'id': attribute.id}).$promise;
         }
 
+        function createAttribute(newAttr) {
+            return scData.Attribute.save(newAttr).$promise;
+        }
+
         function persistEntity(entity) {
             return scData.Entity.update(entity).$promise;
         }
@@ -71,6 +76,10 @@
 
         function updateTask(orgTask, repeatScope) {
             var task = angular.copy(orgTask);
+
+            if(!task.owner) {
+                task.owner = null;
+            }
 
             //forTaskDateProps(task, function (prop) {
             //    return prop.getTime();
