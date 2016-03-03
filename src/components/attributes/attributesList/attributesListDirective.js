@@ -14,7 +14,8 @@
             replace: true,
             scope: {
                 attributes: '=',
-                onChange: '&'
+                onChange: '&',
+                onAttributeDelete: '&'
             },
             link: function (scope, element, attrs) {
                 if (angular.isUndefined(scope.attributes) || !angular.isArray(scope.attributes)) {
@@ -59,6 +60,9 @@
                         throw new Error('parameter \'attribute\' must be of type object. typeof attribute == \"' + (typeof attribute) + "\"")
                     }
 
+                    scope.onAttributeDelete({'attribute': attribute});
+
+                    /*
                     var confirmDialog = $mdDialog.confirm()
                         .title('Please Confirm')
                         .textContent('Do you really want to delete the attribute \'' + attribute.name + '\'?')
@@ -71,6 +75,7 @@
                                 .deleteAttribute(attribute)
                                 .then(scope.onChange());
                         })
+                        */
                 }
 
                 // FIXME: check if this method is still in use
@@ -117,6 +122,10 @@
                 }
 
                 function editAttribute(attribute) {
+                    if(!attribute.values) {
+                        attribute.values = [];
+                    }
+
                     if (attribute.values.length == 0) {
                         attribute.values.push('');
                     }
