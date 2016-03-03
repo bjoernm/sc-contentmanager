@@ -2,6 +2,6 @@
 (function(){
     'use strict';
 
-    angular.module('scMainNav', [ 'ngMaterial', 'sociocortex' ]);
+    angular.module('scMainNav', [ 'ngMaterial', 'sociocortex', 'scCharts' ]);
 
 })();

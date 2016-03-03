@@ -9,6 +9,7 @@
             'scAttributes',
             'scCharts',
             'sociocortex',
-            'scTypeGuessing'
+            'scTypeGuessing',
+            'scMainNav'
         ])
 })(angular);
