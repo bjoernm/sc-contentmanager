@@ -1,7 +1,14 @@
 <script type="text/ng-template" id="sideNavTree">
     <span ng-style="::{'padding-left': getHierarchyLevel(entity)}">
-        <a ng-href="#/entities/{{entity.id}}">{{entity.name}}</a>
-
+        <a ng-href="#/entities/{{entity.id}}" layout="row" layout-align="left center">
+            <span>
+                <sc-pie-chart ng-if="::isFinite(entity.progress)"
+                              diameter="1.5em"
+                              percentage="{{entity.progress / 100}}"
+                              show-percentage="false"
+                              ng-class="{overdue: entity.isOverdue, inconsistent: entity.isInconsistent}"></sc-pie-chart>
+            </span>
+            {{entity.name}}</a>
     </span>
     <ul ng-if="entity.children.length > 0 && entity.showChildren">
         <li ng-repeat="entity in entity.children track by entity.id"
