@@ -64,9 +64,28 @@
                 <md-button href="#/feed" class="md-icon-button" aria-label="More">
                     <md-icon class="material-icons">timelapse</md-icon>
                 </md-button>
-                <md-button class="md-icon-button" aria-label="More">
+                <md-button class="md-icon-button" ng-if="!indexCtrl.overdueTasks || !indexCtrl.overdueTasks.tasks || indexCtrl.overdueTasks.tasks.length == 0">
                     <md-icon class="material-icons">notifications_none</md-icon>
                 </md-button>
+                <md-menu ng-if="indexCtrl.overdueTasks.tasks.length > 0">
+                    <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button md-accent" aria-label="More">
+                        <md-icon class="material-icons">notifications_active</md-icon>
+                    </md-button>
+                    <md-menu-content width="6">
+                        <md-menu-item ng-repeat="task in indexCtrl.overdueTasks.tasks">
+                            <md-button ng-href="#/entities/{{task.entity.id}}">
+                                <md-icon md-menu-align-target>
+                                    <sc-pie-chart percentage="{{task.progress / 100}}"
+                                                  diameter="1em"
+                                                  class="overdue"
+                                                  show-percentage="false">
+                                    </sc-pie-chart>
+                                </md-icon>
+                                <span>{{task.entity.name}} &gt; {{task.name}}</span>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
                 <md-button class="md-icon-button" aria-label="More">
                     <md-icon class="material-icons">person</md-icon>
                 </md-button>
@@ -78,7 +97,7 @@
     </md-toolbar>
 
     <md-tabs md-dynamic-height
-             md-selected="ctrl.selectedTabIndex"
+             md-selected="indexCtrl.selectedTabIndex"
              class="md-primary"
              ng-if="indexCtrl.workspaces">
         <md-tab ng-repeat="workspace in indexCtrl.workspaces track by workspace.id"
