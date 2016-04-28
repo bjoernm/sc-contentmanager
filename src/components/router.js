@@ -24,7 +24,7 @@
             })
             .when('/feed', {
                 resolve: {
-                    eventPage: ['scEventService', '$route', function(scEventService, $route) {
+                    eventPage: ['scEventService', '$route', function (scEventService, $route) {
                         return scEventService
                             .getEvents($route.current.params);
                     }]
@@ -37,7 +37,7 @@
             .when('/search', {
                 'templateUrl': '/components/search/search.tpl.html',
                 'controller': 'scSearchController as ctrl',
-                'resolve':{
+                'resolve': {
                     'data': resolveSearchData
                 }
             })
@@ -58,7 +58,7 @@
                 overdueTasks.refresh();
 
                 var navEntity = sharedNavDataService.entities.index[entity.id];
-                if(!!navEntity) {
+                if (!!navEntity) {
                     $log.info("setting new progress");
                     ['progress', 'isOverdue', 'isInconsistent'].forEach(function (param) {
                         navEntity[param] = entity[param];
@@ -155,21 +155,20 @@
 
     resolveSearchData.$inject = ['$route', '$log'];
     function resolveSearchData($route, $log) {
-        console.log("here");
-        console.log($route.current.params);
 
-        //var filter = JSON.parse('{"' + decodeURI($route.current.params.filterMap).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
         var data = {
-            searchText:$route.current.params.searchText,
-            sortBy:$route.current.params.sortBy,
-            sortDirection:$route.current.params.sortDirection,
-            resourceType:$route.current.params.resourceType,
+            text: $route.current.params.text,
+            orderBy: $route.current.params.orderBy,
+            resourceType: $route.current.params.resourceType,
             workspace: $route.current.params.workspace,
-            type: $route.current.params.type,
+            entityType: $route.current.params.entityType,
             systemAttribute: $route.current.params.systemAttribute,
-            special: $route.current.params.special
+            special: $route.current.params.special,
+            n: $route.current.params.n,
+            page: $route.current.params.page
         };
-        console.log(data);
+
         return data;
+
     }
 })(angular);

@@ -7,13 +7,24 @@
     <md-content flex class="content">
         <md-card flex>
             <md-card-header class="searchHeader">
-                <md-card-header-text>
-                    <span class="md-title">Search</span>
-                    <span class="md-subhead">Results {{1*(results.length > 0 && 1)}}-{{results.length}} of {{results.length}} for: {{ctrl.user.name}}</span>
+                <md-card-header-text flex>
+                    <span class="md-title">Searching for <b>{{ctrl.filter.text}}</b></span>
+                    <span class="md-subhead">Results {{(ctrl.filter.page-1)*ctrl.filter.n + 1}} - {{ctrl.filter.page * ctrl.filter.n >
+                                ctrl.searchResultsCount ? ctrl.searchResultsCount : ctrl.filter.page * ctrl.filter.n}} of
+                                {{ctrl.searchResultsCount}}</span>
                 </md-card-header-text>
+                <div class="md-padding pagination" flex layout="row" layout-align="center center">
+                    <div>
+                        <a ng-repeat="i in ctrl.paginationArray track by $index"
+                           ng-class="{'paginate-active': ctrl.filter.page == ($index+1)}"
+                           ng-click="ctrl.filter.page = $index +1; ctrl.filterResults();">
+                            {{$index + 1}}
+                        </a>
+                    </div>
+                </div>
             </md-card-header>
             <md-list>
-                <md-list-item ng-repeat="item in results = (ctrl.searchResults | orderBy:ctrl.filters[0].model | filter:ctrl.filters[1].model | filter:ctrl.filters[2].model)"> <!--orderBy:sortType:sortReverse | filter:searchFish-->
+                <md-list-item ng-repeat="item in results = (ctrl.searchResults | orderBy:ctrl.filters[0].model | filter:ctrl.filters[1].model | filter:ctrl.filters[2].model)">
                     <md-card flex>
                         <md-card-header>
                             <md-card-avatar>
@@ -25,16 +36,18 @@
                                 <md-icon ng-if="item.resourceType=='users'" md-font-set="material-icons">person_pin</md-icon>
                             </md-card-avatar>
                             <md-card-header-text ng-click="indexCtrl.selectedItemChange(item)">
-                                <span class="md-title">{{item.name}}</span>
-                                <span class="md-subhead">Subtitle of {{item.name}}</span>
+                                <span class="md-title" ng-bind-html="item.highlightedName"></span>
+                                <span class="md-subhead">{{item.entityType.name}}</span>
                             </md-card-header-text>
                         </md-card-header>
                         <md-card-actions layout="row" layout-align="start center">
                             <md-icon md-font-set="material-icons"> tag</md-icon>
                         </md-card-actions>
                         <md-card-content>
-                            <p>
-                                This is an item of type <b>{{item.resourceType}}</b>... and I'm supposed to be content.
+                            <p ng-if="item.resourceType == 'entities'" ng-bind-html="item.content">
+                            </p>
+                            <p ng-if="item.resourceType == 'files'">
+                                A file...
                             </p>
                         </md-card-content>
                     </md-card>

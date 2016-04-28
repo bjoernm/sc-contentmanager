@@ -191,7 +191,7 @@ a {
     a {
       $padding: 10px;
       display: flex;
-      padding: $padding $padding $padding 0 /*40px*/;
+      padding: $padding $padding $padding 0; /*40px*/
       background: $colors_backgroundColor3;
       text-decoration: none;
       font-weight: bold;
@@ -301,7 +301,7 @@ md-content.content {
   margin: 0 10px;
 }
 
-.png-icon{
+.png-icon {
   @media screen and (max-width: 960px) {
     display: inline-flex;
     vertical-align: middle;
@@ -316,6 +316,11 @@ md-content.content {
 .searchSideNav {
   background-color: $colors_backgroundColor3;
   border: 5px solid $colors_backgroundColor2;
+}
+
+.paginate-active {
+  font-weight: bold;
+  cursor: pointer;
 }
 
 md-icon.overdue {

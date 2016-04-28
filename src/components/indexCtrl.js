@@ -6,8 +6,8 @@
         .controller('IndexCtrl', indexCtrl)
         .factory('overdueTasks', overdueTasks);
 
-    indexCtrl.$inject = ['$scope', 'scMainNavService', 'scUtil', 'sharedNavDataService', '$rootScope', '$location', '$log', '$mdSidenav', 'overdueTasks'];
-    function indexCtrl($scope, scMainNavService, scUtil, sharedNavDataService, $rootScope, $location, $log, $mdSidenav, overdueTasks) {
+    indexCtrl.$inject = ['$scope', 'scMainNavService', 'scUtil', 'sharedNavDataService', '$rootScope', '$location', '$log', '$mdSidenav', 'overdueTasks', 'scSearch', '$q'];
+    function indexCtrl($scope, scMainNavService, scUtil, sharedNavDataService, $rootScope, $location, $log, $mdSidenav, overdueTasks, scSearch, $q) {
         var vm = this;
         vm.workspaces = [];
         vm.selectedTabIndex = -1;
@@ -56,29 +56,19 @@
 
         }
 
-        function showSearchResults(keyEvent, searchText) {
+        function showSearchResults(keyEvent, text) {
             if (keyEvent != undefined && keyEvent.which === 13) {
-                /*var filterBy = {
-                    workspace: '',
-                    resourceType: '',
-                    type: '',
-                    systemAttribute: '',
-                    special: ''
-                };
-
-                var filterMap = Object.keys(filterBy).map(function (key) {
-                    return encodeURIComponent(key) + '=' + encodeURIComponent(filterBy[key]);
-                }).join('&');*/
 
                 var searchParams = {
-                    searchText: searchText,
-                    sortBy: '',
+                    text: text,
+                    orderBy: '',
                     workspace: '',
                     resourceType: '',
-                    type: '',
+                    entityType: '',
                     systemAttribute: '',
-                    special: ''
-                    //filterMap:filterMap
+                    special: '',
+                    n: 25,
+                    page: 1
                 };
 
                 $location.path('search').search(searchParams);
@@ -86,11 +76,19 @@
         }
 
         function getSearchHints(searchText) {
-            $log.info('query:' + searchText);
-            $log.info(scMainNavService
-                .getSearchHints(searchText));
-            return scMainNavService
-                .getSearchHints(searchText);
+
+            var deferred = $q.defer();
+
+            scSearch.hints({
+                text: searchText
+            }, function (success) {
+                deferred.resolve(success.hints);
+
+            }, function (error) {
+                $log.info("error searchHints");
+            });
+
+            return deferred.promise;
         }
 
         function searchTextChange(text) {
